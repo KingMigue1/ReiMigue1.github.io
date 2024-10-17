@@ -1,307 +1,33 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html>
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gabigol - Príncipe da Gávea</title>
-    <style>
-        body {
-            background-color: #ffffff;
-            color: #ffffff;
-            font-family: Arial, sans-serif;
-            padding: 20px;
-            margin: 0;
-        }
-
-        header, nav, main, footer {
-            background-color: #000000;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
-            padding: 20px;
-            margin-bottom: 20px;
-        }
-
-        h1, h2, h3 {
-            text-align: center;
-            color: #fff;
-        }
-
-        ul {
-            padding: 0;
-            list-style-type: none;
-        }
-
-        .image-container {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .image-container img {
-            max-width: 100%;
-            height: auto;
-            max-width: 300px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(197, 186, 186, 0.5);
-        }
-
-        nav ul {
-            text-align: center;
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 1000;
-            transition: background-color 0.3s;
-        }
-
-        nav ul li {
-            display: inline-block;
-            margin: 0;
-        }
-
-        nav ul li a {
-            color: #fff;
-            text-decoration: none;
-            transition: color 0.3s;
-            padding: 10px 20px;
-            border-radius: 5px;
-        }
-
-        nav ul li a:hover {
-            background-color: #333;
-        }
-
-        .button-top {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background-color: #5a0707;
-            color: #fff;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            display: none;
-            transition: background-color 0.3s;
-        }
-
-        .button-top:hover {
-            background-color: #770a0a;
-        }
-
-        .narrazione {
-            background-color: rgb(139, 4, 4);
-            border-radius: 5px;
-            padding: 20px;
-            margin-bottom: 20px;
-            color: #fff;
-        }
-
-        .like-button {
-            background-color: #700a0a;
-            color: #fff;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        .like-button:hover {
-            background-color: #000000;
-        }
-
-        .like-count {
-            text-align: center;
-            color: #fff;
-            margin-top: 5px;
-        }
-
-        .expectations textarea {
-            width: 100%;
-            padding: 10px;
-            border-radius: 5px;
-            border: 1px solid #fff;
-            background-color: rgba(153, 9, 9, 0.7);
-            color: #fff;
-            margin-bottom: 20px;
-        }
-
-        .expectations textarea:focus {
-            outline: none;
-            border-color: #ffc107;
-        }
-
-        .achievements {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-        }
-
-        .achievement {
-            flex-basis: 30%;
-            text-align: center;
-            background-color: #d32f2f;
-            padding: 10px;
-            border-radius: 5px;
-            margin-bottom: 10px;
-        }
-
-        .achievement img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 5px;
-            margin-bottom: 5px;
-        }
-
-        @media (max-width: 768px) {
-            .achievements {
-                flex-direction: column;
-            }
-
-            .achievement {
-                flex-basis: 100%;
-            }
-
-            nav ul {
-                flex-direction: column;
-                gap: 10px;
-                background-color: #d32f2f;
-            }
-
-            nav ul li a {
-                padding: 10px;
-                display: block;
-                text-align: center;
-            }
-        }
-
-        @media (max-width: 480px) {
-            body {
-                padding: 10px;
-            }
-
-            header, nav, main, footer {
-                padding: 10px;
-            }
-
-            .image-container img {
-                max-width: 100%;
-            }
-
-            nav ul {
-                font-size: 14px;
-            }
-
-            .button-top {
-                padding: 5px 10px;
-            }
-        }
-    </style>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
+
 <body>
-    <!-- Conteúdo permanece o mesmo -->
-    <header>
-        <h1>Gabigol - Príncipe da Gávea</h1>
-    </header>
-    <nav style="background-color: #000000; position: fixed; width: 100%; top: 0;">
-        <ul>
-            <li><a href="#sobre" aria-label="Ir para a seção Sobre">Sobre</a></li>
-            <li><a href="#conquistas" aria-label="Ir para a seção Conquistas">Conquistas</a></li>
-            <li><a href="#Títulos" aria-label="Ir para a seção Títulos">Títulos</a></li>
-        </ul>
-    </nav>
+  <div class="container">
+    <form>
+      <h2>Digite seu nome:</h2>
+      Nome: <input type="text" id="txtNome" /><br /><br />
+      <input type="button" id="btnHello" onclick="myFunction()" value="Hello Nome" />
 
-    <main>
-        <section id="sobre" tabindex="0">
-            <h2>Sobre Gabigol</h2>
-            <p>Gabriel Barbosa Almeida, mais conhecido como Gabigol...</p>
-        </section>
+    </form>
 
-        <div class="image-container" tabindex="0">
-            <img src="https://i.pinimg.com/564x/c5/ef/72/c5ef728cdc53593635b49c82becdb8ce.jpg" alt="Gabigol - Jogador do Flamengo">
-        </div>
+    <hr />
+    <div id="lblHello"></div>
+  </div>
 
-        <section id="conquistas" tabindex="0">
-            <h2>Conquistas</h2>
-            <div class="achievements">
-                <div class="achievement" tabindex="0">
-                    <img src="https://colunadofla.com/wp-content/uploads/2019/11/gabigol-22.jpg" alt="Campeão da Libertadores 2019">
-                    <p>Campeão da Libertadores em 2019</p>
-                </div>
-                <div class="achievement" tabindex="0">
-                    <img src="https://odia.ig.com.br/_midias/jpg/2022/10/29/1200x750/1_000_32mf2m8-26894633.jpg" alt="Campeão da Libertadores 2022">
-                    <p>Campeão da Libertadores em 2022</p>
-                </div>
-                <div class="achievement" tabindex="0">
-                    <img src="https://esportenewsmundo.com.br/wp-content/uploads/2021/02/brasileirao-series-a-sao-paulo-v-flamengo-play-behind-closed-doors-amidst-the-coronavirus-covid-19-pandemic-6-1536x1024.jpg" alt="Campeão do Brasileirão 2019">
-                    <p>Campeão do Brasileirão em 2019</p>
-                </div>
-            </div>
-        </section>
+  <script>
+    function myFunction() {
+      document.getElementById("lblHello").innerHTML = "Hello World, " + $("#txtNome").val().trim();;
+    }
+  </script>
 
-        <section id="Títulos" tabindex="0">
-            <h2>Títulos de Gabigol pelo Flamengo</h2>
-            <ul>
-                <li>Copa Libertadores da América: 2019 e 2022.<li>
-                <li>Recopa Sul-Americana: 2020.<li>
-                <li>Campeonato Brasileiro: 2019 e 2020.<li>
-                <li>Copa do Brasil: 2022.<li>
-                <li>Supercopa do Brasil: 2020 e 2021.<li>
-                <li>Campeonato Carioca: 2019, 2020 e 2021.<li>
-            </ul>
-        </section>
-
-        <section class="narrazione" tabindex="0">
-            <h2>Narração Marcante</h2>
-            <p>DOIS CONTRA UM... GOOOOOOOLLLLLL</p>
-        </section>
-
-        <section class="expectations" tabindex="0">
-            <h2>Expectativas para este ano</h2>
-            <textarea placeholder="Digite suas expectativas para o Flamengo em 2024..." aria-label="Expectativas para o Flamengo em 2024"></textarea>
-        </section>
-
-        <section>
-            <h2>Deixe seu Like</h2>
-            <button class="like-button">Curtir</button>
-            <div class="like-count">0 curtidas</div>
-        </section>
-    </main>
-
-    <footer>
-        <p>&copy; 2024 - Site sobre Gabigol - Feito por Miguel</p>
-    </footer>
-
-    <button class="button-top" aria-label="Voltar ao topo">Topo</button>
-
-    <script>
-        const likeButton = document.querySelector('.like-button');
-        const likeCount = document.querySelector('.like-count');
-        let likes = 0;
-
-        likeButton.addEventListener('click', function() {
-            likes++;
-            likeCount.textContent = `${likes} curtidas`;
-        });
-
-        const buttonTop = document.querySelector('.button-top');
-        window.addEventListener('scroll', function() {
-            if (window.scrollY > 100) {
-                buttonTop.style.display = 'block';
-            } else {
-                buttonTop.style.display = 'none';
-            }
-        });
-
-        buttonTop.addEventListener('click', function() {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        });
-    </script>
 </body>
+
 </html>
