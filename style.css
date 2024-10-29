@@ -1,64 +1,90 @@
-body{
-    background:linear-gradient(to top,black,rgb(121, 118, 118));
-}
-header{
-    display: flex;
-    justify-content: space-around;
-    background-color: rgb(3, 3, 3);
-    padding: 25px;
-
-}
-header h1{
-    font-size: 32px;
-    color: rgb(255, 255, 255);
-    font-family: 'Times New Roman', Times, serif;
-    text-align: center;
-}
-header .menu{
-    position:absolute;
-    top:20px;
-    left:50px;
-    margin:0px;
-    padding:0px;
-    color: rgb(12, 12, 12);
-    background-color: #ffffff;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-}
-h2{
-    font-size: 30px;
-    color: black;
-    text-align: center;
-    background-color: rgb(255, 255, 255);
+body {
+  background-color: aliceblue;
+  background: linear-gradient(to top, black, rgb(163, 160, 160));
 }
 
-.imagem{
-   width: 100%;
-   height: auto;
-}
-.Integrantes{
-  justify-content: center;
-
-}
-#playes{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    flex-wrap:wrap;
-}
-.play{
-    width: 300px;
-    height: 300px;
-    border: 1px solid rgb(255, 255, 255);
-    text-align: center;
-
-    color: aliceblue;
-    background-color: black;
-    font-size: 20px;
-    margin: 10px 0;
+header {
+  display: flex;
+  justify-content: space-around;
+  background-color: rgb(3, 3, 3);
+  padding: 25px;
 }
 
-/* */
+header h1 {
+  font-size: 32px;
+  color: rgb(255, 255, 255);
+  font-family: 'Times New Roman', Times, serif;
+  text-align: center;
+}
+
+.menu {
+  position: absolute;
+  top: 40px;
+  left: 50px;
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  list-style: none;
+  margin: 10px;
+  display: inline;
+}
+
+li a {
+  padding: 5px 10px;
+  margin: 0;
+  border: 0px solid #f00;
+  background: #fff;
+  text-decoration: none;
+  color: #000000;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+}
+
+li a:hover {
+  background: #CCC;
+  color: #000;
+  border-color: #000;
+}
+
+h2 {
+  font-size: 30px;
+  color: black;
+  text-align: center;
+  background-color: rgb(255, 255, 255);
+}
+
+#História {
+  font-size: 18px;
+}
+
+.imagem {
+  width: 100%;
+  height: auto;
+}
+
+#playes {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.play {
+  width: 300px;
+  height: 300px;
+  border: 2px solid rgb(255, 255, 255);
+  text-align: center;
+  color: aliceblue;
+  background-color: black;
+  font-size: 20px;
+  margin: 5px 0;
+}
+
+.foto {
+  width: 50%; /* Ajuste o tamanho conforme necessário */
+  height: auto;
+text-align: center;
+}
