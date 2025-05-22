@@ -3,128 +3,52 @@ const DB_NAME = 'GamerGearStore';
 const DB_VERSION = 1;
 const STORE_NAME = 'produtos';
 
-// Inicialização do banco de dados
-function initDB() {
-    return new Promise((resolve, reject) => {
-        const request = indexedDB.open(DB_NAME, DB_VERSION);
+// Classe para gerenciar o banco de dados
+class ProdutoDB {
+    static async init() {
+        return new Promise((resolve, reject) => {
+            const request = indexedDB.open(DB_NAME, DB_VERSION);
 
-        request.onerror = (event) => {
-            console.error('Erro ao abrir o banco de dados:', event.target.error);
-            reject(event.target.error);
-        };
+            request.onerror = () => reject(request.error);
+            request.onsuccess = () => resolve(request.result);
 
-        request.onsuccess = (event) => {
-            const db = event.target.result;
-            resolve(db);
-        };
-
-        request.onupgradeneeded = (event) => {
-            const db = event.target.result;
-
-            // Criar object store para produtos
-            if (!db.objectStoreNames.contains(STORE_NAME)) {
-                const store = db.createObjectStore(STORE_NAME, { keyPath: 'id', autoIncrement: true });
-                
-                // Criar índices para busca
-                store.createIndex('tipo', 'tipo', { unique: false });
-                store.createIndex('marca', 'marca', { unique: false });
-                store.createIndex('preco', 'preco', { unique: false });
-            }
-        };
-    });
-}
-
-// Funções CRUD para produtos
-const ProdutoDB = {
-    // Adicionar produto
-    async adicionar(produto) {
-        try {
-            const db = await initDB();
-            return new Promise((resolve, reject) => {
-                const transaction = db.transaction([STORE_NAME], 'readwrite');
-                const store = transaction.objectStore(STORE_NAME);
-
-                // Validar produto antes de adicionar
-                if (!produto.nome || !produto.tipo || !produto.marca || !produto.preco || !produto.imagem) {
-                    reject(new Error('Dados do produto incompletos'));
-                    return;
+            request.onupgradeneeded = (event) => {
+                const db = event.target.result;
+                if (!db.objectStoreNames.contains(STORE_NAME)) {
+                    const store = db.createObjectStore(STORE_NAME, { keyPath: 'id', autoIncrement: true });
+                    store.createIndex('tipo', 'tipo', { unique: false });
+                    store.createIndex('marca', 'marca', { unique: false });
                 }
+            };
+        });
+    }
 
-                // Remover o id ao adicionar um novo produto
-                const produtoParaAdicionar = { ...produto };
-                delete produtoParaAdicionar.id;
+    static async adicionar(produto) {
+        const db = await this.init();
+        return new Promise((resolve, reject) => {
+            const transaction = db.transaction([STORE_NAME], 'readwrite');
+            const store = transaction.objectStore(STORE_NAME);
+            const request = store.add(produto);
 
-                const request = store.add(produtoParaAdicionar);
+            request.onsuccess = () => resolve(request.result);
+            request.onerror = () => reject(request.error);
+        });
+    }
 
-                request.onsuccess = () => {
-                    console.log('Produto adicionado com sucesso:', request.result);
-                    resolve(request.result);
-                };
+    static async atualizar(produto) {
+        const db = await this.init();
+        return new Promise((resolve, reject) => {
+            const transaction = db.transaction([STORE_NAME], 'readwrite');
+            const store = transaction.objectStore(STORE_NAME);
+            const request = store.put(produto);
 
-                request.onerror = (event) => {
-                    console.error('Erro ao adicionar produto:', event.target.error);
-                    reject(event.target.error);
-                };
+            request.onsuccess = () => resolve(request.result);
+            request.onerror = () => reject(request.error);
+        });
+    }
 
-                transaction.oncomplete = () => {
-                    console.log('Transação completada com sucesso');
-                };
-
-                transaction.onerror = (event) => {
-                    console.error('Erro na transação:', event.target.error);
-                    reject(event.target.error);
-                };
-            });
-        } catch (error) {
-            console.error('Erro ao adicionar produto:', error);
-            throw error;
-        }
-    },
-
-    // Atualizar produto
-    async atualizar(produto) {
-        try {
-            const db = await initDB();
-            return new Promise((resolve, reject) => {
-                const transaction = db.transaction([STORE_NAME], 'readwrite');
-                const store = transaction.objectStore(STORE_NAME);
-
-                // Validar produto antes de atualizar
-                if (!produto.id || !produto.nome || !produto.tipo || !produto.marca || !produto.preco || !produto.imagem) {
-                    reject(new Error('Dados do produto incompletos'));
-                    return;
-                }
-
-                const request = store.put(produto);
-
-                request.onsuccess = () => {
-                    console.log('Produto atualizado com sucesso:', request.result);
-                    resolve(request.result);
-                };
-
-                request.onerror = (event) => {
-                    console.error('Erro ao atualizar produto:', event.target.error);
-                    reject(event.target.error);
-                };
-
-                transaction.oncomplete = () => {
-                    console.log('Transação completada com sucesso');
-                };
-
-                transaction.onerror = (event) => {
-                    console.error('Erro na transação:', event.target.error);
-                    reject(event.target.error);
-                };
-            });
-        } catch (error) {
-            console.error('Erro ao atualizar produto:', error);
-            throw error;
-        }
-    },
-
-    // Excluir produto
-    async excluir(id) {
-        const db = await initDB();
+    static async excluir(id) {
+        const db = await this.init();
         return new Promise((resolve, reject) => {
             const transaction = db.transaction([STORE_NAME], 'readwrite');
             const store = transaction.objectStore(STORE_NAME);
@@ -133,11 +57,10 @@ const ProdutoDB = {
             request.onsuccess = () => resolve(request.result);
             request.onerror = () => reject(request.error);
         });
-    },
+    }
 
-    // Buscar produto por ID
-    async buscarPorId(id) {
-        const db = await initDB();
+    static async buscarPorId(id) {
+        const db = await this.init();
         return new Promise((resolve, reject) => {
             const transaction = db.transaction([STORE_NAME], 'readonly');
             const store = transaction.objectStore(STORE_NAME);
@@ -146,11 +69,10 @@ const ProdutoDB = {
             request.onsuccess = () => resolve(request.result);
             request.onerror = () => reject(request.error);
         });
-    },
+    }
 
-    // Listar todos os produtos
-    async listarTodos() {
-        const db = await initDB();
+    static async listarTodos() {
+        const db = await this.init();
         return new Promise((resolve, reject) => {
             const transaction = db.transaction([STORE_NAME], 'readonly');
             const store = transaction.objectStore(STORE_NAME);
@@ -159,11 +81,10 @@ const ProdutoDB = {
             request.onsuccess = () => resolve(request.result);
             request.onerror = () => reject(request.error);
         });
-    },
+    }
 
-    // Buscar produtos por tipo
-    async buscarPorTipo(tipo) {
-        const db = await initDB();
+    static async buscarPorTipo(tipo) {
+        const db = await this.init();
         return new Promise((resolve, reject) => {
             const transaction = db.transaction([STORE_NAME], 'readonly');
             const store = transaction.objectStore(STORE_NAME);
@@ -173,11 +94,10 @@ const ProdutoDB = {
             request.onsuccess = () => resolve(request.result);
             request.onerror = () => reject(request.error);
         });
-    },
+    }
 
-    // Buscar produtos por marca
-    async buscarPorMarca(marca) {
-        const db = await initDB();
+    static async buscarPorMarca(marca) {
+        const db = await this.init();
         return new Promise((resolve, reject) => {
             const transaction = db.transaction([STORE_NAME], 'readonly');
             const store = transaction.objectStore(STORE_NAME);
@@ -187,11 +107,10 @@ const ProdutoDB = {
             request.onsuccess = () => resolve(request.result);
             request.onerror = () => reject(request.error);
         });
-    },
+    }
 
-    // Buscar produtos por faixa de preço
-    async buscarPorPreco(min, max) {
-        const db = await initDB();
+    static async buscarPorPreco(min, max) {
+        const db = await this.init();
         return new Promise((resolve, reject) => {
             const transaction = db.transaction([STORE_NAME], 'readonly');
             const store = transaction.objectStore(STORE_NAME);
@@ -203,4 +122,19 @@ const ProdutoDB = {
             request.onerror = () => reject(request.error);
         });
     }
-}; 
+}
+
+// Inicializa o banco de dados e carrega os dados iniciais
+async function initDB() {
+    try {
+        await ProdutoDB.init();
+        await initializeDatabase(); // Carrega os dados iniciais se necessário
+        console.log('Banco de dados inicializado com sucesso!');
+    } catch (error) {
+        console.error('Erro ao inicializar banco de dados:', error);
+    }
+}
+
+// Exporta as funções necessárias
+window.ProdutoDB = ProdutoDB;
+window.initDB = initDB; 

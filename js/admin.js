@@ -247,4 +247,148 @@ document.addEventListener('DOMContentLoaded', async () => {
         console.error('Erro ao inicializar:', error);
         alert('Erro ao inicializar a página');
     }
-}); 
+});
+
+// Função para abrir o modal de edição
+function abrirModalEdicao(id) {
+    const produto = produtos.find(p => p.id === id);
+    if (!produto) return;
+
+    // Preencher o modal com os dados do produto
+    document.getElementById('editId').value = produto.id;
+    document.getElementById('editNome').value = produto.nome;
+    document.getElementById('editTipo').value = produto.tipo;
+    document.getElementById('editMarca').value = produto.marca;
+    document.getElementById('editPreco').value = produto.preco;
+    document.getElementById('editImagem').value = produto.imagem;
+    document.getElementById('editUrlProduto').value = produto.urlProduto;
+
+    // Preencher as especificações específicas do tipo
+    const especificacoes = produto.especificacoes;
+    switch (produto.tipo) {
+        case 'mouse':
+            document.getElementById('editSensor').value = especificacoes.sensor;
+            document.getElementById('editPeso').value = especificacoes.peso;
+            document.getElementById('editTipoMouse').value = especificacoes.tipo;
+            break;
+        case 'teclado':
+            document.getElementById('editSwitch').value = especificacoes.switch;
+            document.getElementById('editIluminacao').value = especificacoes.iluminacao;
+            document.getElementById('editTipoTeclado').value = especificacoes.tipo;
+            break;
+        case 'headset':
+            document.getElementById('editDriver').value = especificacoes.driver;
+            document.getElementById('editMicrofone').value = especificacoes.microfone;
+            document.getElementById('editTipoHeadset').value = especificacoes.tipo;
+            break;
+        case 'mousepad':
+            document.getElementById('editTamanhoMousepad').value = especificacoes.tamanho;
+            document.getElementById('editMaterial').value = especificacoes.material;
+            document.getElementById('editTipoMousepad').value = especificacoes.tipo;
+            break;
+        case 'monitor':
+            document.getElementById('editTamanhoMonitor').value = especificacoes.tamanho;
+            document.getElementById('editResolucao').value = especificacoes.resolucao;
+            document.getElementById('editTaxaAtualizacao').value = especificacoes.taxaAtualizacao;
+            break;
+        case 'webcam':
+            document.getElementById('editResolucaoWebcam').value = especificacoes.resolucao;
+            document.getElementById('editFps').value = especificacoes.fps;
+            document.getElementById('editMicrofoneWebcam').value = especificacoes.microfone;
+            break;
+    }
+
+    // Mostrar o modal
+    document.getElementById('modalEdicao').style.display = 'block';
+}
+
+// Função para fechar o modal de edição
+function fecharModalEdicao() {
+    document.getElementById('modalEdicao').style.display = 'none';
+}
+
+// Função para salvar as alterações
+async function salvarAlteracoes() {
+    const id = parseInt(document.getElementById('editId').value);
+    const produto = produtos.find(p => p.id === id);
+    if (!produto) return;
+
+    // Atualizar dados básicos
+    produto.nome = document.getElementById('editNome').value;
+    produto.tipo = document.getElementById('editTipo').value;
+    produto.marca = document.getElementById('editMarca').value;
+    produto.preco = parseFloat(document.getElementById('editPreco').value);
+    produto.imagem = document.getElementById('editImagem').value;
+    produto.urlProduto = document.getElementById('editUrlProduto').value;
+
+    // Atualizar especificações específicas do tipo
+    switch (produto.tipo) {
+        case 'mouse':
+            produto.especificacoes = {
+                sensor: document.getElementById('editSensor').value,
+                peso: parseInt(document.getElementById('editPeso').value),
+                tipo: document.getElementById('editTipoMouse').value
+            };
+            break;
+        case 'teclado':
+            produto.especificacoes = {
+                switch: document.getElementById('editSwitch').value,
+                iluminacao: document.getElementById('editIluminacao').value,
+                tipo: document.getElementById('editTipoTeclado').value
+            };
+            break;
+        case 'headset':
+            produto.especificacoes = {
+                driver: document.getElementById('editDriver').value,
+                microfone: document.getElementById('editMicrofone').value,
+                tipo: document.getElementById('editTipoHeadset').value
+            };
+            break;
+        case 'mousepad':
+            produto.especificacoes = {
+                tamanho: document.getElementById('editTamanhoMousepad').value,
+                material: document.getElementById('editMaterial').value,
+                tipo: document.getElementById('editTipoMousepad').value
+            };
+            break;
+        case 'monitor':
+            produto.especificacoes = {
+                tamanho: document.getElementById('editTamanhoMonitor').value,
+                resolucao: document.getElementById('editResolucao').value,
+                taxaAtualizacao: document.getElementById('editTaxaAtualizacao').value
+            };
+            break;
+        case 'webcam':
+            produto.especificacoes = {
+                resolucao: document.getElementById('editResolucaoWebcam').value,
+                fps: parseInt(document.getElementById('editFps').value),
+                microfone: document.getElementById('editMicrofoneWebcam').value
+            };
+            break;
+    }
+
+    try {
+        await atualizarProduto(produto);
+        alert('Produto atualizado com sucesso!');
+        fecharModalEdicao();
+        carregarProdutos(); // Recarregar a lista de produtos
+    } catch (error) {
+        console.error('Erro ao atualizar produto:', error);
+        alert('Erro ao atualizar produto. Por favor, tente novamente.');
+    }
+}
+
+// Função para mostrar/esconder campos específicos
+function mostrarCamposEspecificos() {
+    // Esconder todos os campos específicos
+    document.querySelectorAll('.campos-especificos').forEach(campo => {
+        campo.style.display = 'none';
+    });
+
+    // Mostrar campos do tipo selecionado
+    const tipo = document.getElementById('editTipo').value;
+    const campos = document.getElementById(`campos${tipo.charAt(0).toUpperCase() + tipo.slice(1)}`);
+    if (campos) {
+        campos.style.display = 'block';
+    }
+} 

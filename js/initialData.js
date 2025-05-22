@@ -1,101 +1,110 @@
-// Dados iniciais para popular o banco de dados
-const initialProducts = [
-    {
-        nome: "Logitech G Pro X Superlight",
-        tipo: "mouse",
-        marca: "Logitech",
-        preco: 799.90,
-        imagem: "https://m.media-amazon.com/images/I/61UxfXTUyvL._AC_SL1500_.jpg",
-        urlProduto: "https://www.amazon.com.br/Logitech-Superlight-Sem-Fio-Ultra-Leve/dp/B08L5TNJHG",
-        especificacoes: {
-            sensor: "HERO 25K",
-            peso: 63,
-            tipo: "Sem fio"
+// Dados iniciais para o banco de dados
+const initialData = {
+    produtos: [
+        {
+            id: 1,
+            nome: "Logitech G Pro X Superlight",
+            tipo: "mouse",
+            marca: "Logitech",
+            preco: 799.90,
+            imagem: "https://m.media-amazon.com/images/I/61UxfXTUyvL._AC_SL1500_.jpg",
+            urlProduto: "https://www.amazon.com.br/Logitech-Superlight-Ultra-leve-Bateria-Recarregável/dp/B08L5TNJHG",
+            especificacoes: {
+                sensor: "HERO 25K",
+                peso: 63,
+                tipo: "Gaming"
+            }
+        },
+        {
+            id: 2,
+            nome: "HyperX Alloy Origins Core",
+            tipo: "teclado",
+            marca: "HyperX",
+            preco: 599.90,
+            imagem: "https://m.media-amazon.com/images/I/71+Q6Rh3KIL._AC_SL1500_.jpg",
+            urlProduto: "https://www.amazon.com.br/HyperX-Alloy-Origins-Core-Teclado/dp/B07ZPKN6YR",
+            especificacoes: {
+                switch: "HyperX Red",
+                iluminacao: "RGB",
+                tipo: "Mecânico"
+            }
+        },
+        {
+            id: 3,
+            nome: "SteelSeries Arctis Pro",
+            tipo: "headset",
+            marca: "SteelSeries",
+            preco: 1299.90,
+            imagem: "https://m.media-amazon.com/images/I/71+Q6Rh3KIL._AC_SL1500_.jpg",
+            urlProduto: "https://www.amazon.com.br/SteelSeries-Arctis-Pro-GameDAC-Headset/dp/B07C4YKRVL",
+            especificacoes: {
+                driver: "40mm",
+                microfone: "Com Microfone",
+                tipo: "Gaming"
+            }
+        },
+        {
+            id: 4,
+            nome: "SteelSeries QcK",
+            tipo: "mousepad",
+            marca: "SteelSeries",
+            preco: 99.90,
+            imagem: "https://m.media-amazon.com/images/I/71+Q6Rh3KIL._AC_SL1500_.jpg",
+            urlProduto: "https://www.amazon.com.br/SteelSeries-QcK-Mousepad-Gaming/dp/B000UVRU6Y",
+            especificacoes: {
+                tamanho: "Large",
+                material: "Tecido",
+                tipo: "Speed"
+            }
+        },
+        {
+            id: 5,
+            nome: "LG 27GL850-B",
+            tipo: "monitor",
+            marca: "LG",
+            preco: 2499.90,
+            imagem: "https://m.media-amazon.com/images/I/71+Q6Rh3KIL._AC_SL1500_.jpg",
+            urlProduto: "https://www.amazon.com.br/LG-27GL850-B-Monitor-Gaming-27GL850/dp/B07TQJ2ZKN",
+            especificacoes: {
+                tamanho: "27",
+                resolucao: "2560x1440",
+                taxaAtualizacao: "144Hz"
+            }
+        },
+        {
+            id: 6,
+            nome: "Logitech C920",
+            tipo: "webcam",
+            marca: "Logitech",
+            preco: 399.90,
+            imagem: "https://m.media-amazon.com/images/I/71+Q6Rh3KIL._AC_SL1500_.jpg",
+            urlProduto: "https://www.amazon.com.br/Logitech-C920-HD-Pro-Webcam/dp/B006A2Q81M",
+            especificacoes: {
+                resolucao: "1080p",
+                fps: 30,
+                microfone: "Com Microfone"
+            }
         }
-    },
-    {
-        nome: "Razer BlackWidow V3",
-        tipo: "teclado",
-        marca: "Razer",
-        preco: 899.90,
-        imagem: "https://m.media-amazon.com/images/I/71UwSHSZRnS._AC_SL1500_.jpg",
-        urlProduto: "https://www.amazon.com.br/Razer-BlackWidow-V3-Mechanical-Keyboard/dp/B08F5VQF45",
-        especificacoes: {
-            switch: "Razer Green",
-            iluminacao: "RGB Chroma",
-            tipo: "Mecânico"
-        }
-    },
-    {
-        nome: "HyperX Cloud II",
-        tipo: "headset",
-        marca: "HyperX",
-        preco: 499.90,
-        imagem: "https://m.media-amazon.com/images/I/71+vQyk43IL._AC_SL1500_.jpg",
-        urlProduto: "https://www.amazon.com.br/HyperX-Cloud-Gaming-Headset-PS4/dp/B00SAYCXWG",
-        especificacoes: {
-            driver: "53mm",
-            microfone: "Removível",
-            tipo: "Com fio"
-        }
-    },
-    {
-        nome: "SteelSeries QcK",
-        tipo: "mousepad",
-        marca: "SteelSeries",
-        preco: 99.90,
-        imagem: "https://m.media-amazon.com/images/I/71UwSHSZRnS._AC_SL1500_.jpg",
-        urlProduto: "https://www.amazon.com.br/SteelSeries-QcK-Gaming-Mousepad/dp/B000UVRU6G",
-        especificacoes: {
-            tamanho: "450x400mm",
-            material: "Tecido",
-            tipo: "Speed"
-        }
-    },
-    {
-        nome: "LG UltraGear 27GL650F",
-        tipo: "monitor",
-        marca: "LG",
-        preco: 1499.90,
-        imagem: "https://m.media-amazon.com/images/I/81WBbFOi9WL._AC_SL1500_.jpg",
-        urlProduto: "https://www.amazon.com.br/LG-UltraGear-Monitor-Gaming-27GL650F/dp/B07ZPKN6YR",
-        especificacoes: {
-            tamanho: "27 polegadas",
-            resolucao: "1920x1080",
-            taxaAtualizacao: "144Hz"
-        }
-    },
-    {
-        nome: "Logitech C920",
-        tipo: "webcam",
-        marca: "Logitech",
-        preco: 399.90,
-        imagem: "https://m.media-amazon.com/images/I/71iNwni9TsL._AC_SL1500_.jpg",
-        urlProduto: "https://www.amazon.com.br/Logitech-C920-HD-Pro-Webcam/dp/B006A2Q81M",
-        especificacoes: {
-            resolucao: "1080p",
-            fps: "30",
-            microfone: "Estéreo"
-        }
-    }
-];
+    ]
+};
 
-// Função para popular o banco de dados com dados iniciais
-async function populateInitialData() {
+// Função para inicializar o banco de dados com os dados iniciais
+async function initializeDatabase() {
     try {
-        const produtos = await obterTodosProdutos();
+        // Verifica se já existem produtos no banco
+        const produtos = await ProdutoDB.listarTodos();
         
-        // Só popula se o banco estiver vazio
+        // Se não houver produtos, insere os dados iniciais
         if (produtos.length === 0) {
-            console.log('Populando banco de dados com produtos iniciais...');
-            
-            for (const produto of initialProducts) {
+            for (const produto of initialData.produtos) {
                 await ProdutoDB.adicionar(produto);
             }
-            
-            console.log('Banco de dados populado com sucesso!');
+            console.log('Banco de dados inicializado com sucesso!');
         }
     } catch (error) {
-        console.error('Erro ao popular banco de dados:', error);
+        console.error('Erro ao inicializar banco de dados:', error);
     }
-} 
+}
+
+// Exporta a função de inicialização
+window.initializeDatabase = initializeDatabase; 

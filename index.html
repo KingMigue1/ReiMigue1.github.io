@@ -13,47 +13,42 @@
   <nav class="navbar">
     <div class="nav-container">
       <a href="index.html" class="nav-logo">Gamer Gear Store</a>
-      <button class="menu-toggle" onclick="toggleMenu()" aria-label="Menu">
+      <button class="menu-toggle" onclick="toggleMenu()">
         <i class="fas fa-bars"></i>
       </button>
       <div class="nav-links">
         <a href="index.html" class="nav-link active">
           <i class="fas fa-home"></i>
-          <span>Home</span>
+          Home
         </a>
         <a href="search.html" class="nav-link">
           <i class="fas fa-search"></i>
-          <span>Buscar Produtos</span>
+          Buscar Produtos
         </a>
         <a href="compare.html" class="nav-link">
           <i class="fas fa-balance-scale"></i>
-          <span>Comparar</span>
+          Comparar
         </a>
         <a href="about.html" class="nav-link">
           <i class="fas fa-info-circle"></i>
-          <span>Sobre</span>
+          Sobre
         </a>
         <a href="admin.html" class="nav-link">
           <i class="fas fa-cog"></i>
-          <span>Admin</span>
+          Admin
         </a>
+        <button class="theme-toggle" onclick="toggleTheme()">
+          <i class="fas fa-moon"></i>
+        </button>
       </div>
     </div>
   </nav>
   <div class="nav-overlay" onclick="toggleMenu()"></div>
-  <button class="theme-toggle" onclick="toggleTheme()" aria-label="Alternar tema">
-    <i class="fas fa-moon"></i>
-  </button>
 
   <!-- Hero Section -->
   <section class="hero">
     <div class="hero-content">
       <h1>Encontre os Melhores Periféricos para Gaming</h1>
-      <p>Compare e escolha os melhores mouses, teclados, headsets e mais para sua setup</p>
-      <a href="search.html" class="btn-primary">
-        <i class="fas fa-search"></i>
-        Buscar Produtos
-      </a>
     </div>
   </section>
 
@@ -61,7 +56,7 @@
   <section class="products-section">
     <h2 class="section-title">Últimos Produtos</h2>
     <div class="carousel-container">
-      <button class="carousel-button prev" onclick="moveCarousel(-1)" aria-label="Produto anterior">
+      <button class="carousel-button prev" onclick="moveCarousel(-1)">
         <i class="fas fa-chevron-left"></i>
       </button>
       <div class="carousel">
@@ -69,7 +64,7 @@
           <!-- Os produtos serão inseridos aqui via JavaScript -->
         </div>
       </div>
-      <button class="carousel-button next" onclick="moveCarousel(1)" aria-label="Próximo produto">
+      <button class="carousel-button next" onclick="moveCarousel(1)">
         <i class="fas fa-chevron-right"></i>
       </button>
     </div>
@@ -78,56 +73,101 @@
     </div>
   </section>
 
+  <!-- Seções por Tipo de Produto -->
+  <section class="category-section" id="mouses">
+    <div class="category-header">
+      <i class="fas fa-mouse"></i>
+      <h2>Mouses</h2>
+      <a href="search.html?tipo=mouse" class="btn-see-all">Ver Todos</a>
+    </div>
+    <div class="products-grid" id="mousesGrid">
+      <!-- Produtos serão inseridos via JavaScript -->
+    </div>
+  </section>
+
+  <section class="category-section" id="teclados">
+    <div class="category-header">
+      <i class="fas fa-keyboard"></i>
+      <h2>Teclados</h2>
+      <a href="search.html?tipo=teclado" class="btn-see-all">Ver Todos</a>
+    </div>
+    <div class="products-grid" id="tecladosGrid">
+      <!-- Produtos serão inseridos via JavaScript -->
+    </div>
+  </section>
+
+  <section class="category-section" id="headsets">
+    <div class="category-header">
+      <i class="fas fa-headphones"></i>
+      <h2>Headsets</h2>
+      <a href="search.html?tipo=headset" class="btn-see-all">Ver Todos</a>
+    </div>
+    <div class="products-grid" id="headsetsGrid">
+      <!-- Produtos serão inseridos via JavaScript -->
+    </div>
+  </section>
+
+  <section class="category-section" id="mousepads">
+    <div class="category-header">
+      <i class="fas fa-square"></i>
+      <h2>Mousepads</h2>
+      <a href="search.html?tipo=mousepad" class="btn-see-all">Ver Todos</a>
+    </div>
+    <div class="products-grid" id="mousepadsGrid">
+      <!-- Produtos serão inseridos via JavaScript -->
+    </div>
+  </section>
+
+  <section class="category-section" id="monitores">
+    <div class="category-header">
+      <i class="fas fa-desktop"></i>
+      <h2>Monitores</h2>
+      <a href="search.html?tipo=monitor" class="btn-see-all">Ver Todos</a>
+    </div>
+    <div class="products-grid" id="monitoresGrid">
+      <!-- Produtos serão inseridos via JavaScript -->
+    </div>
+  </section>
+
+  <section class="category-section" id="webcams">
+    <div class="category-header">
+      <i class="fas fa-video"></i>
+      <h2>Webcams</h2>
+      <a href="search.html?tipo=webcam" class="btn-see-all">Ver Todos</a>
+    </div>
+    <div class="products-grid" id="webcamsGrid">
+      <!-- Produtos serão inseridos via JavaScript -->
+    </div>
+  </section>
+
   <!-- Scripts -->
-  <script src="js/database.js"></script>
-  <script src="js/products.js"></script>
   <script src="js/theme.js"></script>
+  <script src="js/database.js"></script>
   <script src="js/initialData.js"></script>
-  <script src="js/init.js"></script>
+  <script src="js/products.js"></script>
   <script>
     let currentSlide = 0;
     const slidesToShow = 3;
     let totalSlides = 0;
-    let menuOpen = false;
 
     // Função para alternar o menu mobile
     function toggleMenu() {
       const navLinks = document.querySelector('.nav-links');
       const overlay = document.querySelector('.nav-overlay');
       const menuToggle = document.querySelector('.menu-toggle i');
-      const body = document.body;
       
-      menuOpen = !menuOpen;
       navLinks.classList.toggle('active');
       overlay.classList.toggle('active');
       
       // Alterna o ícone do menu
-      if (menuOpen) {
+      if (menuToggle.classList.contains('fa-bars')) {
         menuToggle.classList.remove('fa-bars');
         menuToggle.classList.add('fa-times');
-        body.style.overflow = 'hidden'; // Previne rolagem quando menu está aberto
       } else {
         menuToggle.classList.remove('fa-times');
         menuToggle.classList.add('fa-bars');
-        body.style.overflow = ''; // Restaura rolagem
       }
     }
-
-    // Fechar menu ao clicar em um link
-    document.querySelectorAll('.nav-link').forEach(link => {
-      link.addEventListener('click', () => {
-        if (menuOpen) {
-          toggleMenu();
-        }
-      });
-    });
-
-    // Fechar menu ao redimensionar para desktop
-    window.addEventListener('resize', () => {
-      if (window.innerWidth > 768 && menuOpen) {
-        toggleMenu();
-      }
-    });
 
     // Função para mover o carrossel
     function moveCarousel(direction) {
@@ -155,7 +195,6 @@
       for (let i = 0; i < count; i++) {
         const dot = document.createElement('button');
         dot.className = `carousel-dot ${i === 0 ? 'active' : ''}`;
-        dot.setAttribute('aria-label', `Ir para slide ${i + 1}`);
         dot.onclick = () => {
           currentSlide = i;
           moveCarousel(0);
@@ -164,20 +203,62 @@
       }
     }
 
-    // Função para alternar o tema
-    function toggleTheme() {
-      const body = document.body;
-      const themeToggle = document.querySelector('.theme-toggle');
-      const themeIcon = themeToggle.querySelector('i');
-      
-      if (body.getAttribute('data-theme') === 'dark') {
-        body.removeAttribute('data-theme');
-        themeIcon.className = 'fas fa-moon';
-        localStorage.setItem('theme', 'light');
-      } else {
-        body.setAttribute('data-theme', 'dark');
-        themeIcon.className = 'fas fa-sun';
-        localStorage.setItem('theme', 'dark');
+    // Função para criar o card de produto
+    function createProductCard(produto) {
+      return `
+        <div class="product-card">
+          <div class="product-image">
+            <img src="${produto.imagem}" alt="${produto.nome}">
+          </div>
+          <div class="product-info">
+            <h3>${produto.nome}</h3>
+            <p class="product-specs">
+              ${produto.tipo === 'mouse' ? 
+                `Sensor: ${produto.especificacoes.sensor} • Peso: ${produto.especificacoes.peso}g • ${produto.especificacoes.tipo}` :
+              produto.tipo === 'teclado' ?
+                `Switch: ${produto.especificacoes.switch} • ${produto.especificacoes.iluminacao} • ${produto.especificacoes.tipo}` :
+              produto.tipo === 'headset' ?
+                `Driver: ${produto.especificacoes.driver} • ${produto.especificacoes.microfone} • ${produto.especificacoes.tipo}` :
+              produto.tipo === 'mousepad' ?
+                `Tamanho: ${produto.especificacoes.tamanho} • Material: ${produto.especificacoes.material} • ${produto.especificacoes.tipo}` :
+              produto.tipo === 'monitor' ?
+                `Tamanho: ${produto.especificacoes.tamanho} • Resolução: ${produto.especificacoes.resolucao} • ${produto.especificacoes.taxaAtualizacao}` :
+              produto.tipo === 'webcam' ?
+                `Resolução: ${produto.especificacoes.resolucao} • FPS: ${produto.especificacoes.fps} • ${produto.especificacoes.microfone}` :
+                ''}
+            </p>
+            <div class="product-price">R$ ${produto.preco.toFixed(2)}</div>
+            <div class="product-buttons">
+              <button class="btn-compare" onclick="window.location.href='compare.html'">Comparar</button>
+              <a href="${produto.urlProduto}" class="btn-shop" target="_blank">Ver na loja</a>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    // Função para carregar produtos por categoria
+    async function loadCategoryProducts(tipo, gridId) {
+      try {
+        const grid = document.getElementById(gridId);
+        const produtos = await obterProdutosPorTipo(tipo);
+        
+        if (!produtos || produtos.length === 0) {
+          grid.innerHTML = '<p class="no-products">Nenhum produto encontrado nesta categoria</p>';
+          return;
+        }
+
+        // Ordenar produtos por ID (mais recentes primeiro)
+        produtos.sort((a, b) => b.id - a.id);
+        
+        // Pegar os 4 produtos mais recentes
+        const produtosRecentes = produtos.slice(0, 4);
+        
+        // Adicionar produtos ao grid
+        grid.innerHTML = produtosRecentes.map(produto => createProductCard(produto)).join('');
+
+      } catch (error) {
+        console.error(`Erro ao carregar produtos do tipo ${tipo}:`, error);
       }
     }
 
@@ -206,42 +287,7 @@
         produtosRecentes.forEach(produto => {
           const slide = document.createElement('div');
           slide.className = 'carousel-slide';
-          slide.innerHTML = `
-            <div class="product-card">
-              <div class="product-image">
-                <img src="${produto.imagem}" alt="${produto.nome}">
-              </div>
-              <div class="product-info">
-                <h3>${produto.nome}</h3>
-                <p class="product-specs">
-                  ${produto.tipo === 'mouse' ? 
-                    `Sensor: ${produto.especificacoes.sensor} • Peso: ${produto.especificacoes.peso}g • ${produto.especificacoes.tipo}` :
-                  produto.tipo === 'teclado' ?
-                    `Switch: ${produto.especificacoes.switch} • ${produto.especificacoes.iluminacao} • ${produto.especificacoes.tipo}` :
-                  produto.tipo === 'headset' ?
-                    `Driver: ${produto.especificacoes.driver} • ${produto.especificacoes.microfone} • ${produto.especificacoes.tipo}` :
-                  produto.tipo === 'mousepad' ?
-                    `Tamanho: ${produto.especificacoes.tamanho} • Material: ${produto.especificacoes.material} • ${produto.especificacoes.tipo}` :
-                  produto.tipo === 'monitor' ?
-                    `Tamanho: ${produto.especificacoes.tamanho} • Resolução: ${produto.especificacoes.resolucao} • ${produto.especificacoes.taxaAtualizacao}` :
-                  produto.tipo === 'webcam' ?
-                    `Resolução: ${produto.especificacoes.resolucao} • FPS: ${produto.especificacoes.fps} • ${produto.especificacoes.microfone}` :
-                    ''}
-                </p>
-                <div class="product-price">R$ ${produto.preco.toFixed(2)}</div>
-                <div class="product-buttons">
-                  <button class="btn-compare" onclick="window.location.href='compare.html'">
-                    <i class="fas fa-balance-scale"></i>
-                    Comparar
-                  </button>
-                  <a href="${produto.urlProduto}" class="btn-shop" target="_blank">
-                    <i class="fas fa-shopping-cart"></i>
-                    Ver na loja
-                  </a>
-                </div>
-              </div>
-            </div>
-          `;
+          slide.innerHTML = createProductCard(produto);
           productsGrid.appendChild(slide);
         });
 
@@ -253,9 +299,33 @@
       }
     }
 
-    // Carregar produtos quando a página carregar
-    document.addEventListener('DOMContentLoaded', loadCarouselProducts);
+    // Carregar todos os produtos quando a página carregar
+    document.addEventListener('DOMContentLoaded', async () => {
+      await loadCarouselProducts();
+      await loadCategoryProducts('mouse', 'mousesGrid');
+      await loadCategoryProducts('teclado', 'tecladosGrid');
+      await loadCategoryProducts('headset', 'headsetsGrid');
+      await loadCategoryProducts('mousepad', 'mousepadsGrid');
+      await loadCategoryProducts('monitor', 'monitoresGrid');
+      await loadCategoryProducts('webcam', 'webcamsGrid');
+    });
+
+    // Função para alternar o tema
+    function toggleTheme() {
+      const body = document.body;
+      const themeToggle = document.querySelector('.theme-toggle');
+      const themeIcon = themeToggle.querySelector('i');
+      
+      if (body.getAttribute('data-theme') === 'dark') {
+        body.removeAttribute('data-theme');
+        themeIcon.className = 'fas fa-moon';
+        localStorage.setItem('theme', 'light');
+      } else {
+        body.setAttribute('data-theme', 'dark');
+        themeIcon.className = 'fas fa-sun';
+        localStorage.setItem('theme', 'dark');
+      }
+    }
   </script>
 </body>
 </html>
-
