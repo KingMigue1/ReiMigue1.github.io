@@ -1,347 +1,118 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Para Vic, Com Todo Meu Amor</title>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --rosa-claro: #ffcdd2;
-            --rosa-medio: #f8bbd0;
-            --rosa-escuro: #d81b60;
-            --roxo-escuro: #880e4f;
-        }
-        
-        body {
-            font-family: 'Montserrat', sans-serif;
-            background: linear-gradient(135deg, var(--rosa-claro), #fce4ec);
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            text-align: center;
-            color: var(--roxo-escuro);
-            overflow-x: hidden;
-        }
-        
-        .container {
-            background-color: rgba(255, 255, 255, 0.9);
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-            padding: 40px;
-            width: 90%;
-            max-width: 600px;
-            animation: fadeIn 1.5s;
-            position: relative;
-            overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-        }
-        
-        .container::before {
-            content: "";
-            position: absolute;
-            top: -10px;
-            left: -10px;
-            right: -10px;
-            bottom: -10px;
-            background: linear-gradient(45deg, var(--rosa-medio), var(--rosa-claro), var(--rosa-medio));
-            z-index: -1;
-            filter: blur(20px);
-            opacity: 0.7;
-        }
-        
-        h1 {
-            font-family: 'Dancing Script', cursive;
-            font-size: 3rem;
-            margin-bottom: 20px;
-            color: var(--rosa-escuro);
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-        }
-        
-        p {
-            font-size: 1.2rem;
-            margin-bottom: 30px;
-            line-height: 1.8;
-        }
-        
-        .heart {
-            font-size: 4rem;
-            animation: pulse 1.5s infinite;
-            margin: 30px 0;
-            text-shadow: 0 0 10px rgba(216, 27, 96, 0.4);
-        }
-        
-        .btn-group {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 15px;
-            margin-top: 30px;
-        }
-        
-        button {
-            background: linear-gradient(to right, var(--rosa-escuro), var(--roxo-escuro));
-            color: white;
-            border: none;
-            padding: 15px 35px;
-            font-size: 1.2rem;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all 0.3s;
-            box-shadow: 0 4px 15px rgba(216, 27, 96, 0.3);
-            position: relative;
-            overflow: hidden;
-            font-weight: 600;
-            min-width: 180px;
-        }
-        
-        button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 7px 20px rgba(216, 27, 96, 0.4);
-        }
-        
-        button:active {
-            transform: translateY(1px);
-        }
-        
-        button::after {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to right, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0));
-            transform: translateX(-100%);
-            transition: transform 0.5s;
-        }
-        
-        button:hover::after {
-            transform: translateX(100%);
-        }
-        
-        #no-btn {
-            background: linear-gradient(to right, #9e9e9e, #616161);
-        }
-        
-        .hidden {
-            display: none;
-        }
-        
-        .floating-hearts {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: -1;
-        }
-        
-        .heart-shape {
-            position: absolute;
-            opacity: 0;
-            font-size: 20px;
-            animation: float 6s ease-in infinite;
-        }
-        
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.3); }
-            100% { transform: scale(1); }
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        @keyframes float {
-            0% {
-                transform: translateY(100vh) rotate(0deg);
-                opacity: 0;
-            }
-            20% {
-                opacity: 0.8;
-            }
-            100% {
-                transform: translateY(-20vh) rotate(360deg);
-                opacity: 0;
-            }
-        }
-        
-        .photo-gallery {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            margin: 30px 0;
-        }
-        
-        .photo {
-            width: 100%;
-            height: 120px;
-            border-radius: 10px;
-            object-fit: cover;
-            border: 3px solid white;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s;
-        }
-        
-        .photo:hover {
-            transform: scale(1.05);
-            z-index: 1;
-        }
-        
-        .message {
-            background-color: rgba(248, 187, 208, 0.3);
-            border-radius: 15px;
-            padding: 20px;
-            margin: 20px 0;
-            border-left: 4px solid var(--rosa-escuro);
-        }
-        
-        @media (max-width: 600px) {
-            .container {
-                padding: 25px;
-                width: 95%;
-            }
-            
-            h1 {
-                font-size: 2.2rem;
-            }
-            
-            .photo-gallery {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gamer Gear Store - Periféricos para Gamers</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
 <body>
-    <div class="floating-hearts" id="hearts-container"></div>
-    
-    <div class="container" id="main-page">
-        <h1>Para Vic, Meu Amor</h1>
-        
-        <div class="heart">💖</div>
-        
-        <div class="message">
-            <p>Desde que você entrou na minha vida, tudo ganhou mais cor e significado...</p>
-        </div>
-        
-        <div class="photo-gallery">
-            <!-- Adicione 6 fotos de vocês (substitua os src) -->
-            <img src="foto1.jpg" class="photo" alt="Nós dois">
-            <img src="foto2.jpg" class="photo" alt="Momentos felizes">
-            <img src="foto3.jpg" class="photo" alt="Amo você">
-            <img src="foto4.jpg" class="photo" alt="Nossa história">
-            <img src="foto5.jpg" class="photo" alt="Juntos">
-            <img src="foto6.jpg" class="photo" alt="Nosso amor">
-        </div>
-        
-        <div class="message">
-            <p>Cada momento ao seu lado é especial e quero que isso nunca acabe.</p>
-        </div>
-        
-        <div class="btn-group">
-            <button onclick="showQuestion()">Quero te perguntar algo...</button>
-        </div>
+  <!-- Barra de Navegação -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">Gamer Gear Store</a>
+      <div class="nav-links">
+        <a href="index.html" class="nav-link active">Home</a>
+        <a href="search.html" class="nav-link">Buscar Produtos</a>
+        <a href="compare.html" class="nav-link">Comparar</a>
+        <a href="about.html" class="nav-link">Sobre</a>
+        <a href="admin.html" class="nav-link">
+          <i class="fas fa-cog"></i>
+          Admin
+        </a>
+        <button class="theme-toggle" onclick="toggleTheme()">
+          <i class="fas fa-moon"></i>
+        </button>
+      </div>
     </div>
-    
-    <div class="container hidden" id="question-page">
-        <h1>Vic, Minha Vida...</h1>
-        
-        <div class="heart">💞</div>
-        
-        <div class="message">
-            <p>Você é a pessoa mais incrível que já conheci e não quero mais passar um único dia sem te chamar de minha namorada.</p>
-        </div>
-        
-        <p>Você aceita ser minha namorada oficial?</p>
-        
-        <div class="btn-group">
-            <button onclick="accept()">SIM! ❤️</button>
-            <button id="no-btn" onclick="tryAgain()">Não</button>
-        </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Encontre os Melhores Periféricos para Gaming</h1>
+      <p>Compare e escolha os melhores mouses, teclados, headsets e mais para sua setup</p>
+      <a href="search.html" class="btn-primary">Buscar Produtos</a>
     </div>
-    
-    <div class="container hidden" id="response-page">
-        <h1>Ebaaa! 🎉💕</h1>
-        
-        <div class="heart">💓</div>
-        
-        <div class="message">
-            <p>Você acabou de fazer o meu coração explodir de felicidade!</p>
-            <p>Prometo te fazer a mulher mais feliz do mundo todos os dias.</p>
-        </div>
-        
-        <div class="photo-gallery">
-            <img src="foto7.jpg" class="photo" alt="Nosso futuro">
-            <img src="foto8.jpg" class="photo" alt="Felicidade">
-        </div>
-        
-        <div class="btn-group">
-            <button onclick="restart()">Ver novamente</button>
-        </div>
+  </section>
+
+  <!-- Seção de Produtos -->
+  <section class="products-section">
+    <h2 class="section-title">Produtos em Destaque</h2>
+    <div class="products-grid" id="featuredProducts">
+      <!-- Os produtos serão inseridos aqui via JavaScript -->
     </div>
-    
-    <script>
-        // Cria corações flutuantes
-        function createHearts() {
-            const container = document.getElementById('hearts-container');
-            const colors = ['#ff4081', '#d81b60', '#c2185b', '#ff80ab'];
-            
-            for (let i = 0; i < 15; i++) {
-                const heart = document.createElement('div');
-                heart.className = 'heart-shape';
-                heart.innerHTML = '❤️';
-                heart.style.left = Math.random() * 100 + 'vw';
-                heart.style.color = colors[Math.floor(Math.random() * colors.length)];
-                heart.style.animationDelay = Math.random() * 5 + 's';
-                container.appendChild(heart);
-            }
-        }
-        
-        function showQuestion() {
-            document.getElementById('main-page').classList.add('hidden');
-            document.getElementById('question-page').classList.remove('hidden');
-            createHearts();
-        }
-        
-        function accept() {
-            document.getElementById('question-page').classList.add('hidden');
-            document.getElementById('response-page').classList.remove('hidden');
-            
-            // Chove corações quando ela aceita
-            const container = document.getElementById('hearts-container');
-            container.innerHTML = '';
-            for (let i = 0; i < 50; i++) {
-                const heart = document.createElement('div');
-                heart.className = 'heart-shape';
-                heart.innerHTML = ['❤️', '💖', '💗', '💓'][Math.floor(Math.random() * 4)];
-                heart.style.left = Math.random() * 100 + 'vw';
-                heart.style.color = ['#ff4081', '#d81b60', '#c2185b', '#ff80ab'][Math.floor(Math.random() * 4)];
-                heart.style.animationDuration = (Math.random() * 3 + 2) + 's';
-                heart.style.fontSize = (Math.random() * 20 + 15) + 'px';
-                container.appendChild(heart);
-            }
-        }
-        
-        function tryAgain() {
-            const btn = document.getElementById('no-btn');
-            btn.textContent = ['Tem certeza?', 'Pense bem!', 'Eu te amo!', 'Quero te fazer feliz!', 'Diz que sim!', '❤️ Por favor? ❤️'][Math.floor(Math.random() * 6)];
-            btn.style.transform = `translate(${Math.random() * 40 - 20}px, ${Math.random() * 40 - 20}px)`;
-        }
-        
-        function restart() {
-            document.getElementById('response-page').classList.add('hidden');
-            document.getElementById('main-page').classList.remove('hidden');
-        }
-        
-        // Inicializa corações quando a página carrega
-        window.onload = createHearts;
-    </script>
+  </section>
+
+  <script src="js/products.js"></script>
+  <script>
+    // Função para alternar o tema
+    function toggleTheme() {
+      const body = document.body;
+      const themeToggle = document.querySelector('.theme-toggle');
+      const themeIcon = themeToggle.querySelector('i');
+      const themeText = themeToggle.querySelector('.theme-text');
+      
+      if (body.getAttribute('data-theme') === 'dark') {
+        body.removeAttribute('data-theme');
+        themeIcon.className = 'fas fa-sun';
+        themeText.textContent = 'Tema Claro';
+        localStorage.setItem('theme', 'light');
+      } else {
+        body.setAttribute('data-theme', 'dark');
+        themeIcon.className = 'fas fa-moon';
+        themeText.textContent = 'Tema Escuro';
+        localStorage.setItem('theme', 'dark');
+      }
+    }
+
+    // Carregar tema salvo
+    document.addEventListener('DOMContentLoaded', async () => {
+      const savedTheme = localStorage.getItem('theme');
+      const themeToggle = document.querySelector('.theme-toggle');
+      const themeIcon = themeToggle.querySelector('i');
+      const themeText = themeToggle.querySelector('.theme-text');
+      
+      if (savedTheme === 'dark') {
+        document.body.setAttribute('data-theme', 'dark');
+        themeIcon.className = 'fas fa-moon';
+        themeText.textContent = 'Tema Escuro';
+      }
+
+      // Carregar produtos
+      const productsGrid = document.getElementById('featuredProducts');
+      const produtos = await obterTodosProdutos();
+      
+      produtos.slice(0, 4).forEach(produto => {
+        const card = document.createElement('div');
+        card.className = 'product-card';
+        card.innerHTML = `
+          <div class="product-image">
+            <img src="${produto.imagem}" alt="${produto.nome}">
+          </div>
+          <div class="product-info">
+            <h3>${produto.nome}</h3>
+            <p class="product-specs">
+              ${produto.tipo === 'mouse' ? 
+                `Sensor: ${produto.especificacoes.sensor} • Peso: ${produto.especificacoes.peso}g • ${produto.especificacoes.tipo}` :
+              produto.tipo === 'teclado' ?
+                `Switch: ${produto.especificacoes.switch} • ${produto.especificacoes.iluminacao} • ${produto.especificacoes.tipo}` :
+              produto.tipo === 'headset' ?
+                `Driver: ${produto.especificacoes.driver} • ${produto.especificacoes.microfone} • ${produto.especificacoes.tipo}` :
+                ''}
+            </p>
+            <div class="product-price">R$ ${produto.preco.toFixed(2)}</div>
+            <div class="product-buttons">
+              <button class="btn-compare" onclick="window.location.href='compare.html'">Comparar</button>
+              <button class="btn-shop">Ver na loja</button>
+            </div>
+          </div>
+        `;
+        productsGrid.appendChild(card);
+      });
+    });
+  </script>
 </body>
 </html>
