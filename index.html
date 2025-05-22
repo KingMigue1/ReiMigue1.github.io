@@ -13,44 +13,47 @@
   <nav class="navbar">
     <div class="nav-container">
       <a href="index.html" class="nav-logo">Gamer Gear Store</a>
-      <button class="menu-toggle" onclick="toggleMenu()">
+      <button class="menu-toggle" onclick="toggleMenu()" aria-label="Menu">
         <i class="fas fa-bars"></i>
       </button>
       <div class="nav-links">
         <a href="index.html" class="nav-link active">
           <i class="fas fa-home"></i>
-          Home
+          <span>Home</span>
         </a>
         <a href="search.html" class="nav-link">
           <i class="fas fa-search"></i>
-          Buscar Produtos
+          <span>Buscar Produtos</span>
         </a>
         <a href="compare.html" class="nav-link">
           <i class="fas fa-balance-scale"></i>
-          Comparar
+          <span>Comparar</span>
         </a>
         <a href="about.html" class="nav-link">
           <i class="fas fa-info-circle"></i>
-          Sobre
+          <span>Sobre</span>
         </a>
         <a href="admin.html" class="nav-link">
           <i class="fas fa-cog"></i>
-          Admin
+          <span>Admin</span>
         </a>
-        <button class="theme-toggle" onclick="toggleTheme()">
-          <i class="fas fa-moon"></i>
-        </button>
       </div>
     </div>
   </nav>
   <div class="nav-overlay" onclick="toggleMenu()"></div>
+  <button class="theme-toggle" onclick="toggleTheme()" aria-label="Alternar tema">
+    <i class="fas fa-moon"></i>
+  </button>
 
   <!-- Hero Section -->
   <section class="hero">
     <div class="hero-content">
       <h1>Encontre os Melhores Periféricos para Gaming</h1>
       <p>Compare e escolha os melhores mouses, teclados, headsets e mais para sua setup</p>
-      <a href="search.html" class="btn-primary">Buscar Produtos</a>
+      <a href="search.html" class="btn-primary">
+        <i class="fas fa-search"></i>
+        Buscar Produtos
+      </a>
     </div>
   </section>
 
@@ -58,7 +61,7 @@
   <section class="products-section">
     <h2 class="section-title">Últimos Produtos</h2>
     <div class="carousel-container">
-      <button class="carousel-button prev" onclick="moveCarousel(-1)">
+      <button class="carousel-button prev" onclick="moveCarousel(-1)" aria-label="Produto anterior">
         <i class="fas fa-chevron-left"></i>
       </button>
       <div class="carousel">
@@ -66,7 +69,7 @@
           <!-- Os produtos serão inseridos aqui via JavaScript -->
         </div>
       </div>
-      <button class="carousel-button next" onclick="moveCarousel(1)">
+      <button class="carousel-button next" onclick="moveCarousel(1)" aria-label="Próximo produto">
         <i class="fas fa-chevron-right"></i>
       </button>
     </div>
@@ -85,25 +88,46 @@
     let currentSlide = 0;
     const slidesToShow = 3;
     let totalSlides = 0;
+    let menuOpen = false;
 
     // Função para alternar o menu mobile
     function toggleMenu() {
       const navLinks = document.querySelector('.nav-links');
       const overlay = document.querySelector('.nav-overlay');
       const menuToggle = document.querySelector('.menu-toggle i');
+      const body = document.body;
       
+      menuOpen = !menuOpen;
       navLinks.classList.toggle('active');
       overlay.classList.toggle('active');
       
       // Alterna o ícone do menu
-      if (menuToggle.classList.contains('fa-bars')) {
+      if (menuOpen) {
         menuToggle.classList.remove('fa-bars');
         menuToggle.classList.add('fa-times');
+        body.style.overflow = 'hidden'; // Previne rolagem quando menu está aberto
       } else {
         menuToggle.classList.remove('fa-times');
         menuToggle.classList.add('fa-bars');
+        body.style.overflow = ''; // Restaura rolagem
       }
     }
+
+    // Fechar menu ao clicar em um link
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.addEventListener('click', () => {
+        if (menuOpen) {
+          toggleMenu();
+        }
+      });
+    });
+
+    // Fechar menu ao redimensionar para desktop
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 768 && menuOpen) {
+        toggleMenu();
+      }
+    });
 
     // Função para mover o carrossel
     function moveCarousel(direction) {
@@ -131,6 +155,7 @@
       for (let i = 0; i < count; i++) {
         const dot = document.createElement('button');
         dot.className = `carousel-dot ${i === 0 ? 'active' : ''}`;
+        dot.setAttribute('aria-label', `Ir para slide ${i + 1}`);
         dot.onclick = () => {
           currentSlide = i;
           moveCarousel(0);
@@ -205,8 +230,14 @@
                 </p>
                 <div class="product-price">R$ ${produto.preco.toFixed(2)}</div>
                 <div class="product-buttons">
-                  <button class="btn-compare" onclick="window.location.href='compare.html'">Comparar</button>
-                  <a href="${produto.urlProduto}" class="btn-shop" target="_blank">Ver na loja</a>
+                  <button class="btn-compare" onclick="window.location.href='compare.html'">
+                    <i class="fas fa-balance-scale"></i>
+                    Comparar
+                  </button>
+                  <a href="${produto.urlProduto}" class="btn-shop" target="_blank">
+                    <i class="fas fa-shopping-cart"></i>
+                    Ver na loja
+                  </a>
                 </div>
               </div>
             </div>
@@ -227,3 +258,4 @@
   </script>
 </body>
 </html>
+
