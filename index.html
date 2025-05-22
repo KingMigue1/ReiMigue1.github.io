@@ -13,11 +13,26 @@
   <nav class="navbar">
     <div class="nav-container">
       <a href="index.html" class="nav-logo">Gamer Gear Store</a>
+      <button class="menu-toggle" onclick="toggleMenu()">
+        <i class="fas fa-bars"></i>
+      </button>
       <div class="nav-links">
-        <a href="index.html" class="nav-link active">Home</a>
-        <a href="search.html" class="nav-link">Buscar Produtos</a>
-        <a href="compare.html" class="nav-link">Comparar</a>
-        <a href="about.html" class="nav-link">Sobre</a>
+        <a href="index.html" class="nav-link active">
+          <i class="fas fa-home"></i>
+          Home
+        </a>
+        <a href="search.html" class="nav-link">
+          <i class="fas fa-search"></i>
+          Buscar Produtos
+        </a>
+        <a href="compare.html" class="nav-link">
+          <i class="fas fa-balance-scale"></i>
+          Comparar
+        </a>
+        <a href="about.html" class="nav-link">
+          <i class="fas fa-info-circle"></i>
+          Sobre
+        </a>
         <a href="admin.html" class="nav-link">
           <i class="fas fa-cog"></i>
           Admin
@@ -28,6 +43,7 @@
       </div>
     </div>
   </nav>
+  <div class="nav-overlay" onclick="toggleMenu()"></div>
 
   <!-- Hero Section -->
   <section class="hero">
@@ -69,6 +85,25 @@
     let currentSlide = 0;
     const slidesToShow = 3;
     let totalSlides = 0;
+
+    // Função para alternar o menu mobile
+    function toggleMenu() {
+      const navLinks = document.querySelector('.nav-links');
+      const overlay = document.querySelector('.nav-overlay');
+      const menuToggle = document.querySelector('.menu-toggle i');
+      
+      navLinks.classList.toggle('active');
+      overlay.classList.toggle('active');
+      
+      // Alterna o ícone do menu
+      if (menuToggle.classList.contains('fa-bars')) {
+        menuToggle.classList.remove('fa-bars');
+        menuToggle.classList.add('fa-times');
+      } else {
+        menuToggle.classList.remove('fa-times');
+        menuToggle.classList.add('fa-bars');
+      }
+    }
 
     // Função para mover o carrossel
     function moveCarousel(direction) {
