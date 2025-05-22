@@ -40,79 +40,155 @@
 
   <!-- Seção de Produtos -->
   <section class="products-section">
-    <h2 class="section-title">Produtos em Destaque</h2>
-    <div class="products-grid" id="featuredProducts">
-      <!-- Os produtos serão inseridos aqui via JavaScript -->
+    <h2 class="section-title">Últimos Produtos</h2>
+    <div class="carousel-container">
+      <button class="carousel-button prev" onclick="moveCarousel(-1)">
+        <i class="fas fa-chevron-left"></i>
+      </button>
+      <div class="carousel">
+        <div class="carousel-track" id="featuredProducts">
+          <!-- Os produtos serão inseridos aqui via JavaScript -->
+        </div>
+      </div>
+      <button class="carousel-button next" onclick="moveCarousel(1)">
+        <i class="fas fa-chevron-right"></i>
+      </button>
+    </div>
+    <div class="carousel-dots" id="carouselDots">
+      <!-- Os dots serão inseridos aqui via JavaScript -->
     </div>
   </section>
 
+  <!-- Scripts -->
+  <script src="js/database.js"></script>
   <script src="js/products.js"></script>
+  <script src="js/theme.js"></script>
+  <script src="js/initialData.js"></script>
+  <script src="js/init.js"></script>
   <script>
+    let currentSlide = 0;
+    const slidesToShow = 3;
+    let totalSlides = 0;
+
+    // Função para mover o carrossel
+    function moveCarousel(direction) {
+      const track = document.querySelector('.carousel-track');
+      const slides = document.querySelectorAll('.carousel-slide');
+      const dots = document.querySelectorAll('.carousel-dot');
+      
+      currentSlide = (currentSlide + direction + totalSlides) % totalSlides;
+      
+      // Atualiza a posição do track
+      const slideWidth = slides[0].offsetWidth;
+      track.style.transform = `translateX(-${currentSlide * slideWidth}px)`;
+      
+      // Atualiza os dots
+      dots.forEach((dot, index) => {
+        dot.classList.toggle('active', index === currentSlide);
+      });
+    }
+
+    // Função para criar os dots
+    function createDots(count) {
+      const dotsContainer = document.getElementById('carouselDots');
+      dotsContainer.innerHTML = '';
+      
+      for (let i = 0; i < count; i++) {
+        const dot = document.createElement('button');
+        dot.className = `carousel-dot ${i === 0 ? 'active' : ''}`;
+        dot.onclick = () => {
+          currentSlide = i;
+          moveCarousel(0);
+        };
+        dotsContainer.appendChild(dot);
+      }
+    }
+
     // Função para alternar o tema
     function toggleTheme() {
       const body = document.body;
       const themeToggle = document.querySelector('.theme-toggle');
       const themeIcon = themeToggle.querySelector('i');
-      const themeText = themeToggle.querySelector('.theme-text');
       
       if (body.getAttribute('data-theme') === 'dark') {
         body.removeAttribute('data-theme');
-        themeIcon.className = 'fas fa-sun';
-        themeText.textContent = 'Tema Claro';
+        themeIcon.className = 'fas fa-moon';
         localStorage.setItem('theme', 'light');
       } else {
         body.setAttribute('data-theme', 'dark');
-        themeIcon.className = 'fas fa-moon';
-        themeText.textContent = 'Tema Escuro';
+        themeIcon.className = 'fas fa-sun';
         localStorage.setItem('theme', 'dark');
       }
     }
 
-    // Carregar tema salvo
-    document.addEventListener('DOMContentLoaded', async () => {
-      const savedTheme = localStorage.getItem('theme');
-      const themeToggle = document.querySelector('.theme-toggle');
-      const themeIcon = themeToggle.querySelector('i');
-      const themeText = themeToggle.querySelector('.theme-text');
-      
-      if (savedTheme === 'dark') {
-        document.body.setAttribute('data-theme', 'dark');
-        themeIcon.className = 'fas fa-moon';
-        themeText.textContent = 'Tema Escuro';
-      }
+    // Carregar produtos para o carrossel
+    async function loadCarouselProducts() {
+      try {
+        const productsGrid = document.getElementById('featuredProducts');
+        const produtos = await obterTodosProdutos();
+        
+        if (!produtos || produtos.length === 0) {
+          console.log('Nenhum produto encontrado');
+          return;
+        }
 
-      // Carregar produtos
-      const productsGrid = document.getElementById('featuredProducts');
-      const produtos = await obterTodosProdutos();
-      
-      produtos.slice(0, 4).forEach(produto => {
-        const card = document.createElement('div');
-        card.className = 'product-card';
-        card.innerHTML = `
-          <div class="product-image">
-            <img src="${produto.imagem}" alt="${produto.nome}">
-          </div>
-          <div class="product-info">
-            <h3>${produto.nome}</h3>
-            <p class="product-specs">
-              ${produto.tipo === 'mouse' ? 
-                `Sensor: ${produto.especificacoes.sensor} • Peso: ${produto.especificacoes.peso}g • ${produto.especificacoes.tipo}` :
-              produto.tipo === 'teclado' ?
-                `Switch: ${produto.especificacoes.switch} • ${produto.especificacoes.iluminacao} • ${produto.especificacoes.tipo}` :
-              produto.tipo === 'headset' ?
-                `Driver: ${produto.especificacoes.driver} • ${produto.especificacoes.microfone} • ${produto.especificacoes.tipo}` :
-                ''}
-            </p>
-            <div class="product-price">R$ ${produto.preco.toFixed(2)}</div>
-            <div class="product-buttons">
-              <button class="btn-compare" onclick="window.location.href='compare.html'">Comparar</button>
-              <button class="btn-shop">Ver na loja</button>
+        // Ordenar produtos por ID (mais recentes primeiro)
+        produtos.sort((a, b) => b.id - a.id);
+        
+        // Pegar os 5 produtos mais recentes
+        const produtosRecentes = produtos.slice(0, 5);
+        totalSlides = Math.ceil(produtosRecentes.length / slidesToShow);
+        
+        // Criar os dots
+        createDots(totalSlides);
+        
+        // Adicionar produtos ao carrossel
+        produtosRecentes.forEach(produto => {
+          const slide = document.createElement('div');
+          slide.className = 'carousel-slide';
+          slide.innerHTML = `
+            <div class="product-card">
+              <div class="product-image">
+                <img src="${produto.imagem}" alt="${produto.nome}">
+              </div>
+              <div class="product-info">
+                <h3>${produto.nome}</h3>
+                <p class="product-specs">
+                  ${produto.tipo === 'mouse' ? 
+                    `Sensor: ${produto.especificacoes.sensor} • Peso: ${produto.especificacoes.peso}g • ${produto.especificacoes.tipo}` :
+                  produto.tipo === 'teclado' ?
+                    `Switch: ${produto.especificacoes.switch} • ${produto.especificacoes.iluminacao} • ${produto.especificacoes.tipo}` :
+                  produto.tipo === 'headset' ?
+                    `Driver: ${produto.especificacoes.driver} • ${produto.especificacoes.microfone} • ${produto.especificacoes.tipo}` :
+                  produto.tipo === 'mousepad' ?
+                    `Tamanho: ${produto.especificacoes.tamanho} • Material: ${produto.especificacoes.material} • ${produto.especificacoes.tipo}` :
+                  produto.tipo === 'monitor' ?
+                    `Tamanho: ${produto.especificacoes.tamanho} • Resolução: ${produto.especificacoes.resolucao} • ${produto.especificacoes.taxaAtualizacao}` :
+                  produto.tipo === 'webcam' ?
+                    `Resolução: ${produto.especificacoes.resolucao} • FPS: ${produto.especificacoes.fps} • ${produto.especificacoes.microfone}` :
+                    ''}
+                </p>
+                <div class="product-price">R$ ${produto.preco.toFixed(2)}</div>
+                <div class="product-buttons">
+                  <button class="btn-compare" onclick="window.location.href='compare.html'">Comparar</button>
+                  <a href="${produto.urlProduto}" class="btn-shop" target="_blank">Ver na loja</a>
+                </div>
+              </div>
             </div>
-          </div>
-        `;
-        productsGrid.appendChild(card);
-      });
-    });
+          `;
+          productsGrid.appendChild(slide);
+        });
+
+        // Iniciar autoplay
+        setInterval(() => moveCarousel(1), 5000);
+
+      } catch (error) {
+        console.error('Erro ao carregar produtos:', error);
+      }
+    }
+
+    // Carregar produtos quando a página carregar
+    document.addEventListener('DOMContentLoaded', loadCarouselProducts);
   </script>
 </body>
 </html>
