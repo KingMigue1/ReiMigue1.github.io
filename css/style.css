@@ -727,10 +727,10 @@ h2, h4 {
 
 /* Carrossel de Produtos */
 .carousel-container {
-    position: relative;
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 2rem;
+    position: relative;
+    padding: 0 1rem;
 }
 
 .carousel {
@@ -744,7 +744,7 @@ h2, h4 {
 }
 
 .carousel-slide {
-    flex: 0 0 calc(100% / 3);
+    flex: 0 0 calc(100% / 2);
     padding: 0 1rem;
     box-sizing: border-box;
 }
@@ -753,23 +753,23 @@ h2, h4 {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background: var(--bg-card);
+    background: var(--accent-primary);
+    color: white;
     border: none;
     width: 40px;
     height: 40px;
     border-radius: 50%;
+    cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    cursor: pointer;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    z-index: 10;
+    z-index: 2;
     transition: all 0.3s ease;
 }
 
 .carousel-button:hover {
-    background: var(--accent-primary);
-    color: white;
+    background: var(--accent-hover);
+    transform: translateY(-50%) scale(1.1);
 }
 
 .carousel-button.prev {
@@ -802,20 +802,10 @@ h2, h4 {
     transform: scale(1.2);
 }
 
-/* Responsividade do Carrossel */
-@media (max-width: 1024px) {
-    .carousel-slide {
-        flex: 0 0 calc(100% / 2);
-    }
-}
-
+/* Responsividade do carrossel */
 @media (max-width: 768px) {
     .carousel-slide {
         flex: 0 0 100%;
-    }
-    
-    .carousel-container {
-        padding: 0 3rem;
     }
 }
 

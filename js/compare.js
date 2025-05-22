@@ -1,4 +1,5 @@
 // Variáveis globais
+let produtos = [];
 let produto1 = null;
 let produto2 = null;
 
@@ -88,49 +89,55 @@ function encontrarPiorValor(produtos, especificacao) {
 // Funções de Interface
 async function carregarProdutos() {
     try {
-        const produtos = await obterTodosProdutos();
+        produtos = await obterTodosProdutos();
+        
+        // Ordenar produtos por nome
+        produtos.sort((a, b) => a.nome.localeCompare(b.nome));
+        
         const select1 = document.getElementById('product1');
         const select2 = document.getElementById('product2');
-
+        
         // Limpar selects
         select1.innerHTML = '<option value="">Selecione o primeiro produto</option>';
         select2.innerHTML = '<option value="">Selecione o segundo produto</option>';
-
-        // Adicionar produtos
+        
+        // Adicionar produtos aos selects
         produtos.forEach(produto => {
             const option1 = document.createElement('option');
-            option1.value = produto.id;
-            option1.textContent = `${produto.nome} (${produto.marca})`;
-            select1.appendChild(option1);
-
             const option2 = document.createElement('option');
+            
+            option1.value = produto.id;
+            option1.textContent = produto.nome;
             option2.value = produto.id;
-            option2.textContent = `${produto.nome} (${produto.marca})`;
-            select2.appendChild(option2);
+            option2.textContent = produto.nome;
+            
+            select1.appendChild(option1);
+            select2.appendChild(option2.cloneNode(true));
         });
+        
+        // Adicionar event listeners
+        select1.addEventListener('change', () => selecionarProduto(1, select1.value));
+        select2.addEventListener('change', () => selecionarProduto(2, select2.value));
+        
     } catch (error) {
         console.error('Erro ao carregar produtos:', error);
-        alert('Erro ao carregar produtos');
     }
 }
 
-async function selecionarProduto(numero, id) {
-    try {
-        const produto = await obterProduto(parseInt(id));
-        if (produto) {
-            if (numero === 1) {
-                produto1 = produto;
-                atualizarProduto1();
-            } else {
-                produto2 = produto;
-                atualizarProduto2();
-            }
-            atualizarBotoes();
-            atualizarTabela();
+function selecionarProduto(numero, id) {
+    const produto = produtos.find(p => p.id === parseInt(id));
+    
+    if (produto) {
+        if (numero === 1) {
+            produto1 = produto;
+            document.querySelector('#product1').parentElement.classList.add('selected');
+        } else {
+            produto2 = produto;
+            document.querySelector('#product2').parentElement.classList.add('selected');
         }
-    } catch (error) {
-        console.error('Erro ao selecionar produto:', error);
-        alert('Erro ao selecionar produto');
+        
+        atualizarBotoesRemover();
+        atualizarComparacao();
     }
 }
 
@@ -178,74 +185,126 @@ function atualizarEspecificacoes2() {
     }
 }
 
-function atualizarBotoes() {
-    const btnRemove1 = document.querySelector('.select-container:first-child .btn-remove');
-    const btnRemove2 = document.querySelector('.select-container:last-child .btn-remove');
-
-    btnRemove1.disabled = !produto1;
-    btnRemove2.disabled = !produto2;
+function atualizarBotoesRemover() {
+    const btn1 = document.querySelector('#product1').nextElementSibling.querySelector('.btn-remove');
+    const btn2 = document.querySelector('#product2').nextElementSibling.querySelector('.btn-remove');
+    
+    btn1.disabled = !produto1;
+    btn2.disabled = !produto2;
 }
 
-function atualizarTabela() {
+function atualizarComparacao() {
+    const container = document.querySelector('.compare-table-container');
     const noProducts = document.getElementById('noProducts');
-    const compareTable = document.querySelector('.compare-table-container');
+    const header1 = document.getElementById('header1');
+    const header2 = document.getElementById('header2');
+    const tbody = document.getElementById('comparisonBody');
 
     if (produto1 || produto2) {
+        container.style.display = 'block';
         noProducts.style.display = 'none';
-        compareTable.style.display = 'block';
+
+        // Cabeçalho com imagem e nome
+        header1.innerHTML = produto1 ? `
+            <div style="display: flex; flex-direction: column; align-items: center;">
+                <img src="${produto1.imagem}" alt="${produto1.nome}" style="max-width: 100px; border-radius: 8px; margin-bottom: 0.5rem;">
+                <div style="font-weight: 600;">${produto1.nome}</div>
+            </div>
+        ` : '';
+        header2.innerHTML = produto2 ? `
+            <div style="display: flex; flex-direction: column; align-items: center;">
+                <img src="${produto2.imagem}" alt="${produto2.nome}" style="max-width: 100px; border-radius: 8px; margin-bottom: 0.5rem;">
+                <div style="font-weight: 600;">${produto2.nome}</div>
+            </div>
+        ` : '';
+
+        // Determinar tipo base para specs
+        let tipoBase = produto1 ? produto1.tipo : (produto2 ? produto2.tipo : null);
+        let specs = [
+            { label: '<i class="fas fa-dollar-sign"></i> Preço', key: 'preco', format: v => v !== undefined ? formatarPreco(v) : '-' },
+        ];
+        switch (tipoBase) {
+            case 'mouse':
+                specs.push(
+                    { label: 'Sensor', key: 'sensor' },
+                    { label: 'Peso', key: 'peso', format: v => v !== undefined ? v + 'g' : '-' },
+                    { label: 'Tipo', key: 'tipo' }
+                );
+                break;
+            case 'teclado':
+                specs.push(
+                    { label: 'Switch', key: 'switch' },
+                    { label: 'Iluminação', key: 'iluminacao' },
+                    { label: 'Tipo', key: 'tipo' }
+                );
+                break;
+            case 'headset':
+                specs.push(
+                    { label: 'Driver', key: 'driver' },
+                    { label: 'Microfone', key: 'microfone' },
+                    { label: 'Tipo', key: 'tipo' }
+                );
+                break;
+            case 'mousepad':
+                specs.push(
+                    { label: 'Tamanho', key: 'tamanho' },
+                    { label: 'Material', key: 'material' },
+                    { label: 'Tipo', key: 'tipo' }
+                );
+                break;
+            case 'monitor':
+                specs.push(
+                    { label: 'Tamanho', key: 'tamanho' },
+                    { label: 'Resolução', key: 'resolucao' },
+                    { label: 'Taxa de Atualização', key: 'taxaAtualizacao' }
+                );
+                break;
+            case 'webcam':
+                specs.push(
+                    { label: 'Resolução', key: 'resolucao' },
+                    { label: 'FPS', key: 'fps' },
+                    { label: 'Microfone', key: 'microfone' }
+                );
+                break;
+        }
+        specs.push({ label: '<i class="fas fa-link"></i> Link do Produto', key: 'urlProduto', format: v => v ? `<a href="${v}" target="_blank" class="btn-shop">Ver na loja</a>` : '-' });
+
+        tbody.innerHTML = '';
+        specs.forEach(spec => {
+            const tr = document.createElement('tr');
+            const v1 = produto1 ? (spec.format ? spec.format(produto1[spec.key] ?? produto1.especificacoes?.[spec.key]) : (produto1[spec.key] ?? produto1.especificacoes?.[spec.key] ?? '-')) : '-';
+            const v2 = produto2 ? (spec.format ? spec.format(produto2[spec.key] ?? produto2.especificacoes?.[spec.key]) : (produto2[spec.key] ?? produto2.especificacoes?.[spec.key] ?? '-')) : '-';
+            tr.innerHTML = `
+                <td class="spec-name">${spec.label}</td>
+                <td>${v1}</td>
+                <td>${v2}</td>
+            `;
+            tbody.appendChild(tr);
+        });
     } else {
-        noProducts.style.display = 'flex';
-        compareTable.style.display = 'none';
+        container.style.display = 'none';
+        noProducts.style.display = 'block';
+        header1.innerHTML = '';
+        header2.innerHTML = '';
+        tbody.innerHTML = '';
     }
 }
 
 function removerProduto(numero) {
+    const select = document.getElementById(`product${numero}`);
+    select.value = '';
+    
     if (numero === 1) {
         produto1 = null;
-        document.getElementById('product1').value = '';
-        document.getElementById('img1').innerHTML = '';
-        document.getElementById('name1').textContent = '';
-        document.getElementById('price1').textContent = '';
-        document.getElementById('specs1').innerHTML = '';
+        document.querySelector('#product1').parentElement.classList.remove('selected');
     } else {
         produto2 = null;
-        document.getElementById('product2').value = '';
-        document.getElementById('img2').innerHTML = '';
-        document.getElementById('name2').textContent = '';
-        document.getElementById('price2').textContent = '';
-        document.getElementById('specs2').innerHTML = '';
+        document.querySelector('#product2').parentElement.classList.remove('selected');
     }
-    atualizarBotoes();
-    atualizarTabela();
+    
+    atualizarBotoesRemover();
+    atualizarComparacao();
 }
 
 // Event Listeners
-document.addEventListener('DOMContentLoaded', async () => {
-    try {
-        // Inicializar banco de dados
-        await initDB();
-        
-        // Carregar produtos
-        await carregarProdutos();
-
-        // Adicionar event listeners
-        document.getElementById('product1').addEventListener('change', (e) => {
-            if (e.target.value) {
-                selecionarProduto(1, e.target.value);
-            } else {
-                removerProduto(1);
-            }
-        });
-
-        document.getElementById('product2').addEventListener('change', (e) => {
-            if (e.target.value) {
-                selecionarProduto(2, e.target.value);
-            } else {
-                removerProduto(2);
-            }
-        });
-    } catch (error) {
-        console.error('Erro ao inicializar:', error);
-        alert('Erro ao inicializar a página');
-    }
-}); 
+document.addEventListener('DOMContentLoaded', carregarProdutos); 

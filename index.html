@@ -147,7 +147,7 @@
   <script src="js/products.js"></script>
   <script>
     let currentSlide = 0;
-    const slidesToShow = 3;
+    const slidesToShow = 2;
     let totalSlides = 0;
 
     // Função para alternar o menu mobile
@@ -262,7 +262,7 @@
       }
     }
 
-    // Carregar produtos para o carrossel
+    // Função para carregar produtos para o carrossel
     async function loadCarouselProducts() {
       try {
         const productsGrid = document.getElementById('featuredProducts');
@@ -276,8 +276,8 @@
         // Ordenar produtos por ID (mais recentes primeiro)
         produtos.sort((a, b) => b.id - a.id);
         
-        // Pegar os 5 produtos mais recentes
-        const produtosRecentes = produtos.slice(0, 5);
+        // Pegar os 6 produtos mais recentes
+        const produtosRecentes = produtos.slice(0, 6);
         totalSlides = Math.ceil(produtosRecentes.length / slidesToShow);
         
         // Criar os dots
