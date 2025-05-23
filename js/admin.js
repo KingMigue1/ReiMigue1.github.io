@@ -3,10 +3,7 @@ let editandoProduto = false;
 
 // Funções de Interface
 function mostrarFormulario() {
-    document.getElementById('productForm').style.display = 'block';
-    document.getElementById('formProduto').reset();
-    document.getElementById('produtoId').value = '';
-    editandoProduto = false;
+    alert('Para adicionar produtos, por favor, edite diretamente na planilha do Google Sheets.');
 }
 
 function esconderFormulario() {
@@ -163,12 +160,6 @@ async function atualizarTabela() {
                 <td>${produto.tipo}</td>
                 <td>R$ ${produto.preco.toFixed(2)}</td>
                 <td>
-                    <button class="btn-edit" onclick="editarProduto('${produto.id}')">
-                        <i class="fas fa-edit"></i>
-                    </button>
-                    <button class="btn-delete" onclick="excluirProduto('${produto.id}')">
-                        <i class="fas fa-trash"></i>
-                    </button>
                     <a href="${produto.urlProduto}" target="_blank" class="btn-link">
                         <i class="fas fa-external-link-alt"></i>
                     </a>
@@ -177,17 +168,16 @@ async function atualizarTabela() {
         `).join('');
     } catch (error) {
         console.error('Erro ao atualizar tabela:', error);
-        alert('Erro ao carregar produtos');
+        alert('Erro ao carregar produtos: ' + error.message);
     }
 }
 
 // Event Listeners
 document.addEventListener('DOMContentLoaded', async () => {
     try {
-        document.getElementById('tipo').addEventListener('change', atualizarEspecificacoes);
         await atualizarTabela();
     } catch (error) {
         console.error('Erro ao inicializar:', error);
-        alert('Erro ao inicializar a página');
+        alert('Erro ao inicializar a página: ' + error.message);
     }
 }); 

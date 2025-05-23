@@ -1,112 +1,54 @@
-// Configuração da API do Google Sheets
-const SPREADSHEET_ID = '2PACX-1vTt8hpQvfNU47L0oigLJjoWXgWFp4gW3WZiuFMBgbr29YwL2BxP5yAzhpwcLxuGaIN_RlJRqbsEl1Dt';
-const API_KEY = ''; // Você precisará preencher com sua chave de API do Google
+// Configuração da Planilha
+const SPREADSHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTt8hpQvfNU47L0oigLJjoWXgWFp4gW3WZiuFMBgbr29YwL2BxP5yAzhpwcLxuGaIN_RlJRqbsEl1Dt/pubhtml';
 
 class GoogleSheetsDB {
     static async listarTodos() {
         try {
-            const response = await fetch(
-                `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/Página1!A2:Z`,
-                {
-                    headers: {
-                        'Authorization': `Bearer ${API_KEY}`
-                    }
-                }
-            );
-            const data = await response.json();
-            return this._converterParaProdutos(data.values || []);
+            const response = await fetch(SPREADSHEET_URL);
+            const html = await response.text();
+            
+            // Criar um elemento temporário para parsear o HTML
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+            
+            // Encontrar a tabela na página
+            const table = doc.querySelector('table');
+            if (!table) {
+                throw new Error('Tabela não encontrada na planilha');
+            }
+
+            // Converter as linhas da tabela em produtos
+            const rows = Array.from(table.querySelectorAll('tr')).slice(1); // Pular o cabeçalho
+            return rows.map((row, index) => {
+                const cells = Array.from(row.querySelectorAll('td'));
+                return {
+                    id: index + 1,
+                    nome: cells[1]?.textContent || '',
+                    tipo: cells[2]?.textContent || '',
+                    preco: parseFloat(cells[3]?.textContent || '0'),
+                    imagem: cells[4]?.textContent || '',
+                    urlProduto: cells[5]?.textContent || '',
+                    especificacoes: JSON.parse(cells[6]?.textContent || '{}')
+                };
+            });
         } catch (error) {
             console.error('Erro ao listar produtos:', error);
-            throw error;
+            throw new Error('Erro ao carregar produtos da planilha');
         }
     }
 
     static async adicionar(produto) {
-        try {
-            const valores = this._converterParaValores(produto);
-            const response = await fetch(
-                `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/Página1!A:Z:append?valueInputOption=USER_ENTERED`,
-                {
-                    method: 'POST',
-                    headers: {
-                        'Authorization': `Bearer ${API_KEY}`,
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        values: [valores]
-                    })
-                }
-            );
-            return await response.json();
-        } catch (error) {
-            console.error('Erro ao adicionar produto:', error);
-            throw error;
-        }
+        alert('Para adicionar produtos, por favor, edite diretamente na planilha do Google Sheets.');
+        throw new Error('Adição de produtos não suportada via URL pública');
     }
 
     static async atualizar(produto) {
-        try {
-            const valores = this._converterParaValores(produto);
-            const response = await fetch(
-                `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/Página1!A${produto.id + 1}:Z${produto.id + 1}?valueInputOption=USER_ENTERED`,
-                {
-                    method: 'PUT',
-                    headers: {
-                        'Authorization': `Bearer ${API_KEY}`,
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        values: [valores]
-                    })
-                }
-            );
-            return await response.json();
-        } catch (error) {
-            console.error('Erro ao atualizar produto:', error);
-            throw error;
-        }
+        alert('Para atualizar produtos, por favor, edite diretamente na planilha do Google Sheets.');
+        throw new Error('Atualização de produtos não suportada via URL pública');
     }
 
     static async excluir(id) {
-        try {
-            const response = await fetch(
-                `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/Página1!A${id + 1}:Z${id + 1}:clear`,
-                {
-                    method: 'POST',
-                    headers: {
-                        'Authorization': `Bearer ${API_KEY}`
-                    }
-                }
-            );
-            return await response.json();
-        } catch (error) {
-            console.error('Erro ao excluir produto:', error);
-            throw error;
-        }
-    }
-
-    // Métodos auxiliares
-    static _converterParaProdutos(valores) {
-        return valores.map((linha, index) => ({
-            id: index + 1,
-            nome: linha[1],
-            tipo: linha[2],
-            preco: parseFloat(linha[3]),
-            imagem: linha[4],
-            urlProduto: linha[5],
-            especificacoes: JSON.parse(linha[6] || '{}')
-        }));
-    }
-
-    static _converterParaValores(produto) {
-        return [
-            produto.id.toString(),
-            produto.nome,
-            produto.tipo,
-            produto.preco.toString(),
-            produto.imagem,
-            produto.urlProduto,
-            JSON.stringify(produto.especificacoes)
-        ];
+        alert('Para excluir produtos, por favor, edite diretamente na planilha do Google Sheets.');
+        throw new Error('Exclusão de produtos não suportada via URL pública');
     }
 } 
