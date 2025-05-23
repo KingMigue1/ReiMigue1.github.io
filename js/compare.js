@@ -86,6 +86,16 @@ function encontrarPiorValor(produtos, especificacao) {
     });
 }
 
+// Função para obter todos os produtos da planilha Google Sheets
+async function obterTodosProdutos() {
+    try {
+        return await GoogleSheetsDB.listarTodos();
+    } catch (error) {
+        console.error('Erro ao obter produtos:', error);
+        return [];
+    }
+}
+
 // Funções de Interface
 async function carregarProdutos() {
     try {

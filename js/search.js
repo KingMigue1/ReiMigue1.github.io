@@ -1,6 +1,6 @@
 // Função para buscar produtos
 async function buscarProdutos(event) {
-    event.preventDefault();
+    if (event) event.preventDefault();
     const searchTerm = document.getElementById('searchInput').value.toLowerCase();
     const tipoFiltros = Array.from(document.querySelectorAll('input[name="tipo"]:checked')).map(cb => cb.value);
     const precoMax = parseFloat(document.getElementById('maxPrice').value);
@@ -61,6 +61,16 @@ async function buscarProdutos(event) {
         `;
         productsGrid.appendChild(card);
     });
+}
+
+// Função para obter todos os produtos da planilha Google Sheets
+async function obterTodosProdutos() {
+    try {
+        return await GoogleSheetsDB.listarTodos();
+    } catch (error) {
+        console.error('Erro ao obter produtos:', error);
+        return [];
+    }
 }
 
 // Função para limpar filtros

@@ -1,3 +1,13 @@
+// Função para obter todos os produtos da planilha Google Sheets
+async function obterTodosProdutos() {
+    try {
+        return await GoogleSheetsDB.listarTodos();
+    } catch (error) {
+        console.error('Erro ao obter produtos:', error);
+        return [];
+    }
+}
+
 // Base de dados de produtos organizada por tipo
 const produtosPorTipo = {
     mouse: [],
@@ -7,16 +17,6 @@ const produtosPorTipo = {
     monitor: [],
     webcam: []
 };
-
-// Função para obter todos os produtos
-async function obterTodosProdutos() {
-    try {
-        return await ProdutoDB.listarTodos();
-    } catch (error) {
-        console.error('Erro ao obter produtos:', error);
-        return [];
-    }
-}
 
 // Função para obter produtos por tipo
 async function obterProdutosPorTipo(tipo) {

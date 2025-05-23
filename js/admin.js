@@ -172,6 +172,15 @@ async function atualizarTabela() {
     }
 }
 
+async function obterTodosProdutos() {
+    try {
+        return await GoogleSheetsDB.listarTodos();
+    } catch (error) {
+        console.error('Erro ao obter produtos:', error);
+        return [];
+    }
+}
+
 // Event Listeners
 document.addEventListener('DOMContentLoaded', async () => {
     try {
