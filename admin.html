@@ -3,331 +3,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Administração - Gamer Gear Store</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>Admin - Site de Periféricos</title>
     <link rel="stylesheet" href="css/admin.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
-    <!-- Barra de Navegação -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <a href="index.html" class="nav-logo">Gamer Gear Store</a>
-            <div class="nav-links">
-                <a href="index.html" class="nav-link">Home</a>
-                <a href="search.html" class="nav-link">Buscar Produtos</a>
-                <a href="compare.html" class="nav-link">Comparar</a>
-                <a href="about.html" class="nav-link">Sobre</a>
-                <a href="admin.html" class="nav-link active">
-                    <i class="fas fa-cog"></i>
-                    Admin
-                </a>
-                <button class="theme-toggle" onclick="toggleTheme()">
-                    <i class="fas fa-moon"></i>
-                </button>
-            </div>
-        </div>
-    </nav>
+    <div class="container">
+        <h1>Gerenciamento de Produtos</h1>
+        
+        <button onclick="mostrarFormulario()" class="btn-add">
+            <i class="fas fa-plus"></i> Novo Produto
+        </button>
 
-    <!-- Conteúdo Principal -->
-    <main class="admin-container">
-        <div class="container">
-            <div class="admin-header">
-                <h1>Gerenciar Produtos</h1>
-                <button class="btn-primary" onclick="mostrarFormulario()">
-                    <i class="fas fa-plus"></i>
-                    Adicionar Produto
-                </button>
+        <form id="productForm" style="display: none;">
+            <input type="hidden" id="produtoId">
+            
+            <div class="form-group">
+                <label for="nome">Nome do Produto</label>
+                <input type="text" id="nome" name="nome" required>
             </div>
 
-            <!-- Formulário de Produto -->
-            <div id="productForm" class="product-form" style="display: none;">
-                <h2>Adicionar/Editar Produto</h2>
-                <form id="formProduto" onsubmit="salvarProduto(event)">
-                    <input type="hidden" id="produtoId">
-                    
-                    <div class="form-group">
-                        <label for="nome">Nome do Produto</label>
-                        <input type="text" id="nome" name="nome" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="tipo">Tipo de Produto</label>
-                        <select id="tipo" name="tipo" required>
-                            <option value="">Selecione o tipo</option>
-                            <option value="mouse">Mouse</option>
-                            <option value="teclado">Teclado</option>
-                            <option value="headset">Headset</option>
-                            <option value="mousepad">Mousepad</option>
-                            <option value="monitor">Monitor</option>
-                            <option value="webcam">Webcam</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="marca">Marca</label>
-                        <input type="text" id="marca" name="marca" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="preco">Preço</label>
-                        <input type="number" id="preco" name="preco" step="0.01" min="0" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="imagem">URL da Imagem</label>
-                        <input type="url" id="imagem" name="imagem" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="urlProduto">URL do Produto</label>
-                        <input type="url" id="urlProduto" name="urlProduto" required>
-                    </div>
-
-                    <div id="especificacoesContainer">
-                        <!-- As especificações serão adicionadas dinamicamente baseado no tipo -->
-                    </div>
-
-                    <div class="form-actions">
-                        <button type="submit" class="btn-primary">Salvar</button>
-                        <button type="button" class="btn-secondary" onclick="cancelarEdicao()">Cancelar</button>
-                    </div>
-                </form>
+            <div class="form-group">
+                <label for="tipo">Tipo</label>
+                <select id="tipo" name="tipo" required>
+                    <option value="">Selecione...</option>
+                    <option value="mouse">Mouse</option>
+                    <option value="teclado">Teclado</option>
+                    <option value="headset">Headset</option>
+                    <option value="mousepad">Mousepad</option>
+                    <option value="monitor">Monitor</option>
+                    <option value="webcam">Webcam</option>
+                </select>
             </div>
 
-            <!-- Lista de Produtos -->
-            <div class="products-list">
-                <h2>Produtos Cadastrados</h2>
-                <div class="products-table-container">
-                    <table class="products-table">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Imagem</th>
-                                <th>Nome</th>
-                                <th>Tipo</th>
-                                <th>Marca</th>
-                                <th>Preço</th>
-                                <th>Ações</th>
-                            </tr>
-                        </thead>
-                        <tbody id="productsTableBody">
-                            <!-- Os produtos serão inseridos aqui via JavaScript -->
-                        </tbody>
-                    </table>
-                </div>
+            <div class="form-group">
+                <label for="preco">Preço</label>
+                <input type="number" id="preco" name="preco" step="0.01" required>
             </div>
-        </div>
-    </main>
 
-    <!-- Modal de Edição -->
-    <div id="modalEdicao" class="modal">
-        <div class="modal-content">
-            <h2>Editar Produto</h2>
-            <form id="formEdicao">
-                <input type="hidden" id="editId">
-                
-                <div class="form-group">
-                    <label for="editNome">Nome:</label>
-                    <input type="text" id="editNome" required>
-                </div>
+            <div class="form-group">
+                <label for="imagem">URL da Imagem</label>
+                <input type="url" id="imagem" name="imagem" required>
+            </div>
 
-                <div class="form-group">
-                    <label for="editTipo">Tipo:</label>
-                    <select id="editTipo" required onchange="mostrarCamposEspecificos()">
-                        <option value="mouse">Mouse</option>
-                        <option value="teclado">Teclado</option>
-                        <option value="headset">Headset</option>
-                        <option value="mousepad">Mousepad</option>
-                        <option value="monitor">Monitor</option>
-                        <option value="webcam">Webcam</option>
-                    </select>
-                </div>
+            <div class="form-group">
+                <label for="urlProduto">URL do Produto</label>
+                <input type="url" id="urlProduto" name="urlProduto" required>
+            </div>
 
-                <div class="form-group">
-                    <label for="editMarca">Marca:</label>
-                    <input type="text" id="editMarca" required>
-                </div>
+            <div id="especificacoesContainer">
+                <!-- Campos específicos serão adicionados aqui dinamicamente -->
+            </div>
 
-                <div class="form-group">
-                    <label for="editPreco">Preço:</label>
-                    <input type="number" id="editPreco" step="0.01" required>
-                </div>
+            <div class="form-buttons">
+                <button type="submit" class="btn-save">Salvar</button>
+                <button type="button" onclick="cancelarEdicao()" class="btn-cancel">Cancelar</button>
+            </div>
+        </form>
 
-                <div class="form-group">
-                    <label for="editImagem">URL da Imagem:</label>
-                    <input type="url" id="editImagem" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="editUrlProduto">URL do Produto:</label>
-                    <input type="url" id="editUrlProduto" required>
-                </div>
-
-                <!-- Campos específicos para Mouse -->
-                <div id="camposMouse" class="campos-especificos">
-                    <div class="form-group">
-                        <label for="editSensor">Sensor:</label>
-                        <input type="text" id="editSensor" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="editPeso">Peso (g):</label>
-                        <input type="number" id="editPeso" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="editTipoMouse">Tipo:</label>
-                        <select id="editTipoMouse" required>
-                            <option value="Gaming">Gaming</option>
-                            <option value="Office">Office</option>
-                            <option value="Ergonômico">Ergonômico</option>
-                        </select>
-                    </div>
-                </div>
-
-                <!-- Campos específicos para Teclado -->
-                <div id="camposTeclado" class="campos-especificos">
-                    <div class="form-group">
-                        <label for="editSwitch">Switch:</label>
-                        <input type="text" id="editSwitch" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="editIluminacao">Iluminação:</label>
-                        <select id="editIluminacao" required>
-                            <option value="RGB">RGB</option>
-                            <option value="Single Color">Single Color</option>
-                            <option value="Sem Iluminação">Sem Iluminação</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="editTipoTeclado">Tipo:</label>
-                        <select id="editTipoTeclado" required>
-                            <option value="Mecânico">Mecânico</option>
-                            <option value="Membrana">Membrana</option>
-                            <option value="Híbrido">Híbrido</option>
-                        </select>
-                    </div>
-                </div>
-
-                <!-- Campos específicos para Headset -->
-                <div id="camposHeadset" class="campos-especificos">
-                    <div class="form-group">
-                        <label for="editDriver">Driver:</label>
-                        <input type="text" id="editDriver" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="editMicrofone">Microfone:</label>
-                        <select id="editMicrofone" required>
-                            <option value="Com Microfone">Com Microfone</option>
-                            <option value="Sem Microfone">Sem Microfone</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="editTipoHeadset">Tipo:</label>
-                        <select id="editTipoHeadset" required>
-                            <option value="Gaming">Gaming</option>
-                            <option value="Studio">Studio</option>
-                            <option value="Streaming">Streaming</option>
-                        </select>
-                    </div>
-                </div>
-
-                <!-- Campos específicos para Mousepad -->
-                <div id="camposMousepad" class="campos-especificos">
-                    <div class="form-group">
-                        <label for="editTamanhoMousepad">Tamanho:</label>
-                        <select id="editTamanhoMousepad" required>
-                            <option value="Small">Small</option>
-                            <option value="Medium">Medium</option>
-                            <option value="Large">Large</option>
-                            <option value="XXL">XXL</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="editMaterial">Material:</label>
-                        <select id="editMaterial" required>
-                            <option value="Tecido">Tecido</option>
-                            <option value="Borracha">Borracha</option>
-                            <option value="Plástico">Plástico</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="editTipoMousepad">Tipo:</label>
-                        <select id="editTipoMousepad" required>
-                            <option value="Speed">Speed</option>
-                            <option value="Control">Control</option>
-                            <option value="Híbrido">Híbrido</option>
-                        </select>
-                    </div>
-                </div>
-
-                <!-- Campos específicos para Monitor -->
-                <div id="camposMonitor" class="campos-especificos">
-                    <div class="form-group">
-                        <label for="editTamanhoMonitor">Tamanho:</label>
-                        <select id="editTamanhoMonitor" required>
-                            <option value="24">24"</option>
-                            <option value="27">27"</option>
-                            <option value="32">32"</option>
-                            <option value="34">34"</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="editResolucao">Resolução:</label>
-                        <select id="editResolucao" required>
-                            <option value="1920x1080">1920x1080</option>
-                            <option value="2560x1440">2560x1440</option>
-                            <option value="3440x1440">3440x1440</option>
-                            <option value="3840x2160">3840x2160</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="editTaxaAtualizacao">Taxa de Atualização:</label>
-                        <select id="editTaxaAtualizacao" required>
-                            <option value="60Hz">60Hz</option>
-                            <option value="144Hz">144Hz</option>
-                            <option value="165Hz">165Hz</option>
-                            <option value="240Hz">240Hz</option>
-                        </select>
-                    </div>
-                </div>
-
-                <!-- Campos específicos para Webcam -->
-                <div id="camposWebcam" class="campos-especificos">
-                    <div class="form-group">
-                        <label for="editResolucaoWebcam">Resolução:</label>
-                        <select id="editResolucaoWebcam" required>
-                            <option value="720p">720p</option>
-                            <option value="1080p">1080p</option>
-                            <option value="4K">4K</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="editFps">FPS:</label>
-                        <select id="editFps" required>
-                            <option value="30">30 FPS</option>
-                            <option value="60">60 FPS</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="editMicrofoneWebcam">Microfone:</label>
-                        <select id="editMicrofoneWebcam" required>
-                            <option value="Com Microfone">Com Microfone</option>
-                            <option value="Sem Microfone">Sem Microfone</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="modal-buttons">
-                    <button type="button" onclick="salvarAlteracoes()">Salvar</button>
-                    <button type="button" onclick="fecharModalEdicao()">Cancelar</button>
-                </div>
-            </form>
-        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Imagem</th>
+                    <th>Nome</th>
+                    <th>Tipo</th>
+                    <th>Preço</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody id="productsTableBody">
+                <!-- Produtos serão listados aqui -->
+            </tbody>
+        </table>
     </div>
 
-    <script src="js/theme.js"></script>
-    <script src="js/database.js"></script>
+    <script src="js/googleSheetsDB.js"></script>
     <script src="js/admin.js"></script>
 </body>
 </html> 
