@@ -18,10 +18,11 @@ const produtosPorTipo = {
     webcam: []
 };
 
-// Função para obter produtos por tipo
+// Função para obter produtos por tipo (usada nas categorias da home)
 async function obterProdutosPorTipo(tipo) {
     try {
-        return await ProdutoDB.buscarPorTipo(tipo);
+        const produtos = await obterTodosProdutos();
+        return produtos.filter(produto => produto.tipo === tipo);
     } catch (error) {
         console.error(`Erro ao obter produtos do tipo ${tipo}:`, error);
         return [];
