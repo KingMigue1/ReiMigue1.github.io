@@ -184,10 +184,37 @@
             const produto = produtos.find(p => p.id === parseInt(id));
             
             if (produto) {
+                // Se for o primeiro produto selecionado
                 if (numero === 1) {
                     produto1 = produto;
                     document.querySelector('#product1').parentElement.classList.add('selected');
+                    
+                    // Atualizar o segundo select para mostrar apenas produtos do mesmo tipo
+                    const select2 = document.getElementById('product2');
+                    select2.innerHTML = '<option value="">Selecione o segundo produto</option>';
+                    
+                    produtos
+                        .filter(p => p.tipo === produto.tipo && p.id !== produto.id)
+                        .forEach(p => {
+                            const option = document.createElement('option');
+                            option.value = p.id;
+                            option.textContent = p.nome;
+                            select2.appendChild(option);
+                        });
+                    
+                    // Limpar a seleção do segundo produto se existir
+                    if (produto2) {
+                        produto2 = null;
+                        document.querySelector('#product2').parentElement.classList.remove('selected');
+                    }
                 } else {
+                    // Verificar se o tipo do segundo produto é igual ao do primeiro
+                    if (produto1 && produto.tipo !== produto1.tipo) {
+                        alert('Por favor, selecione um produto do mesmo tipo para comparação.');
+                        document.getElementById('product2').value = '';
+                        return;
+                    }
+                    
                     produto2 = produto;
                     document.querySelector('#product2').parentElement.classList.add('selected');
                 }
@@ -210,6 +237,16 @@
                 produto1 = null;
                 document.getElementById('product1').value = '';
                 document.querySelector('#product1').parentElement.classList.remove('selected');
+                
+                // Resetar o segundo select para mostrar todos os produtos
+                const select2 = document.getElementById('product2');
+                select2.innerHTML = '<option value="">Selecione o segundo produto</option>';
+                produtos.forEach(p => {
+                    const option = document.createElement('option');
+                    option.value = p.id;
+                    option.textContent = p.nome;
+                    select2.appendChild(option);
+                });
             } else {
                 produto2 = null;
                 document.getElementById('product2').value = '';
