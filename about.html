@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sobre - OPTO Review</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/about.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Barra de Navegação -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">OPTO Review</a>
+            <button class="menu-toggle" onclick="toggleMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="search.html" class="nav-link">Buscar Produtos</a>
+                <a href="compare.html" class="nav-link">Comparar</a>
+                <a href="about.html" class="nav-link active">Sobre</a>
+                <a href="admin.html" class="nav-link">
+                    <i class="fas fa-cog"></i>
+                    Admin
+                </a>
+                <button class="theme-toggle" onclick="toggleTheme()">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+    <div class="nav-overlay" onclick="toggleMenu()"></div>
+
+    <!-- Conteúdo Principal -->
+    <main class="about-container">
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="hero-content">
+                <h1>Sobre o OPTO Review</h1>
+                <p class="hero-subtitle">Sua fonte confiável para escolher os melhores periféricos gamers</p>
+            </div>
+        </section>
+
+        <!-- Propósito -->
+        <section class="about-section">
+            <div class="section-content">
+                <div class="section-icon">
+                    <i class="fas fa-bullseye"></i>
+                </div>
+                <h2>Nosso Propósito</h2>
+                <p>Ajudar usuários a escolher periféricos gamers com base em especificações técnicas reais, com uma interface amigável e imparcial.</p>
+            </div>
+        </section>
+
+        <!-- Quem Somos -->
+        <section class="about-section">
+            <div class="section-content">
+                <div class="section-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <h2>Quem Somos</h2>
+                <p>Desenvolvido por estudantes e entusiastas de tecnologia e eSports, apaixonados por hardware e gaming.</p>
+            </div>
+        </section>
+
+        <!-- Compromissos -->
+        <section class="about-section">
+            <div class="section-content">
+                <div class="section-icon">
+                    <i class="fas fa-handshake"></i>
+                </div>
+                <h2>Nossos Compromissos</h2>
+                <div class="commitments-grid">
+                    <div class="commitment-card">
+                        <i class="fas fa-check-circle"></i>
+                        <h3>Fontes Confiáveis</h3>
+                        <p>Utilizamos dados diretos dos fabricantes e análises técnicas verificadas.</p>
+                    </div>
+                    <div class="commitment-card">
+                        <i class="fas fa-balance-scale"></i>
+                        <h3>Imparcialidade</h3>
+                        <p>Recomendações baseadas apenas em especificações e desempenho real.</p>
+                    </div>
+                    <div class="commitment-card">
+                        <i class="fas fa-chart-line"></i>
+                        <h3>Comparações Detalhadas</h3>
+                        <p>Análise profunda das especificações técnicas de cada produto.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Rodapé -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Redes Sociais</h3>
+                <div class="social-links">
+                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-discord"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Contato</h3>
+                <p><i class="fas fa-envelope"></i> contato@optoreview.com</p>
+                <p><i class="fas fa-phone"></i> (11) 99999-9999</p>
+            </div>
+            <div class="footer-section">
+                <h3>Links Úteis</h3>
+                <a href="#">Termos de Uso</a>
+                <a href="#">Política de Privacidade</a>
+                <a href="#">FAQ</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 OPTO Review. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+    <script src="js/about.js"></script>
+    <script src="js/theme.js"></script>
+    <script>
+        // Função para alternar o menu mobile
+        function toggleMenu() {
+            const navLinks = document.querySelector('.nav-links');
+            const overlay = document.querySelector('.nav-overlay');
+            const menuToggle = document.querySelector('.menu-toggle i');
+            
+            navLinks.classList.toggle('active');
+            overlay.classList.toggle('active');
+            
+            // Alterna o ícone do menu
+            if (menuToggle.classList.contains('fa-bars')) {
+                menuToggle.classList.remove('fa-bars');
+                menuToggle.classList.add('fa-times');
+            } else {
+                menuToggle.classList.remove('fa-times');
+                menuToggle.classList.add('fa-bars');
+            }
+        }
+    </script>
+</body>
+</html> 

@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Administrativo - OPTO Review</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/admin.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Barra de Navegação -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">OPTO Review</a>
+            <button class="menu-toggle" onclick="toggleMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="search.html" class="nav-link">Buscar Produtos</a>
+                <a href="compare.html" class="nav-link">Comparar</a>
+                <a href="about.html" class="nav-link">Sobre</a>
+                <a href="admin.html" class="nav-link active">
+                    <i class="fas fa-cog"></i>
+                    Admin
+                </a>
+                <button class="theme-toggle" onclick="toggleTheme()">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+    <div class="nav-overlay" onclick="toggleMenu()"></div>
+
+    <div class="admin-container">
+        <header class="admin-header">
+            <h1>Painel Administrativo</h1>
+            <button onclick="mostrarFormulario()" class="btn-add">
+                <i class="fas fa-plus"></i> Novo Produto
+            </button>
+        </header>
+
+        <div class="filtros-container">
+            <input type="text" id="filtroProdutos" placeholder="Buscar produtos...">
+            <select id="filtroTipo">
+                <option value="">Todos os tipos</option>
+                <option value="mouse">Mouse</option>
+                <option value="teclado">Teclado</option>
+                <option value="headset">Headset</option>
+                <option value="mousepad">Mousepad</option>
+                <option value="monitor">Monitor</option>
+                <option value="webcam">Webcam</option>
+            </select>
+        </div>
+
+        <div class="table-container">
+            <div class="table-wrapper">
+                <table class="products-table">
+                    <thead>
+                        <tr>
+                            <th class="column-id">ID</th>
+                            <th class="column-image">Imagem</th>
+                            <th class="column-name">Nome</th>
+                            <th class="column-type">Tipo</th>
+                            <th class="column-price">Preço</th>
+                            <th class="column-description">Descrição</th>
+                            <th class="column-specs">Especificações</th>
+                            <th class="column-url">URL</th>
+                            <th class="column-featured">Destaque</th>
+                            <th class="column-actions">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="productsTableBody">
+                        <!-- Produtos serão inseridos aqui via JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <form id="productForm" class="product-form" style="display: none;">
+            <h2 id="form-title">Novo Produto</h2>
+            <input type="hidden" id="produtoId">
+            
+            <div class="form-group">
+                <label for="nome">Nome do Produto</label>
+                <input type="text" id="nome" name="nome" required>
+            </div>
+
+            <div class="form-group">
+                <label for="tipo">Tipo</label>
+                <select id="tipo" name="tipo" required onchange="atualizarEspecificacoes()">
+                    <option value="">Selecione um tipo</option>
+                    <option value="mouse">Mouse</option>
+                    <option value="teclado">Teclado</option>
+                    <option value="headset">Headset</option>
+                    <option value="mousepad">Mousepad</option>
+                    <option value="monitor">Monitor</option>
+                    <option value="webcam">Webcam</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="preco">Preço (R$)</label>
+                <input type="number" id="preco" name="preco" step="0.01" required>
+            </div>
+
+            <div class="form-group">
+                <label for="imagem">URL da Imagem</label>
+                <input type="url" id="imagem" name="imagem" required>
+            </div>
+
+            <div class="form-group">
+                <label for="descricao">Descrição</label>
+                <textarea id="descricao" name="descricao" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="urlProduto">URL do Produto</label>
+                <input type="url" id="urlProduto" name="urlProduto" required>
+            </div>
+
+            <div class="form-group">
+                <label>
+                    <input type="checkbox" id="destaque" name="destaque">
+                    Produto em Destaque
+                </label>
+            </div>
+
+            <div id="especificacoesContainer">
+                <!-- Campos específicos serão inseridos aqui via JavaScript -->
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" id="submit-btn" class="btn-submit">
+                    <i class="fas fa-save"></i> Adicionar
+                </button>
+                <button type="button" id="clear-btn" class="btn-cancel" onclick="limparFormulario()">
+                    <i class="fas fa-times"></i> Cancelar
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <style>
+        .table-container {
+            overflow-x: auto;
+            margin: 20px 0;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .table-wrapper {
+            min-width: 100%;
+        }
+
+        .products-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        .products-table th,
+        .products-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+            border-right: 1px solid #e0e0e0;
+        }
+
+        .products-table th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+            color: #333;
+            position: sticky;
+            top: 0;
+            z-index: 1;
+        }
+
+        .products-table tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        .column-id { width: 60px; }
+        .column-image { width: 100px; }
+        .column-name { width: 200px; }
+        .column-type { width: 100px; }
+        .column-price { width: 100px; }
+        .column-description { width: 200px; }
+        .column-specs { width: 200px; }
+        .column-url { width: 150px; }
+        .column-featured { width: 80px; }
+        .column-actions { width: 100px; }
+
+        .product-thumbnail {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+
+        .btn {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            margin: 0 2px;
+        }
+
+        .btn-edit {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .btn-delete {
+            background-color: #f44336;
+            color: white;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+        }
+
+        .filtros-container {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .filtros-container input,
+        .filtros-container select {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .filtros-container input {
+            flex: 1;
+        }
+
+        .filtros-container select {
+            width: 200px;
+        }
+
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .btn-add {
+            background-color: #2196F3;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-add:hover {
+            background-color: #1976D2;
+        }
+
+        .product-form {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-top: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .form-group textarea {
+            height: 100px;
+            resize: vertical;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .btn-submit,
+        .btn-cancel {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-submit {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .btn-cancel {
+            background-color: #f44336;
+            color: white;
+        }
+
+        .btn-submit:hover,
+        .btn-cancel:hover {
+            opacity: 0.9;
+        }
+    </style>
+
+    <!-- Scripts -->
+    <script src="js/theme.js"></script>
+    <script src="js/googleSheetsDB.js"></script>
+    <script src="js/products.js"></script>
+    <script>
+        // Função para alternar o menu mobile
+        function toggleMenu() {
+            const navLinks = document.querySelector('.nav-links');
+            const overlay = document.querySelector('.nav-overlay');
+            const menuToggle = document.querySelector('.menu-toggle i');
+            
+            navLinks.classList.toggle('active');
+            overlay.classList.toggle('active');
+            
+            // Alterna o ícone do menu
+            if (menuToggle.classList.contains('fa-bars')) {
+                menuToggle.classList.remove('fa-bars');
+                menuToggle.classList.add('fa-times');
+            } else {
+                menuToggle.classList.remove('fa-times');
+                menuToggle.classList.add('fa-bars');
+            }
+        }
+
+        // Variáveis globais
+        let produtos = [];
+        let produtoEditando = null;
+
+        // Funções de Utilidade
+        function formatarPreco(preco) {
+            return new Intl.NumberFormat('pt-BR', {
+                style: 'currency',
+                currency: 'BRL'
+            }).format(preco);
+        }
+
+        function formatarEspecificacoes(especificacoes) {
+            return Object.entries(especificacoes)
+                .filter(([_, value]) => value)
+                .map(([key, value]) => `${key}: ${value}`)
+                .join('\n');
+        }
+
+        // Função para obter todos os produtos
+        async function obterTodosProdutos() {
+            try {
+                return await GoogleSheetsDB.listarTodos();
+            } catch (error) {
+                console.error('Erro ao obter produtos:', error);
+                return [];
+            }
+        }
+
+        // Funções de Interface
+        async function carregarProdutos() {
+            try {
+                produtos = await obterTodosProdutos();
+                atualizarListaProdutos();
+            } catch (error) {
+                console.error('Erro ao carregar produtos:', error);
+            }
+        }
+
+        function atualizarListaProdutos() {
+            const container = document.getElementById('productsTableBody');
+            container.innerHTML = '';
+
+            if (produtos.length === 0) {
+                container.innerHTML = `
+                    <tr>
+                        <td colspan="10">Nenhum produto cadastrado</td>
+                    </tr>
+                `;
+                return;
+            }
+
+            produtos.forEach(produto => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${produto.id}</td>
+                    <td><img src="${produto.imagem}" alt="${produto.nome}" class="product-thumbnail"></td>
+                    <td>${produto.nome}</td>
+                    <td>${produto.tipo}</td>
+                    <td>${formatarPreco(produto.preco)}</td>
+                    <td>${produto.descricao}</td>
+                    <td>${formatarEspecificacoes(produto.especificacoes)}</td>
+                    <td><a href="${produto.urlProduto}" target="_blank">Ver na loja</a></td>
+                    <td>${produto.destaque ? '✓' : '✗'}</td>
+                    <td>
+                        <button class="btn btn-edit" onclick="editarProduto(${produto.id})">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="btn btn-delete" onclick="excluirProduto(${produto.id})">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                `;
+                container.appendChild(row);
+            });
+        }
+
+        function mostrarFormulario() {
+            document.getElementById('productForm').style.display = 'block';
+            limparFormulario();
+        }
+
+        function limparFormulario() {
+            document.getElementById('productForm').reset();
+            produtoEditando = null;
+            document.getElementById('form-title').textContent = 'Novo Produto';
+            document.getElementById('submit-btn').textContent = 'Adicionar';
+            document.getElementById('especificacoesContainer').innerHTML = '';
+        }
+
+        function atualizarEspecificacoes() {
+            const tipo = document.getElementById('tipo').value;
+            const container = document.getElementById('especificacoesContainer');
+            container.innerHTML = '';
+
+            switch (tipo) {
+                case 'mouse':
+                    container.innerHTML = `
+                        <div class="form-group">
+                            <label for="sensor">Sensor</label>
+                            <input type="text" id="sensor" name="sensor" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="peso">Peso (g)</label>
+                            <input type="number" id="peso" name="peso" required>
+                        </div>
+                    `;
+                    break;
+                case 'teclado':
+                    container.innerHTML = `
+                        <div class="form-group">
+                            <label for="switch">Switch</label>
+                            <input type="text" id="switch" name="switch" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="iluminacao">Iluminação</label>
+                            <input type="text" id="iluminacao" name="iluminacao" required>
+                        </div>
+                    `;
+                    break;
+                case 'headset':
+                    container.innerHTML = `
+                        <div class="form-group">
+                            <label for="driver">Driver</label>
+                            <input type="text" id="driver" name="driver" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="microfone">Microfone</label>
+                            <input type="text" id="microfone" name="microfone" required>
+                        </div>
+                    `;
+                    break;
+                case 'mousepad':
+                    container.innerHTML = `
+                        <div class="form-group">
+                            <label for="tamanho">Tamanho</label>
+                            <input type="text" id="tamanho" name="tamanho" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="material">Material</label>
+                            <input type="text" id="material" name="material" required>
+                        </div>
+                    `;
+                    break;
+                case 'monitor':
+                    container.innerHTML = `
+                        <div class="form-group">
+                            <label for="tamanho">Tamanho</label>
+                            <input type="text" id="tamanho" name="tamanho" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="resolucao">Resolução</label>
+                            <input type="text" id="resolucao" name="resolucao" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="taxaAtualizacao">Taxa de Atualização</label>
+                            <input type="text" id="taxaAtualizacao" name="taxaAtualizacao" required>
+                        </div>
+                    `;
+                    break;
+                case 'webcam':
+                    container.innerHTML = `
+                        <div class="form-group">
+                            <label for="resolucao">Resolução</label>
+                            <input type="text" id="resolucao" name="resolucao" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="fps">FPS</label>
+                            <input type="text" id="fps" name="fps" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="microfone">Microfone</label>
+                            <input type="text" id="microfone" name="microfone" required>
+                        </div>
+                    `;
+                    break;
+            }
+        }
+
+        async function salvarProduto(event) {
+            event.preventDefault();
+
+            const formData = new FormData(event.target);
+            const produto = {
+                nome: formData.get('nome'),
+                tipo: formData.get('tipo'),
+                preco: parseFloat(formData.get('preco')),
+                imagem: formData.get('imagem'),
+                descricao: formData.get('descricao'),
+                urlProduto: formData.get('urlProduto'),
+                destaque: formData.get('destaque') === 'on',
+                especificacoes: {
+                    sensor: formData.get('sensor'),
+                    peso: formData.get('peso'),
+                    tipo: formData.get('tipo'),
+                    switch: formData.get('switch'),
+                    iluminacao: formData.get('iluminacao'),
+                    driver: formData.get('driver'),
+                    microfone: formData.get('microfone'),
+                    tamanho: formData.get('tamanho'),
+                    material: formData.get('material'),
+                    resolucao: formData.get('resolucao'),
+                    taxaAtualizacao: formData.get('taxaAtualizacao'),
+                    fps: formData.get('fps')
+                }
+            };
+
+            try {
+                if (produtoEditando) {
+                    await GoogleSheetsDB.atualizar(produtoEditando.id, produto);
+                } else {
+                    await GoogleSheetsDB.adicionar(produto);
+                }
+
+                document.getElementById('productForm').style.display = 'none';
+                limparFormulario();
+                await carregarProdutos();
+            } catch (error) {
+                console.error('Erro ao salvar produto:', error);
+                alert('Erro ao salvar produto. Tente novamente.');
+            }
+        }
+
+        async function editarProduto(id) {
+            try {
+                produtoEditando = await GoogleSheetsDB.obterPorId(id);
+                
+                if (produtoEditando) {
+                    document.getElementById('productForm').style.display = 'block';
+                    document.getElementById('form-title').textContent = 'Editar Produto';
+                    document.getElementById('submit-btn').textContent = 'Salvar';
+
+                    const form = document.getElementById('productForm');
+                    form.nome.value = produtoEditando.nome;
+                    form.tipo.value = produtoEditando.tipo;
+                    form.preco.value = produtoEditando.preco;
+                    form.imagem.value = produtoEditando.imagem;
+                    form.descricao.value = produtoEditando.descricao;
+                    form.urlProduto.value = produtoEditando.urlProduto;
+                    form.destaque.checked = produtoEditando.destaque;
+
+                    // Atualizar campos de especificações
+                    atualizarEspecificacoes();
+
+                    // Preencher especificações
+                    const especificacoes = produtoEditando.especificacoes;
+                    form.sensor.value = especificacoes.sensor || '';
+                    form.peso.value = especificacoes.peso || '';
+                    form.switch.value = especificacoes.switch || '';
+                    form.iluminacao.value = especificacoes.iluminacao || '';
+                    form.driver.value = especificacoes.driver || '';
+                    form.microfone.value = especificacoes.microfone || '';
+                    form.tamanho.value = especificacoes.tamanho || '';
+                    form.material.value = especificacoes.material || '';
+                    form.resolucao.value = especificacoes.resolucao || '';
+                    form.taxaAtualizacao.value = especificacoes.taxaAtualizacao || '';
+                    form.fps.value = especificacoes.fps || '';
+                }
+            } catch (error) {
+                console.error('Erro ao editar produto:', error);
+                alert('Erro ao carregar produto. Tente novamente.');
+            }
+        }
+
+        async function excluirProduto(id) {
+            if (confirm('Tem certeza que deseja excluir este produto?')) {
+                try {
+                    await GoogleSheetsDB.excluir(id);
+                    await carregarProdutos();
+                } catch (error) {
+                    console.error('Erro ao excluir produto:', error);
+                    alert('Erro ao excluir produto. Tente novamente.');
+                }
+            }
+        }
+
+        // Event Listeners
+        document.getElementById('productForm').addEventListener('submit', salvarProduto);
+        document.getElementById('filtroProdutos').addEventListener('input', filtrarProdutos);
+        document.getElementById('filtroTipo').addEventListener('change', filtrarProdutos);
+
+        function filtrarProdutos() {
+            const searchTerm = document.getElementById('filtroProdutos').value.toLowerCase();
+            const tipoFilter = document.getElementById('filtroTipo').value;
+
+            const produtosFiltrados = produtos.filter(produto => {
+                const matchesSearch = produto.nome.toLowerCase().includes(searchTerm);
+                const matchesType = tipoFilter === '' || produto.tipo === tipoFilter;
+                return matchesSearch && matchesType;
+            });
+
+            const container = document.getElementById('productsTableBody');
+            container.innerHTML = '';
+
+            if (produtosFiltrados.length === 0) {
+                container.innerHTML = `
+                    <tr>
+                        <td colspan="10">Nenhum produto encontrado</td>
+                    </tr>
+                `;
+                return;
+            }
+
+            produtosFiltrados.forEach(produto => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${produto.id}</td>
+                    <td><img src="${produto.imagem}" alt="${produto.nome}" class="product-thumbnail"></td>
+                    <td>${produto.nome}</td>
+                    <td>${produto.tipo}</td>
+                    <td>${formatarPreco(produto.preco)}</td>
+                    <td>${produto.descricao}</td>
+                    <td>${formatarEspecificacoes(produto.especificacoes)}</td>
+                    <td><a href="${produto.urlProduto}" target="_blank">Ver na loja</a></td>
+                    <td>${produto.destaque ? '✓' : '✗'}</td>
+                    <td>
+                        <button class="btn btn-edit" onclick="editarProduto(${produto.id})">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="btn btn-delete" onclick="excluirProduto(${produto.id})">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                `;
+                container.appendChild(row);
+            });
+        }
+
+        // Carregar produtos ao iniciar a página
+        document.addEventListener('DOMContentLoaded', carregarProdutos);
+    </script>
+</body>
+</html> 
