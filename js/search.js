@@ -54,8 +54,8 @@ async function buscarProdutos(event) {
                 </p>
                 <div class="product-price">R$ ${produto.preco.toFixed(2)}</div>
                 <div class="product-buttons">
-                    <button class="btn-compare" onclick="window.location.href='compare.html'">Comparar</button>
-                    <a href="${produto.urlProduto}" target="_blank" class="btn-shop">Ver na loja</a>
+                    <button class="btn-compare" onclick="window.location.href='compare.html?id=${produto.id}'">Comparar</button>
+                    <a href="product.html?id=${produto.id}" class="btn-shop">Detalhes</a>
                 </div>
             </div>
         `;

@@ -244,7 +244,7 @@
                         </p>
                         <div class="product-price">${formatarPreco(produto.preco)}</div>
                         <div class="product-buttons">
-                            <a href="product.html?id=${produto.id}" class="btn btn-primary">Ver Detalhes</a>
+                            <a href="product.html?id=${produto.id}" class="btn btn-primary">Detalhes</a>
                             <a href="compare.html?id=${produto.id}" class="btn btn-secondary">Comparar</a>
                         </div>
                     </div>
@@ -304,7 +304,22 @@
         document.getElementById('maxPrice').addEventListener('input', filtrarProdutos);
 
         // Carregar produtos ao iniciar a página
-        document.addEventListener('DOMContentLoaded', carregarProdutos);
+        document.addEventListener('DOMContentLoaded', async () => {
+            await carregarProdutos();
+            
+            // Verificar se há um tipo na URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const tipo = urlParams.get('tipo');
+            
+            if (tipo) {
+                // Encontrar e marcar o checkbox correspondente
+                const checkbox = document.querySelector(`input[name="tipo"][value="${tipo}"]`);
+                if (checkbox) {
+                    checkbox.checked = true;
+                    filtrarProdutos();
+                }
+            }
+        });
     </script>
 </body>
 </html> 

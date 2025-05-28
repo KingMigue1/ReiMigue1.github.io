@@ -1,206 +1,71 @@
 # OPTO Review
 
-OPTO Review é uma plataforma web moderna para análise e comparação de periféricos gamers, oferecendo uma interface intuitiva e recursos avançados para ajudar usuários a escolher os melhores equipamentos para suas necessidades.
+OPTO Review é um site para consulta, comparação e análise de periféricos gamers, com integração ao Google Sheets para gerenciamento dos produtos.
 
-## 🚀 Funcionalidades
+## Funcionalidades
 
-### 1. Catálogo de Produtos
-- Visualização de produtos por categoria (Mouse, Teclado, Headset, Mousepad, Monitor, Webcam)
-- Carrossel de produtos em destaque na página inicial
-- Exibição detalhada de especificações técnicas
+- **Página Inicial:**
+  - Destaques e categorias de produtos (mouses, teclados, headsets, etc.)
+  - Botão "Ver Todos" para cada categoria, já filtrando na busca
+  - Carrossel de produtos recentes
 
-### 2. Sistema de Busca Avançada
-- Busca por nome e marca
-- Filtros por tipo de produto
-- Filtro por faixa de preço
-- Resultados em tempo real
+- **Busca de Produtos:**
+  - Filtros por tipo, marca e faixa de preço
+  - Busca por nome
+  - Resultados exibidos em cards padronizados
+  - Botões "Detalhes" e "Comparar" em cada card
 
-### 3. Comparador de Produtos
-- Comparação lado a lado de dois produtos
-- Análise detalhada de especificações técnicas
-- Interface intuitiva para seleção de produtos
+- **Página de Detalhes do Produto:**
+  - Exibe todas as informações do produto (nome, imagem, preço, especificações, link para loja)
+  - Botão azul de voltar no canto superior esquerdo do card
+  - Botões "Visitar a loja" e "Comparar"
+  - Seção "Produtos Similares" abaixo do card, mostrando outros produtos do mesmo tipo
 
-### 4. Painel Administrativo
-- Gerenciamento completo de produtos
-- Adição, edição e remoção de produtos
-- Interface amigável para administradores
+- **Página de Comparação:**
+  - Permite comparar dois produtos lado a lado
+  - Pré-seleção automática ao clicar em "Comparar" em qualquer card
 
-### 5. Recursos Adicionais
-- Tema claro/escuro
-- Design responsivo
-- Interface moderna e intuitiva
-- Integração com Google Sheets para armazenamento de dados
+- **Administração:**
+  - Integração com Google Sheets para listar, adicionar, editar e excluir produtos
 
-## 🛠️ Tecnologias Utilizadas
+## Tecnologias Utilizadas
+- HTML5, CSS3 (responsivo e moderno)
+- JavaScript (ES6+)
+- Google Sheets API (como banco de dados)
+- Font Awesome para ícones
+- Google Fonts (Inter)
 
-- **Frontend:**
-  - HTML5
-  - CSS3
-  - JavaScript (ES6+)
-  - Font Awesome (ícones)
-  - Google Fonts (Inter)
+## Instalação e Uso
 
-- **Backend:**
-  - Google Sheets API (armazenamento de dados)
-  - JavaScript puro para manipulação de dados
-
-## 💾 Integração com Banco de Dados
-
-### Google Sheets como Backend
-O OPTO Review utiliza o Google Sheets como solução de banco de dados, oferecendo uma abordagem inovadora e eficiente para armazenamento de dados.
-
-#### Estrutura do Banco
-```
-Produtos/
-├── ID (Auto-incremento)
-├── Nome
-├── Tipo (Mouse, Teclado, Headset, etc.)
-├── Preço
-├── Imagem (URL)
-├── URL do Produto
-└── Especificações (JSON)
-    ├── Mouse
-    │   ├── Sensor
-    │   ├── Peso
-    │   ├── DPI
-    │   └── Tipo (Com/Sem fio)
-    ├── Teclado
-    │   ├── Switch
-    │   ├── Iluminação
-    │   └── Tipo (Mecânico/Membrana)
-    └── ... (outras especificações por tipo)
-```
-
-#### Funcionalidades da API
-- **CRUD Completo**
-  - Create: Adição de novos produtos
-  - Read: Busca e listagem de produtos
-  - Update: Atualização de informações
-  - Delete: Remoção de produtos
-
-- **Operações Principais**
-  ```javascript
-  // Exemplo de uso da API
-  const db = new GoogleSheetsDB();
-  
-  // Listar todos os produtos
-  const produtos = await db.listarTodos();
-  
-  // Buscar produto por ID
-  const produto = await db.obterPorId(1);
-  
-  // Adicionar novo produto
-  await db.adicionar({
-    nome: "Mouse Gamer X",
-    tipo: "mouse",
-    preco: 299.90,
-    // ... outras propriedades
-  });
-  
-  // Atualizar produto
-  await db.atualizar({
-    id: 1,
-    preco: 249.90
-  });
-  
-  // Excluir produto
-  await db.excluir(1);
-  ```
-
-#### Vantagens da Implementação
-1. **Simplicidade**
-   - Sem necessidade de servidor dedicado
-   - Fácil manutenção e backup
-   - Interface familiar do Google Sheets
-
-2. **Performance**
-   - Cache local para consultas frequentes
-   - Atualizações em tempo real
-   - Baixa latência
-
-3. **Segurança**
-   - Autenticação via Google Cloud
-   - Controle de acesso granular
-   - Backup automático
-
-4. **Escalabilidade**
-   - Suporte a grandes volumes de dados
-   - Fácil exportação e importação
-   - Integração com outras ferramentas Google
-
-#### Configuração do Ambiente
-1. **Google Cloud Console**
+1. **Clone o repositório:**
    ```bash
-   # Habilitar APIs necessárias
-   - Google Sheets API
-   - Google Drive API
+   git clone https://github.com/seu-usuario/seu-repo.git
+   cd seu-repo
    ```
 
-2. **Credenciais**
-   ```javascript
-   // googleSheetsDB.js
-   const config = {
-     apiKey: 'YOUR_API_KEY',
-     spreadsheetId: 'YOUR_SPREADSHEET_ID',
-     sheetName: 'Produtos'
-   };
-   ```
-
-3. **Permissões**
-   - Configurar acesso de leitura/escrita
-   - Definir escopo das APIs
-   - Gerenciar quotas e limites
-
-## 📁 Estrutura do Projeto
-
-```
-OPTO Review/
-├── index.html          # Página inicial
-├── search.html         # Página de busca
-├── compare.html        # Página de comparação
-├── about.html          # Página sobre
-├── admin.html          # Painel administrativo
-├── css/               # Estilos
-│   ├── style.css      # Estilos globais
-│   ├── admin.css      # Estilos do painel admin
-│   ├── search.css     # Estilos da página de busca
-│   └── compare.css    # Estilos da página de comparação
-└── js/                # Scripts
-    ├── admin.js       # Lógica do painel admin
-    ├── compare.js     # Lógica de comparação
-    ├── products.js    # Manipulação de produtos
-    ├── search.js      # Lógica de busca
-    ├── theme.js       # Gerenciamento de tema
-    └── googleSheetsDB.js # Integração com Google Sheets
-```
-
-## 🔧 Configuração
-
-1. Clone o repositório:
-```bash
-git clone [URL_DO_REPOSITÓRIO]
-```
-
-2. Configure o Google Sheets API:
-   - Crie um projeto no Google Cloud Console
+2. **Configuração da API do Google Sheets:**
+   - Crie um projeto no [Google Cloud Console](https://console.cloud.google.com/)
    - Ative a Google Sheets API
-   - Crie credenciais de serviço
-   - Configure as credenciais no arquivo `js/googleSheetsDB.js`
+   - Crie uma chave de API e substitua no arquivo `js/googleSheetsDB.js`
+   - Configure o ID da planilha e o nome da aba conforme seu Google Sheets
 
-3. Abra o projeto em um servidor web local ou hospede em um servidor de sua preferência.
+3. **Abra o arquivo `index.html` em seu navegador.**
 
-## 💻 Uso
+## Estrutura de Arquivos
+- `index.html` — Página inicial
+- `search.html` — Busca e filtros
+- `product.html` — Detalhes do produto
+- `compare.html` — Comparação de produtos
+- `admin.html` — Administração (CRUD)
+- `js/` — Scripts JavaScript
+- `css/` — Estilos CSS
 
-### Usuários
-- Navegue pela página inicial para ver produtos em destaque
-- Use a barra de busca para encontrar produtos específicos
-- Compare produtos na página de comparação
-- Explore as categorias de produtos
+## Personalização
+- Para adicionar novos tipos de produtos, basta atualizar a planilha e os filtros no HTML.
+- O layout é responsivo e pode ser customizado via CSS.
 
-### Administradores
-- Acesse o painel administrativo
-- Gerencie produtos (adicionar, editar, remover)
-- Visualize e organize o catálogo de produtos
+## Licença
+MIT
 
 ## 🤝 Contribuindo
 
@@ -209,10 +74,6 @@ git clone [URL_DO_REPOSITÓRIO]
 3. Commit suas mudanças (`git commit -m 'Add some AmazingFeature'`)
 4. Push para a Branch (`git push origin feature/AmazingFeature`)
 5. Abra um Pull Request
-
-## 📝 Licença
-
-Este projeto está sob a licença MIT. Veja o arquivo `LICENSE` para mais detalhes.
 
 ## 📧 Contato
 
