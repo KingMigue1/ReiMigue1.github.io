@@ -57,9 +57,9 @@
 
         <div class="table-container">
             <div class="table-wrapper">
-                <table class="products-table">
-                    <thead>
-                        <tr>
+            <table class="products-table">
+                <thead>
+                    <tr>
                             <th class="column-id">ID</th>
                             <th class="column-image">Imagem</th>
                             <th class="column-name">Nome</th>
@@ -70,12 +70,12 @@
                             <th class="column-url">URL</th>
                             <th class="column-featured">Destaque</th>
                             <th class="column-actions">Ações</th>
-                        </tr>
-                    </thead>
-                    <tbody id="productsTableBody">
-                        <!-- Produtos serão inseridos aqui via JavaScript -->
-                    </tbody>
-                </table>
+                    </tr>
+                </thead>
+                <tbody id="productsTableBody">
+                    <!-- Produtos serão inseridos aqui via JavaScript -->
+                </tbody>
+            </table>
             </div>
         </div>
 
@@ -147,7 +147,7 @@
         .table-container {
             overflow-x: auto;
             margin: 20px 0;
-            background: white;
+            background: var(--bg-color);
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
@@ -160,27 +160,28 @@
             width: 100%;
             border-collapse: collapse;
             font-size: 14px;
+            color: var(--text-color);
         }
 
         .products-table th,
         .products-table td {
             padding: 12px;
             text-align: left;
-            border-bottom: 1px solid #e0e0e0;
-            border-right: 1px solid #e0e0e0;
+            border-bottom: 1px solid var(--border-color);
+            border-right: 1px solid var(--border-color);
         }
 
         .products-table th {
-            background-color: #f8f9fa;
+            background-color: var(--bg-secondary);
             font-weight: 600;
-            color: #333;
+            color: var(--text-color);
             position: sticky;
             top: 0;
             z-index: 1;
         }
 
         .products-table tr:hover {
-            background-color: #f5f5f5;
+            background-color: var(--bg-hover);
         }
 
         .column-id { width: 60px; }
@@ -233,9 +234,11 @@
         .filtros-container input,
         .filtros-container select {
             padding: 8px;
-            border: 1px solid #ddd;
+            border: 1px solid var(--border-color);
             border-radius: 4px;
             font-size: 14px;
+            background-color: var(--bg-color);
+            color: var(--text-color);
         }
 
         .filtros-container input {
@@ -251,6 +254,7 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 20px;
+            color: var(--text-color);
         }
 
         .btn-add {
@@ -270,11 +274,12 @@
         }
 
         .product-form {
-            background: white;
+            background: var(--bg-color);
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
             margin-top: 20px;
+            color: var(--text-color);
         }
 
         .form-group {
@@ -285,6 +290,7 @@
             display: block;
             margin-bottom: 5px;
             font-weight: 500;
+            color: var(--text-color);
         }
 
         .form-group input,
@@ -292,9 +298,11 @@
         .form-group textarea {
             width: 100%;
             padding: 8px;
-            border: 1px solid #ddd;
+            border: 1px solid var(--border-color);
             border-radius: 4px;
             font-size: 14px;
+            background-color: var(--bg-color);
+            color: var(--text-color);
         }
 
         .form-group textarea {
@@ -332,6 +340,117 @@
         .btn-submit:hover,
         .btn-cancel:hover {
             opacity: 0.9;
+        }
+
+        /* Estilos específicos para o modo escuro */
+        body.dark-mode {
+            --bg-color: #1a1a1a;
+            --bg-secondary: #2d2d2d;
+            --bg-hover: #333333;
+            --text-color: #ffffff;
+            --border-color: #404040;
+        }
+
+        body.dark-mode .products-table th {
+            background-color: #2d2d2d;
+        }
+
+        body.dark-mode .products-table tr:hover {
+            background-color: #333333;
+        }
+
+        body.dark-mode .filtros-container input,
+        body.dark-mode .filtros-container select {
+            background-color: #2d2d2d;
+            border-color: #404040;
+        }
+
+        body.dark-mode .product-form {
+            background-color: #2d2d2d;
+        }
+
+        body.dark-mode .form-group input,
+        body.dark-mode .form-group select,
+        body.dark-mode .form-group textarea {
+            background-color: #2d2d2d;
+            border-color: #404040;
+        }
+
+        /* Melhorias na legibilidade do texto */
+        body.dark-mode .products-table td {
+            color: #e0e0e0;
+        }
+
+        body.dark-mode .form-group label {
+            color: #e0e0e0;
+        }
+
+        body.dark-mode .admin-header h1 {
+            color: #ffffff;
+        }
+
+        body.dark-mode .table-container {
+            background: #1a1a1a;
+        }
+
+        body.dark-mode .products-table {
+            color: #e0e0e0;
+        }
+
+        body.dark-mode .products-table th {
+            background-color: #2d2d2d;
+            color: #ffffff;
+            border-bottom: 2px solid #404040;
+        }
+
+        body.dark-mode .products-table td {
+            color: #e0e0e0;
+            border-bottom: 1px solid #404040;
+            border-right: 1px solid #404040;
+        }
+
+        body.dark-mode .products-table tr:hover {
+            background-color: #333333;
+        }
+
+        body.dark-mode .products-table tr:nth-child(even) {
+            background-color: #222222;
+        }
+
+        body.dark-mode .products-table tr:nth-child(even):hover {
+            background-color: #333333;
+        }
+
+        /* Melhorar legibilidade dos links na tabela */
+        body.dark-mode .products-table a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+
+        body.dark-mode .products-table a:hover {
+            text-decoration: underline;
+        }
+
+        /* Melhorar visibilidade dos ícones de destaque */
+        body.dark-mode .products-table td:contains('✓') {
+            color: #4CAF50;
+        }
+
+        body.dark-mode .products-table td:contains('✗') {
+            color: #f44336;
+        }
+
+        body.dark-mode .products-table,
+        body.dark-mode .products-table tr,
+        body.dark-mode .products-table td {
+            background-color: #222 !important;
+            color: #e0e0e0 !important;
+        }
+        body.dark-mode .products-table tr:nth-child(even) {
+            background-color: #242424 !important;
+        }
+        body.dark-mode .products-table tr:hover {
+            background-color: #333 !important;
         }
     </style>
 
@@ -458,80 +577,78 @@
                 case 'mouse':
                     container.innerHTML = `
                         <div class="form-group">
-                            <label for="sensor">Sensor</label>
-                            <input type="text" id="sensor" name="sensor" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="peso">Peso (g)</label>
-                            <input type="number" id="peso" name="peso" required>
+                            <label>Especificações (em formato JSON)</label>
+                            <textarea id="especificacoes" name="especificacoes" required>{
+    "sensor": "Optical",
+    "dpi": "16000",
+    "peso": "95",
+    "tipo": "Sem fio"
+}</textarea>
                         </div>
                     `;
                     break;
                 case 'teclado':
                     container.innerHTML = `
                         <div class="form-group">
-                            <label for="switch">Switch</label>
-                            <input type="text" id="switch" name="switch" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="iluminacao">Iluminação</label>
-                            <input type="text" id="iluminacao" name="iluminacao" required>
+                            <label>Especificações (em formato JSON)</label>
+                            <textarea id="especificacoes" name="especificacoes" required>{
+    "switch": "Red",
+    "iluminacao": "RGB",
+    "tipo": "Mecânico",
+    "layout": "Full Size"
+}</textarea>
                         </div>
                     `;
                     break;
                 case 'headset':
                     container.innerHTML = `
                         <div class="form-group">
-                            <label for="driver">Driver</label>
-                            <input type="text" id="driver" name="driver" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="microfone">Microfone</label>
-                            <input type="text" id="microfone" name="microfone" required>
+                            <label>Especificações (em formato JSON)</label>
+                            <textarea id="especificacoes" name="especificacoes" required>{
+    "driver": "50mm",
+    "microfone": "Removível",
+    "tipo": "Circumaural",
+    "conexao": "USB"
+}</textarea>
                         </div>
                     `;
                     break;
                 case 'mousepad':
                     container.innerHTML = `
                         <div class="form-group">
-                            <label for="tamanho">Tamanho</label>
-                            <input type="text" id="tamanho" name="tamanho" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="material">Material</label>
-                            <input type="text" id="material" name="material" required>
+                            <label>Especificações (em formato JSON)</label>
+                            <textarea id="especificacoes" name="especificacoes" required>{
+    "tamanho": "900x400mm",
+    "material": "Tecido",
+    "tipo": "Speed",
+    "espessura": "3mm"
+}</textarea>
                         </div>
                     `;
                     break;
                 case 'monitor':
                     container.innerHTML = `
                         <div class="form-group">
-                            <label for="tamanho">Tamanho</label>
-                            <input type="text" id="tamanho" name="tamanho" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="resolucao">Resolução</label>
-                            <input type="text" id="resolucao" name="resolucao" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="taxaAtualizacao">Taxa de Atualização</label>
-                            <input type="text" id="taxaAtualizacao" name="taxaAtualizacao" required>
+                            <label>Especificações (em formato JSON)</label>
+                            <textarea id="especificacoes" name="especificacoes" required>{
+    "tamanho": "27\"",
+    "resolucao": "2560x1440",
+    "taxaAtualizacao": "165Hz",
+    "tipo": "IPS"
+}</textarea>
                         </div>
                     `;
                     break;
                 case 'webcam':
                     container.innerHTML = `
                         <div class="form-group">
-                            <label for="resolucao">Resolução</label>
-                            <input type="text" id="resolucao" name="resolucao" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="fps">FPS</label>
-                            <input type="text" id="fps" name="fps" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="microfone">Microfone</label>
-                            <input type="text" id="microfone" name="microfone" required>
+                            <label>Especificações (em formato JSON)</label>
+                            <textarea id="especificacoes" name="especificacoes" required>{
+    "resolucao": "1080p",
+    "fps": "60",
+    "microfone": "Estéreo",
+    "tipo": "USB"
+}</textarea>
                         </div>
                     `;
                     break;
@@ -542,6 +659,8 @@
             event.preventDefault();
 
             const formData = new FormData(event.target);
+            const especificacoes = JSON.parse(formData.get('especificacoes'));
+            
             const produto = {
                 nome: formData.get('nome'),
                 tipo: formData.get('tipo'),
@@ -550,20 +669,7 @@
                 descricao: formData.get('descricao'),
                 urlProduto: formData.get('urlProduto'),
                 destaque: formData.get('destaque') === 'on',
-                especificacoes: {
-                    sensor: formData.get('sensor'),
-                    peso: formData.get('peso'),
-                    tipo: formData.get('tipo'),
-                    switch: formData.get('switch'),
-                    iluminacao: formData.get('iluminacao'),
-                    driver: formData.get('driver'),
-                    microfone: formData.get('microfone'),
-                    tamanho: formData.get('tamanho'),
-                    material: formData.get('material'),
-                    resolucao: formData.get('resolucao'),
-                    taxaAtualizacao: formData.get('taxaAtualizacao'),
-                    fps: formData.get('fps')
-                }
+                especificacoes: especificacoes
             };
 
             try {
@@ -602,20 +708,9 @@
 
                     // Atualizar campos de especificações
                     atualizarEspecificacoes();
-
-                    // Preencher especificações
-                    const especificacoes = produtoEditando.especificacoes;
-                    form.sensor.value = especificacoes.sensor || '';
-                    form.peso.value = especificacoes.peso || '';
-                    form.switch.value = especificacoes.switch || '';
-                    form.iluminacao.value = especificacoes.iluminacao || '';
-                    form.driver.value = especificacoes.driver || '';
-                    form.microfone.value = especificacoes.microfone || '';
-                    form.tamanho.value = especificacoes.tamanho || '';
-                    form.material.value = especificacoes.material || '';
-                    form.resolucao.value = especificacoes.resolucao || '';
-                    form.taxaAtualizacao.value = especificacoes.taxaAtualizacao || '';
-                    form.fps.value = especificacoes.fps || '';
+                    
+                    // Preencher especificações em formato JSON
+                    form.especificacoes.value = JSON.stringify(produtoEditando.especificacoes, null, 4);
                 }
             } catch (error) {
                 console.error('Erro ao editar produto:', error);
