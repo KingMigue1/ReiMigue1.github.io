@@ -1,5 +1,5 @@
+// Configuração da Planilha
 const SPREADSHEET_ID = '1yD91Fb6oChOO3Tpb8XSFJjGf2ELeD0F8FLC5ONtljME';
-//Vou deixar, foi um sufoco!!!
 // Para configurar a API_KEY:
 // 1. Acesse https://console.cloud.google.com/
 // 2. Crie um novo projeto

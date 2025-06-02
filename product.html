@@ -1,122 +1,92 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detalhes do Produto - OPTO Review</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/product.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-</head>
-<body>
-    <nav class="navbar">
-        <div class="nav-container">
-            <a href="index.html" class="nav-logo">OPTO Review</a>
-            <div class="nav-links">
-                <a href="index.html" class="nav-link">Home</a>
-                <a href="search.html" class="nav-link">Buscar Produtos</a>
-                <a href="compare.html" class="nav-link">Comparar</a>
-                <a href="about.html" class="nav-link">Sobre</a>
-                <a href="admin.html" class="nav-link"><i class="fas fa-cog"></i> Admin</a>
-            </div>
-        </div>
-    </nav>
-    <main class="product-detail-container">
-        <div class="product-detail-card" id="productDetail">
-            <a href="#" class="back-arrow" onclick="history.back(); return false;" title="Voltar">
-                <i class="fas fa-arrow-left"></i>
-            </a>
-        </div>
     </main>
-    <section class="similar-products-section">
-        <h2>Produtos Similares</h2>
-        <div class="similar-products-grid" id="similarProductsGrid">
-            <!-- Produtos similares serão inseridos via JS -->
-        </div>
-    </section>
+
+    <!-- Scripts -->
+    <script src="js/theme.js"></script>
     <script src="js/googleSheetsDB.js"></script>
+    <script src="js/products.js"></script>
     <script>
-    function formatarPreco(preco) {
-        return new Intl.NumberFormat('pt-BR', {
-            style: 'currency',
-            currency: 'BRL'
-        }).format(preco);
-    }
+        // Variáveis globais
+        let produto = null;
 
-    async function carregarDetalhesProduto() {
-        const params = new URLSearchParams(window.location.search);
-        const id = parseInt(params.get('id'));
-        if (!id) {
-            document.getElementById('productDetail').insertAdjacentHTML('beforeend', '<p>Produto não encontrado.</p>');
-            return;
+        // Funções de Utilidade
+        function formatarPreco(preco) {
+            return new Intl.NumberFormat('pt-BR', {
+                style: 'currency',
+                currency: 'BRL'
+            }).format(preco);
         }
-        try {
-            const produto = await GoogleSheetsDB.obterPorId(id);
-            if (!produto) {
-                document.getElementById('productDetail').insertAdjacentHTML('beforeend', '<p>Produto não encontrado.</p>');
-                return;
+
+        // Função para obter produto por ID
+        async function obterProdutoPorId(id) {
+            try {
+                return await GoogleSheetsDB.obterPorId(id);
+            } catch (error) {
+                console.error('Erro ao obter produto:', error);
+                return null;
             }
-            // Remove conteúdo dinâmico anterior, mas preserva a seta
-            const detailCard = document.getElementById('productDetail');
-            Array.from(detailCard.children).forEach(child => {
-                if (!child.classList.contains('back-arrow')) child.remove();
+        }
+
+        // Funções de Interface
+        async function carregarProduto() {
+            try {
+                const urlParams = new URLSearchParams(window.location.search);
+                const produtoId = urlParams.get('id');
+
+                if (!produtoId) {
+                    window.location.href = 'index.html';
+                    return;
+                }
+
+                produto = await obterProdutoPorId(produtoId);
+
+                if (!produto) {
+                    window.location.href = 'index.html';
+                    return;
+                }
+
+                atualizarInterface();
+            } catch (error) {
+                console.error('Erro ao carregar produto:', error);
+            }
+        }
+
+        function atualizarInterface() {
+            // Atualizar título da página
+            document.title = `${produto.nome} - Site Periféricos`;
+
+            // Atualizar breadcrumb
+            document.getElementById('product-name').textContent = produto.nome;
+
+            // Atualizar imagem
+            document.getElementById('product-image').src = produto.imagem;
+            document.getElementById('product-image').alt = produto.nome;
+
+            // Atualizar informações do produto
+            document.getElementById('product-title').textContent = produto.nome;
+            document.getElementById('product-price').textContent = formatarPreco(produto.preco);
+            document.getElementById('product-description').textContent = produto.descricao;
+
+            // Atualizar especificações
+            const specsContainer = document.getElementById('product-specs');
+            specsContainer.innerHTML = '';
+
+            Object.entries(produto.especificacoes).forEach(([key, value]) => {
+                const specItem = document.createElement('div');
+                specItem.className = 'spec-item';
+                specItem.innerHTML = `
+                    <span class="spec-label">${key.charAt(0).toUpperCase() + key.slice(1)}:</span>
+                    <span class="spec-value">${value}</span>
+                `;
+                specsContainer.appendChild(specItem);
             });
-            // Adiciona o conteúdo dinâmico
-            detailCard.insertAdjacentHTML('beforeend', `
-                <div class="product-detail-flex">
-                    <div class="product-detail-image">
-                        <img src="${produto.imagem}" alt="${produto.nome}">
-                    </div>
-                    <div class="product-detail-info">
-                        <h1>${produto.nome}</h1>
-                        <div class="product-detail-price">${formatarPreco(produto.preco)}</div>
-                        <div class="product-detail-actions">
-                            <a href="${produto.urlProduto}" target="_blank" class="product-detail-link">Visitar a loja</a>
-                            <a href="compare.html?id=${produto.id}" class="product-detail-compare">Comparar</a>
-                        </div>
-                        <div class="product-detail-specs">
-                            ${Object.entries(produto.especificacoes).map(([key, value]) => `<div><strong>${key[0].toUpperCase() + key.slice(1)}:</strong> ${value}</div>`).join('')}
-                            <div><strong>Tipo:</strong> ${produto.tipo}</div>
-                        </div>
-                    </div>
-                </div>
-            `);
-            carregarProdutosSimilares(produto);
-        } catch (error) {
-            document.getElementById('productDetail').insertAdjacentHTML('beforeend', '<p>Erro ao carregar produto.</p>');
-        }
-    }
 
-    async function carregarProdutosSimilares(produtoAtual) {
-        try {
-            const todos = await GoogleSheetsDB.listarTodos();
-            const similares = todos.filter(p => p.tipo === produtoAtual.tipo && p.id !== produtoAtual.id).slice(0, 6);
-            const grid = document.getElementById('similarProductsGrid');
-            if (similares.length === 0) {
-                grid.innerHTML = '<p>Nenhum produto similar encontrado.</p>';
-                return;
-            }
-            grid.innerHTML = similares.map(produto => `
-                <div class="product-card">
-                    <div class="product-image">
-                        <img src="${produto.imagem}" alt="${produto.nome}">
-                    </div>
-                    <div class="product-info">
-                        <h3>${produto.nome}</h3>
-                        <div class="product-price">${formatarPreco(produto.preco)}</div>
-                        <div class="product-buttons">
-                            <a href="product.html?id=${produto.id}" class="btn btn-primary">Detalhes</a>
-                            <a href="compare.html?id=${produto.id}" class="btn btn-secondary">Comparar</a>
-                        </div>
-                    </div>
-                </div>
-            `).join('');
-        } catch (error) {
-            document.getElementById('similarProductsGrid').innerHTML = '<p>Erro ao carregar produtos similares.</p>';
+            // Atualizar botões de ação
+            document.getElementById('compare-btn').href = `compare.html?id=${produto.id}`;
+            document.getElementById('shop-btn').href = produto.urlProduto;
         }
-    }
-    document.addEventListener('DOMContentLoaded', carregarDetalhesProduto);
+
+        // Carregar produto ao iniciar a página
+        document.addEventListener('DOMContentLoaded', carregarProduto);
     </script>
 </body>
 </html> 

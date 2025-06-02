@@ -320,10 +320,10 @@
         }
 
         // Carregar produtos ao iniciar a página
-        document.addEventListener('DOMContentLoaded', async () => {
-            await carregarProdutos();
-            
-            // Verificar se há ID na URL
+        document.addEventListener('DOMContentLoaded', carregarProdutos);
+
+        // Verificar se há ID na URL
+        document.addEventListener('DOMContentLoaded', () => {
             const urlParams = new URLSearchParams(window.location.search);
             const produtoId = urlParams.get('id');
             
