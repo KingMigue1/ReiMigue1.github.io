@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Termos de Uso - OPTO Review</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .terms-container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        .terms-section {
+            margin-bottom: 2rem;
+        }
+        .terms-section h2 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        .terms-section p {
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+        .terms-section ul {
+            margin-left: 2rem;
+            margin-bottom: 1rem;
+        }
+        .terms-section li {
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Barra de Navegação -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">OPTO Review</a>
+            <button class="menu-toggle" onclick="toggleMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="search.html" class="nav-link">Buscar Produtos</a>
+                <a href="compare.html" class="nav-link">Comparar</a>
+                <a href="about.html" class="nav-link">Sobre</a>
+                <button class="theme-toggle" onclick="toggleTheme()">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+    <div class="nav-overlay" onclick="toggleMenu()"></div>
+
+    <!-- Conteúdo Principal -->
+    <main class="terms-container">
+        <h1>Termos de Uso</h1>
+        <p>Última atualização: Junho de 2024</p>
+
+        <section class="terms-section">
+            <h2>1. Aceitação dos Termos</h2>
+            <p>Ao acessar e usar o OPTO Review, você concorda em cumprir estes termos de uso. Se você não concordar com qualquer parte destes termos, não deverá usar nosso site.</p>
+        </section>
+
+        <section class="terms-section">
+            <h2>2. Uso do Serviço</h2>
+            <p>O OPTO Review é uma plataforma de comparação e análise de periféricos gamers. Você concorda em:</p>
+            <ul>
+                <li>Usar o site apenas para fins legais</li>
+                <li>Não utilizar o site para fins maliciosos ou prejudiciais</li>
+                <li>Não tentar acessar áreas restritas do site</li>
+                <li>Não interferir no funcionamento normal do site</li>
+            </ul>
+        </section>
+
+        <section class="terms-section">
+            <h2>3. Propriedade Intelectual</h2>
+            <p>Todo o conteúdo presente no OPTO Review, incluindo textos, imagens, logos e código, é protegido por direitos autorais e outras leis de propriedade intelectual.</p>
+        </section>
+
+        <section class="terms-section">
+            <h2>4. Limitação de Responsabilidade</h2>
+            <p>O OPTO Review fornece informações para fins informativos. Não nos responsabilizamos por decisões tomadas com base nas informações fornecidas em nosso site.</p>
+        </section>
+
+        <section class="terms-section">
+            <h2>5. Alterações nos Termos</h2>
+            <p>Reservamo-nos o direito de modificar estes termos a qualquer momento. As alterações entram em vigor imediatamente após sua publicação no site.</p>
+        </section>
+    </main>
+
+    <!-- Rodapé -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Redes Sociais</h3>
+                <div class="social-links">
+                    <a href="https://twitter.com/optoreview" target="_blank" class="social-link"><i class="fab fa-twitter"></i></a>
+                    <a href="https://instagram.com/optoreview" target="_blank" class="social-link"><i class="fab fa-instagram"></i></a>
+                    <a href="https://youtube.com/@optoreview" target="_blank" class="social-link"><i class="fab fa-youtube"></i></a>
+                    <a href="https://discord.gg/optoreview" target="_blank" class="social-link"><i class="fab fa-discord"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Contato</h3>
+                <p><i class="fas fa-envelope"></i> contato@optoreview.com</p>
+                <p><i class="fas fa-phone"></i> (91) 99999-9999</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 OPTO Review. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="js/theme.js"></script>
+    <script>
+        function toggleMenu() {
+            const navLinks = document.querySelector('.nav-links');
+            const overlay = document.querySelector('.nav-overlay');
+            const menuToggle = document.querySelector('.menu-toggle i');
+            
+            navLinks.classList.toggle('active');
+            overlay.classList.toggle('active');
+            
+            if (menuToggle.classList.contains('fa-bars')) {
+                menuToggle.classList.remove('fa-bars');
+                menuToggle.classList.add('fa-times');
+            } else {
+                menuToggle.classList.remove('fa-times');
+                menuToggle.classList.add('fa-bars');
+            }
+        }
+    </script>
+</body>
+</html> 

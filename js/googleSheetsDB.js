@@ -38,7 +38,7 @@ class GoogleSheetsDB {
     static async obterPorId(id) {
         try {
             const produtos = await this.listarTodos();
-            return produtos.find(p => p.id === id);
+            return produtos.find(p => p.id === parseInt(id));
         } catch (error) {
             console.error('Erro ao obter produto:', error);
             throw new Error('Erro ao buscar produto');

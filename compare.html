@@ -6,7 +6,6 @@
     <title>Comparar Produtos - OPTO Review</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/compare.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
 <body>
@@ -22,10 +21,6 @@
                 <a href="search.html" class="nav-link">Buscar Produtos</a>
                 <a href="compare.html" class="nav-link active">Comparar</a>
                 <a href="about.html" class="nav-link">Sobre</a>
-                <a href="admin.html" class="nav-link">
-                    <i class="fas fa-cog"></i>
-                    Admin
-                </a>
                 <button class="theme-toggle" onclick="toggleTheme()">
                     <i class="fas fa-moon"></i>
                 </button>
@@ -91,6 +86,7 @@
                     <!-- Linhas de especificações serão inseridas aqui via JS -->
                 </tbody>
             </table>
+            <div id="compare-details-links" style="display: flex; gap: 1rem; justify-content: center; margin-top: 2rem;"></div>
         </div>
     </main>
 
@@ -263,6 +259,7 @@
             const header1 = document.getElementById('header1');
             const header2 = document.getElementById('header2');
             const tbody = document.getElementById('comparisonBody');
+            const detailsLinks = document.getElementById('compare-details-links');
 
             if (produto1 || produto2) {
                 container.style.display = 'block';
@@ -313,25 +310,28 @@
                         tbody.appendChild(tr);
                     });
                 }
+
+                // Adicionar botões de detalhes
+                detailsLinks.innerHTML = '';
+                if (produto1 && produto1.urlProduto) {
+                    detailsLinks.innerHTML += `<a href="${produto1.urlProduto}" class="btn btn-primary" target="_blank" rel="noopener noreferrer">COMPRAR PRODUTO</a>`;
+                }
+                if (produto2 && produto2.urlProduto) {
+                    detailsLinks.innerHTML += `<a href="${produto2.urlProduto}" class="btn btn-secondary" target="_blank" rel="noopener noreferrer">COMPRAR PRODUTO</a>`;
+                }
             } else {
                 container.style.display = 'none';
                 noProducts.style.display = 'flex';
             }
         }
 
-        // Carregar produtos ao iniciar a página
-        document.addEventListener('DOMContentLoaded', carregarProdutos);
-
-        // Verificar se há ID na URL
-        document.addEventListener('DOMContentLoaded', () => {
+        // Carregar produtos ao iniciar a página e selecionar automaticamente se houver id na URL
+        document.addEventListener('DOMContentLoaded', async () => {
+            await carregarProdutos();
             const urlParams = new URLSearchParams(window.location.search);
             const produtoId = urlParams.get('id');
-            
             if (produtoId) {
-                const produto = produtos.find(p => p.id === parseInt(produtoId));
-                if (produto) {
-                    selecionarProduto(1, produtoId);
-                }
+                selecionarProduto(1, produtoId);
             }
         });
     </script>

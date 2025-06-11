@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ - OPTO Review</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .faq-container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        .faq-section {
+            margin-bottom: 2rem;
+        }
+        .faq-section h2 {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+        }
+        .faq-item {
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 1.5rem;
+        }
+        .faq-question {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-color);
+        }
+        .faq-answer {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <!-- Barra de Navegação -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">OPTO Review</a>
+            <button class="menu-toggle" onclick="toggleMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="search.html" class="nav-link">Buscar Produtos</a>
+                <a href="compare.html" class="nav-link">Comparar</a>
+                <a href="about.html" class="nav-link">Sobre</a>
+                <button class="theme-toggle" onclick="toggleTheme()">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+    <div class="nav-overlay" onclick="toggleMenu()"></div>
+
+    <!-- Conteúdo Principal -->
+    <main class="faq-container">
+        <h1>Perguntas Frequentes</h1>
+
+        <section class="faq-section">
+            <h2>Geral</h2>
+            <div class="faq-item">
+                <div class="faq-question">O que é o OPTO Review?</div>
+                <div class="faq-answer">
+                    O OPTO Review é uma plataforma especializada em análise e comparação de periféricos gamers, oferecendo informações técnicas detalhadas e imparciais para ajudar você a escolher os melhores produtos.
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">Como posso confiar nas análises?</div>
+                <div class="faq-answer">
+                    Nossas análises são baseadas em dados técnicos oficiais dos fabricantes e testes independentes. Não aceitamos patrocínios ou influências comerciais para manter a imparcialidade.
+                </div>
+            </div>
+        </section>
+
+        <section class="faq-section">
+            <h2>Produtos</h2>
+            <div class="faq-item">
+                <div class="faq-question">Quais tipos de produtos são analisados?</div>
+                <div class="faq-answer">
+                    Analisamos diversos periféricos gamers, incluindo mouses, teclados, headsets, mousepads e outros acessórios relevantes para jogadores.
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">Com que frequência os produtos são atualizados?</div>
+                <div class="faq-answer">
+                    Atualizamos nosso catálogo regularmente, adicionando novos produtos assim que são lançados e revisando as informações existentes quando necessário.
+                </div>
+            </div>
+        </section>
+
+        <section class="faq-section">
+            <h2>Comparações</h2>
+            <div class="faq-item">
+                <div class="faq-question">Como funciona a comparação de produtos?</div>
+                <div class="faq-answer">
+                    Você pode selecionar até 3 produtos para comparar suas especificações técnicas, preços e avaliações em uma tabela detalhada.
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">Os preços são atualizados em tempo real?</div>
+                <div class="faq-answer">
+                    Os preços são atualizados periodicamente, mas recomendamos verificar o preço atual diretamente com o vendedor antes da compra.
+                </div>
+            </div>
+        </section>
+
+        <section class="faq-section">
+            <h2>Contato</h2>
+            <div class="faq-item">
+                <div class="faq-question">Como posso entrar em contato?</div>
+                <div class="faq-answer">
+                    Você pode nos contatar através do email contato@optoreview.com ou pelo telefone (91) 99999-9999. Também estamos presentes nas principais redes sociais.
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">Vocês aceitam sugestões de produtos?</div>
+                <div class="faq-answer">
+                    Sim! Adoramos receber sugestões da comunidade. Você pode enviar suas recomendações através do nosso email de contato.
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Rodapé -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Redes Sociais</h3>
+                <div class="social-links">
+                    <a href="https://twitter.com/optoreview" target="_blank" class="social-link"><i class="fab fa-twitter"></i></a>
+                    <a href="https://instagram.com/optoreview" target="_blank" class="social-link"><i class="fab fa-instagram"></i></a>
+                    <a href="https://youtube.com/@optoreview" target="_blank" class="social-link"><i class="fab fa-youtube"></i></a>
+                    <a href="https://discord.gg/optoreview" target="_blank" class="social-link"><i class="fab fa-discord"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Contato</h3>
+                <p><i class="fas fa-envelope"></i> contato@optoreview.com</p>
+                <p><i class="fas fa-phone"></i> (91) 99999-9999</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 OPTO Review. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="js/theme.js"></script>
+    <script>
+        function toggleMenu() {
+            const navLinks = document.querySelector('.nav-links');
+            const overlay = document.querySelector('.nav-overlay');
+            const menuToggle = document.querySelector('.menu-toggle i');
+            
+            navLinks.classList.toggle('active');
+            overlay.classList.toggle('active');
+            
+            if (menuToggle.classList.contains('fa-bars')) {
+                menuToggle.classList.remove('fa-bars');
+                menuToggle.classList.add('fa-times');
+            } else {
+                menuToggle.classList.remove('fa-times');
+                menuToggle.classList.add('fa-bars');
+            }
+        }
+    </script>
+</body>
+</html> 

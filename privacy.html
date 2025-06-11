@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Política de Privacidade - OPTO Review</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .privacy-container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        .privacy-section {
+            margin-bottom: 2rem;
+        }
+        .privacy-section h2 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        .privacy-section p {
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+        .privacy-section ul {
+            margin-left: 2rem;
+            margin-bottom: 1rem;
+        }
+        .privacy-section li {
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Barra de Navegação -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">OPTO Review</a>
+            <button class="menu-toggle" onclick="toggleMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="search.html" class="nav-link">Buscar Produtos</a>
+                <a href="compare.html" class="nav-link">Comparar</a>
+                <a href="about.html" class="nav-link">Sobre</a>
+                <button class="theme-toggle" onclick="toggleTheme()">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+    <div class="nav-overlay" onclick="toggleMenu()"></div>
+
+    <!-- Conteúdo Principal -->
+    <main class="privacy-container">
+        <h1>Política de Privacidade</h1>
+        <p>Última atualização: Junho de 2024</p>
+
+        <section class="privacy-section">
+            <h2>1. Coleta de Informações</h2>
+            <p>O OPTO Review coleta apenas as informações necessárias para fornecer nossos serviços:</p>
+            <ul>
+                <li>Informações de uso do site (cookies)</li>
+                <li>Dados de preferências de produtos</li>
+                <li>Informações de contato (quando fornecidas voluntariamente)</li>
+            </ul>
+        </section>
+
+        <section class="privacy-section">
+            <h2>2. Uso das Informações</h2>
+            <p>Utilizamos suas informações para:</p>
+            <ul>
+                <li>Melhorar a experiência do usuário</li>
+                <li>Personalizar recomendações de produtos</li>
+                <li>Enviar atualizações importantes sobre o serviço</li>
+                <li>Analisar o uso do site para melhorias</li>
+            </ul>
+        </section>
+
+        <section class="privacy-section">
+            <h2>3. Proteção de Dados</h2>
+            <p>Implementamos medidas de segurança para proteger suas informações contra acesso não autorizado, alteração ou destruição.</p>
+        </section>
+
+        <section class="privacy-section">
+            <h2>4. Cookies</h2>
+            <p>Utilizamos cookies para melhorar sua experiência de navegação. Você pode controlar as configurações de cookies através do seu navegador.</p>
+        </section>
+
+        <section class="privacy-section">
+            <h2>5. Seus Direitos</h2>
+            <p>Você tem o direito de:</p>
+            <ul>
+                <li>Acessar seus dados pessoais</li>
+                <li>Solicitar a correção de informações</li>
+                <li>Solicitar a exclusão de seus dados</li>
+                <li>Retirar seu consentimento a qualquer momento</li>
+            </ul>
+        </section>
+
+        <section class="privacy-section">
+            <h2>6. Contato</h2>
+            <p>Para questões sobre privacidade, entre em contato através do email: contato@optoreview.com</p>
+        </section>
+    </main>
+
+    <!-- Rodapé -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Redes Sociais</h3>
+                <div class="social-links">
+                    <a href="https://twitter.com/optoreview" target="_blank" class="social-link"><i class="fab fa-twitter"></i></a>
+                    <a href="https://instagram.com/optoreview" target="_blank" class="social-link"><i class="fab fa-instagram"></i></a>
+                    <a href="https://youtube.com/@optoreview" target="_blank" class="social-link"><i class="fab fa-youtube"></i></a>
+                    <a href="https://discord.gg/optoreview" target="_blank" class="social-link"><i class="fab fa-discord"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Contato</h3>
+                <p><i class="fas fa-envelope"></i> contato@optoreview.com</p>
+                <p><i class="fas fa-phone"></i> (91) 99999-9999</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 OPTO Review. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="js/theme.js"></script>
+    <script>
+        function toggleMenu() {
+            const navLinks = document.querySelector('.nav-links');
+            const overlay = document.querySelector('.nav-overlay');
+            const menuToggle = document.querySelector('.menu-toggle i');
+            
+            navLinks.classList.toggle('active');
+            overlay.classList.toggle('active');
+            
+            if (menuToggle.classList.contains('fa-bars')) {
+                menuToggle.classList.remove('fa-bars');
+                menuToggle.classList.add('fa-times');
+            } else {
+                menuToggle.classList.remove('fa-times');
+                menuToggle.classList.add('fa-bars');
+            }
+        }
+    </script>
+</body>
+</html> 

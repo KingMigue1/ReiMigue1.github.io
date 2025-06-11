@@ -1,3 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes do Produto - OPTO Review</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/product.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Barra de Navegação -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">OPTO Review</a>
+            <button class="menu-toggle" onclick="toggleMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="search.html" class="nav-link">Buscar Produtos</a>
+                <a href="compare.html" class="nav-link">Comparar</a>
+                <a href="about.html" class="nav-link">Sobre</a>
+                <button class="theme-toggle" onclick="toggleTheme()">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+    <div class="nav-overlay" onclick="toggleMenu()"></div>
+
+    <!-- Conteúdo Principal -->
+    <main class="product-container card-style">
+        <div class="product-card-flex">
+            <div class="product-image">
+                <img id="product-image" src="" alt="Imagem do Produto">
+            </div>
+            <div class="product-info">
+                <h2 id="product-title">Nome do Produto</h2>
+                <p id="product-price">Preço do Produto</p>
+                <div id="product-specs" class="product-specs-grid">
+                    <!-- Especificações do produto serão inseridas aqui via JS -->
+                </div>
+                <p id="product-description">Descrição do Produto</p>
+                <div class="product-buttons">
+                    <a id="compare-btn" href="#" class="product-detail-compare">Comparar</a>
+                    <a id="shop-btn" href="#" class="product-detail-link" target="_blank">Ver na Loja</a>
+                </div>
+            </div>
+        </div>
     </main>
 
     <!-- Scripts -->
@@ -51,41 +101,36 @@
         }
 
         function atualizarInterface() {
-            // Atualizar título da página
             document.title = `${produto.nome} - Site Periféricos`;
-
-            // Atualizar breadcrumb
-            document.getElementById('product-name').textContent = produto.nome;
-
-            // Atualizar imagem
+            document.getElementById('product-title').textContent = produto.nome;
             document.getElementById('product-image').src = produto.imagem;
             document.getElementById('product-image').alt = produto.nome;
-
-            // Atualizar informações do produto
-            document.getElementById('product-title').textContent = produto.nome;
             document.getElementById('product-price').textContent = formatarPreco(produto.preco);
             document.getElementById('product-description').textContent = produto.descricao;
 
-            // Atualizar especificações
+            // Especificações em duas colunas
             const specsContainer = document.getElementById('product-specs');
             specsContainer.innerHTML = '';
+            const entries = Object.entries(produto.especificacoes);
+            for (let i = 0; i < entries.length; i += 2) {
+                const row = document.createElement('div');
+                row.className = 'specs-row';
+                for (let j = 0; j < 2; j++) {
+                    if (entries[i + j]) {
+                        const [key, value] = entries[i + j];
+                        const specItem = document.createElement('div');
+                        specItem.className = 'spec-item';
+                        specItem.innerHTML = `<span class='spec-label'>${key.charAt(0).toUpperCase() + key.slice(1)}:</span> <span class='spec-value'>${value}</span>`;
+                        row.appendChild(specItem);
+                    }
+                }
+                specsContainer.appendChild(row);
+            }
 
-            Object.entries(produto.especificacoes).forEach(([key, value]) => {
-                const specItem = document.createElement('div');
-                specItem.className = 'spec-item';
-                specItem.innerHTML = `
-                    <span class="spec-label">${key.charAt(0).toUpperCase() + key.slice(1)}:</span>
-                    <span class="spec-value">${value}</span>
-                `;
-                specsContainer.appendChild(specItem);
-            });
-
-            // Atualizar botões de ação
             document.getElementById('compare-btn').href = `compare.html?id=${produto.id}`;
             document.getElementById('shop-btn').href = produto.urlProduto;
         }
 
-        // Carregar produto ao iniciar a página
         document.addEventListener('DOMContentLoaded', carregarProduto);
     </script>
 </body>
