@@ -251,14 +251,15 @@
         function filtrarProdutos() {
             const searchTerm = document.getElementById('searchInput').value.toLowerCase();
             const selectedTypes = Array.from(document.querySelectorAll('input[name="tipo"]:checked')).map(cb => cb.value);
-            const selectedBrands = Array.from(document.querySelectorAll('input[name="marca"]:checked')).map(cb => cb.value);
+            const selectedBrands = Array.from(document.querySelectorAll('input[name="marca"]:checked')).map(cb => cb.value.toLowerCase());
             const minPrice = parseFloat(document.getElementById('minPrice').value) || 0;
             const maxPrice = parseFloat(document.getElementById('maxPrice').value) || 2000;
 
             produtosFiltrados = produtos.filter(produto => {
-                const matchesSearch = produto.nome.toLowerCase().includes(searchTerm);
+                const nomeLower = produto.nome.toLowerCase();
+                const matchesSearch = nomeLower.includes(searchTerm);
                 const matchesType = selectedTypes.length === 0 || selectedTypes.includes(produto.tipo.toLowerCase());
-                const matchesBrand = selectedBrands.length === 0 || selectedBrands.includes(produto.marca?.toLowerCase() || '');
+                const matchesBrand = selectedBrands.length === 0 || selectedBrands.some(marca => nomeLower.includes(marca) || '');
                 const matchesPrice = produto.preco >= minPrice && produto.preco <= maxPrice;
 
                 return matchesSearch && matchesType && matchesBrand && matchesPrice;

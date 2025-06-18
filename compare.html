@@ -311,14 +311,25 @@
                     });
                 }
 
-                // Adicionar botões de detalhes
-                detailsLinks.innerHTML = '';
-                if (produto1 && produto1.urlProduto) {
-                    detailsLinks.innerHTML += `<a href="${produto1.urlProduto}" class="btn btn-primary" target="_blank" rel="noopener noreferrer">COMPRAR PRODUTO</a>`;
-                }
-                if (produto2 && produto2.urlProduto) {
-                    detailsLinks.innerHTML += `<a href="${produto2.urlProduto}" class="btn btn-secondary" target="_blank" rel="noopener noreferrer">COMPRAR PRODUTO</a>`;
-                }
+                const trBotao = document.createElement('tr');
+
+                const tdLabelVazio = document.createElement('td');
+                tdLabelVazio.innerHTML = ''; 
+                trBotao.appendChild(tdLabelVazio);
+
+                const tdBotao1 = document.createElement('td');
+                tdBotao1.innerHTML = produto1 && produto1.urlProduto ? `
+                  <a href="${produto1.urlProduto}" class="btn-comprar" target="_blank" rel="noopener noreferrer">COMPRAR PRODUTO</a>
+                  ` : '';
+                trBotao.appendChild(tdBotao1);
+
+                const tdBotao2 = document.createElement('td');
+                tdBotao2.innerHTML = produto2 && produto2.urlProduto ? `
+                  <a href="${produto2.urlProduto}" class="btn-comprar" target="_blank" rel="noopener noreferrer">COMPRAR PRODUTO</a>
+                  ` : '';
+                trBotao.appendChild(tdBotao2);
+
+                tbody.appendChild(trBotao);
             } else {
                 container.style.display = 'none';
                 noProducts.style.display = 'flex';

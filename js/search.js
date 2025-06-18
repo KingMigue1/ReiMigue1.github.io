@@ -1,17 +1,29 @@
-// Função para buscar produtos
+/**
+ * Sistema de Busca de Produtos
+ * Este arquivo implementa a funcionalidade de busca e filtragem de produtos,
+ * incluindo a exibição dos resultados na interface.
+ */
+
+/**
+ * Realiza a busca de produtos com base nos filtros aplicados
+ * @param {Event} event - Evento do formulário (opcional)
+ */
 async function buscarProdutos(event) {
     if (event) event.preventDefault();
     const searchTerm = document.getElementById('searchInput').value.toLowerCase();
     const tipoFiltros = Array.from(document.querySelectorAll('input[name="tipo"]:checked')).map(cb => cb.value);
+    const tipoMarcas = Array.from(document.querySelectorAll('input[name="marca"]:checked')).map(cb => cb.value.toLowerCase());
     const precoMax = parseFloat(document.getElementById('maxPrice').value);
     
     const produtos = await obterTodosProdutos();
     const produtosFiltrados = produtos.filter(produto => {
-        const matchNome = produto.nome.toLowerCase().includes(searchTerm);
+        const nomeLower = produto.nome.toLowerCase();
+        const matchNome = nomeLower.includes(searchTerm);
         const matchTipo = tipoFiltros.length === 0 || tipoFiltros.includes(produto.tipo);
+        const matchMarca = tipoMarcas.length === 0 || tipoMarcas.some(marca => nomeLower.includes(marca));
         const matchPreco = produto.preco <= precoMax;
         
-        return matchNome && matchTipo && matchPreco;
+        return matchNome && matchTipo && matchPreco && matchMarca;
     });
     
     const productsGrid = document.getElementById('productsGrid');
@@ -63,7 +75,10 @@ async function buscarProdutos(event) {
     });
 }
 
-// Função para obter todos os produtos da planilha Google Sheets
+/**
+ * Obtém todos os produtos da planilha Google Sheets
+ * @returns {Promise<Array>} Array com todos os produtos
+ */
 async function obterTodosProdutos() {
     try {
         return await GoogleSheetsDB.listarTodos();
@@ -73,7 +88,9 @@ async function obterTodosProdutos() {
     }
 }
 
-// Função para limpar filtros
+/**
+ * Limpa todos os filtros de busca e reinicia a busca
+ */
 function limparFiltros() {
     document.getElementById('searchInput').value = '';
     document.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
@@ -81,7 +98,7 @@ function limparFiltros() {
     buscarProdutos(new Event('submit'));
 }
 
-// Inicializar busca quando a página carregar
+// Inicializa a busca quando a página é carregada
 document.addEventListener('DOMContentLoaded', () => {
     buscarProdutos(new Event('submit'));
 }); 

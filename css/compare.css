@@ -231,22 +231,22 @@
     text-align: center;
 }
 
-.btn-shop {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.8rem 1.5rem;
-    background: var(--accent-primary);
-    color: white;
-    text-decoration: none;
-    border-radius: 8px;
-    font-weight: 500;
-    transition: all 0.3s ease;
+.btn-comprar {
+  display: inline-block;
+  margin: 0.75rem 0;
+  padding: 0.5rem 1.2rem;
+  background-color: #0077cc;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: bold;
+  text-align: center;
+  transition: background-color 0.3s;
 }
 
-.btn-shop:hover {
-    background: var(--accent-secondary);
-    transform: translateY(-2px);
+.btn-comprar:hover {
+  background-color: #005fa3;
 }
 
 /* Estilos para os selects */

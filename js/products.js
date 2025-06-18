@@ -1,4 +1,13 @@
-// Função para obter todos os produtos da planilha Google Sheets
+/**
+ * Gerenciamento de Produtos
+ * Este arquivo contém funções para manipulação e filtragem de produtos,
+ * utilizando o GoogleSheetsDB como fonte de dados.
+ */
+
+/**
+ * Obtém todos os produtos da planilha
+ * @returns {Promise<Array>} Array com todos os produtos
+ */
 async function obterTodosProdutos() {
     try {
         return await GoogleSheetsDB.listarTodos();
@@ -8,7 +17,10 @@ async function obterTodosProdutos() {
     }
 }
 
-// Base de dados de produtos organizada por tipo
+/**
+ * Estrutura para armazenar produtos organizados por tipo
+ * Usada para cache e organização dos produtos
+ */
 const produtosPorTipo = {
     mouse: [],
     teclado: [],
@@ -18,7 +30,11 @@ const produtosPorTipo = {
     webcam: []
 };
 
-// Função para obter produtos por tipo (usada nas categorias da home)
+/**
+ * Obtém produtos filtrados por tipo
+ * @param {string} tipo - Tipo do produto (mouse, teclado, etc.)
+ * @returns {Promise<Array>} Array de produtos do tipo especificado
+ */
 async function obterProdutosPorTipo(tipo) {
     try {
         const produtos = await obterTodosProdutos();
@@ -29,7 +45,11 @@ async function obterProdutosPorTipo(tipo) {
     }
 }
 
-// Função para obter produtos por marca
+/**
+ * Obtém produtos filtrados por marca
+ * @param {string} marca - Nome da marca
+ * @returns {Promise<Array>} Array de produtos da marca especificada
+ */
 async function obterProdutosPorMarca(marca) {
     try {
         const produtos = await obterTodosProdutos();
@@ -40,7 +60,12 @@ async function obterProdutosPorMarca(marca) {
     }
 }
 
-// Função para obter produtos por faixa de preço
+/**
+ * Obtém produtos dentro de uma faixa de preço
+ * @param {number} min - Preço mínimo
+ * @param {number} max - Preço máximo
+ * @returns {Promise<Array>} Array de produtos dentro da faixa de preço
+ */
 async function obterProdutosPorPreco(min, max) {
     try {
         const produtos = await obterTodosProdutos();
@@ -54,7 +79,11 @@ async function obterProdutosPorPreco(min, max) {
     }
 }
 
-// Função para obter um produto específico
+/**
+ * Obtém um produto específico pelo ID
+ * @param {number} id - ID do produto
+ * @returns {Promise<Object>} Produto encontrado ou null
+ */
 async function obterProduto(id) {
     try {
         return await GoogleSheetsDB.obterPorId(id);
@@ -64,7 +93,10 @@ async function obterProduto(id) {
     }
 }
 
-// Função para obter tipos de produtos disponíveis
+/**
+ * Obtém todos os tipos de produtos disponíveis
+ * @returns {Promise<Array>} Array com tipos únicos de produtos
+ */
 async function obterTiposDisponiveis() {
     try {
         const produtos = await obterTodosProdutos();
@@ -76,7 +108,10 @@ async function obterTiposDisponiveis() {
     }
 }
 
-// Função para obter marcas disponíveis
+/**
+ * Obtém todas as marcas disponíveis
+ * @returns {Promise<Array>} Array com marcas únicas
+ */
 async function obterMarcasDisponiveis() {
     try {
         const produtos = await obterTodosProdutos();

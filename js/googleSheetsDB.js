@@ -1,3 +1,9 @@
+/**
+ * Integração com Google Sheets como Banco de Dados
+ * Este arquivo implementa uma classe para gerenciar operações CRUD
+ * usando o Google Sheets como backend.
+ */
+
 // Configuração da Planilha
 const SPREADSHEET_ID = '1yD91Fb6oChOO3Tpb8XSFJjGf2ELeD0F8FLC5ONtljME';
 // Para configurar a API_KEY:
@@ -9,7 +15,17 @@ const SPREADSHEET_ID = '1yD91Fb6oChOO3Tpb8XSFJjGf2ELeD0F8FLC5ONtljME';
 const API_KEY = 'AIzaSyAJElrtiVMn234BFQAMhGY1ARUH9G-xHxs';
 const SHEET_NAME = 'Produtos';
 
+/**
+ * Classe principal para interação com o Google Sheets
+ * Implementa operações CRUD (Create, Read, Update, Delete)
+ * para gerenciar produtos na planilha.
+ */
 class GoogleSheetsDB {
+    /**
+     * Lista todos os produtos da planilha
+     * @returns {Promise<Array>} Array de produtos
+     * @throws {Error} Se houver erro ao acessar a planilha
+     */
     static async listarTodos() {
         try {
             const response = await fetch(`https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${SHEET_NAME}?key=${API_KEY}`);
@@ -35,6 +51,12 @@ class GoogleSheetsDB {
         }
     }
 
+    /**
+     * Obtém um produto específico pelo ID
+     * @param {number} id - ID do produto
+     * @returns {Promise<Object>} Produto encontrado
+     * @throws {Error} Se houver erro ao buscar o produto
+     */
     static async obterPorId(id) {
         try {
             const produtos = await this.listarTodos();
@@ -45,6 +67,12 @@ class GoogleSheetsDB {
         }
     }
 
+    /**
+     * Adiciona um novo produto à planilha
+     * @param {Object} produto - Dados do produto a ser adicionado
+     * @returns {Promise<boolean>} true se sucesso
+     * @throws {Error} Se houver erro ao adicionar o produto
+     */
     static async adicionar(produto) {
         try {
             const values = [
@@ -78,6 +106,12 @@ class GoogleSheetsDB {
         }
     }
 
+    /**
+     * Atualiza um produto existente na planilha
+     * @param {Object} produto - Dados atualizados do produto
+     * @returns {Promise<boolean>} true se sucesso
+     * @throws {Error} Se houver erro ao atualizar o produto
+     */
     static async atualizar(produto) {
         try {
             const values = [
@@ -112,6 +146,12 @@ class GoogleSheetsDB {
         }
     }
 
+    /**
+     * Exclui um produto da planilha (limpa os valores da linha)
+     * @param {number} id - ID do produto a ser excluído
+     * @returns {Promise<boolean>} true se sucesso
+     * @throws {Error} Se houver erro ao excluir o produto
+     */
     static async excluir(id) {
         try {
             // Para excluir, vamos limpar os valores da linha

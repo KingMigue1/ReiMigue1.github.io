@@ -41,17 +41,19 @@ RESPONSIVIDADE:
 /* Reset e Variáveis */
 :root {
     /* Cores do tema claro */
-    --bg-primary: #ffffff;
-    --bg-secondary: #f5f5f5;
-    --bg-card: #ffffff;
-    --text-primary: #333333;
-    --text-secondary: #666666;
-    --accent-primary: #4a90e2;
-    --accent-secondary: #2c3e50;
-    --border-color: #e0e0e0;
-    --danger-color: #e74c3c;
-    --danger-hover: #c0392b;
-    --success-color: #2ecc71;
+    --bg-primary: #F8FAFC;          /* Azul muito claro para fundo principal */
+    --bg-secondary: #FFFFFF;        /* Branco para fundo secundário */
+    --bg-card: #FFFFFF;            /* Branco para cards */
+    --text-primary: #1E293B;       /* Azul escuro para texto principal */
+    --text-secondary: #64748B;     /* Azul acinzentado para texto secundário */
+    --accent-primary: #00C853;     /* Verde Limão para ações principais */
+    --accent-secondary: #69F0AE;   /* Verde Neon para hover e destaque */
+    --border-color: #E2E8F0;       /* Azul muito claro para bordas */
+    --danger-color: #D32F2F;       /* Vermelho para alertas */
+    --danger-hover: #B71C1C;       /* Vermelho escuro para hover */
+    --success-color: #00C853;      /* Verde para sucesso */
+    --warning-color: #FF9800;      /* Laranja para promoções */
+    --highlight-color: #FFEB3B;    /* Amarelo para destaques */
     --spacing-sm: 0.5rem;
     --spacing-md: 1rem;
     --spacing-lg: 2rem;
@@ -67,17 +69,19 @@ RESPONSIVIDADE:
 
 /* Tema escuro */
 body.dark-theme {
-    --bg-primary: #121212;
-    --bg-secondary: #1e1e1e;
-    --bg-card: #1e1e1e;
-    --text-primary: #ffffff;
-    --text-secondary: #a0a0a0;
-    --accent-primary: #64b5f6;
-    --accent-secondary: #90caf9;
-    --border-color: #2d2d2d;
-    --danger-color: #ef5350;
-    --danger-hover: #e53935;
-    --success-color: #66bb6a;
+    --bg-primary: #0A1929;         /* Azul muito escuro, quase preto */
+    --bg-secondary: #112240;       /* Azul escuro com tom de petróleo */
+    --bg-card: #1D2B3A;           /* Azul escuro para cards */
+    --text-primary: #E6F1FF;      /* Azul muito claro para texto principal */
+    --text-secondary: #8892B0;    /* Azul acinzentado para texto secundário */
+    --accent-primary: #00C853;    /* Verde Limão para ações principais */
+    --accent-secondary: #69F0AE;  /* Verde Neon para hover e destaque */
+    --border-color: #233554;      /* Azul escuro para bordas */
+    --danger-color: #D32F2F;      /* Vermelho para alertas */
+    --danger-hover: #B71C1C;      /* Vermelho escuro para hover */
+    --success-color: #00C853;     /* Verde para sucesso */
+    --warning-color: #FF9800;     /* Laranja para promoções */
+    --highlight-color: #FFEB3B;   /* Amarelo para destaques */
 }
 
 /* Ajustes específicos para o tema escuro */
@@ -85,11 +89,33 @@ body.dark-theme .product-card,
 body.dark-theme .filters-sidebar,
 body.dark-theme .search-header {
     background: var(--bg-card);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    border: 1px solid var(--border-color);
 }
 
 body.dark-theme .product-image {
     background: linear-gradient(45deg, var(--bg-secondary), var(--bg-card));
+}
+
+body.dark-theme .navbar {
+    background-color: rgba(10, 25, 41, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border-color);
+}
+
+body.dark-theme .nav-link {
+    color: var(--text-secondary);
+}
+
+body.dark-theme .nav-link:hover,
+body.dark-theme .nav-link.active {
+    color: var(--text-primary);
+    background-color: var(--bg-secondary);
+}
+
+body.dark-theme .theme-toggle:hover {
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
 }
 
 body.dark-theme input[type="text"],
@@ -161,9 +187,25 @@ h3 {
 .nav-link {
     font-family: var(--font-action);
     font-weight: 700;
-    font-size: 1rem; /* 16px */
+    font-size: 1rem;
     text-transform: uppercase;
     letter-spacing: 0.5px;
+    background-color: var(--accent-primary);
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover,
+.btn-secondary:hover,
+.btn-compare:hover,
+.btn-shop:hover,
+.btn-see-all:hover,
+.nav-link:hover {
+    background-color: var(--accent-secondary);
+    transform: translateY(-2px);
 }
 
 /* Texto do corpo */
@@ -181,10 +223,146 @@ p, span, div {
 }
 
 /* Navegação */
+.navbar {
+    background-color: rgba(248, 250, 252, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border-color);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    padding: 1rem 0;
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .nav-logo {
     font-family: var(--font-heading);
     font-weight: 700;
     font-size: 1.5rem;
+    color: var(--text-primary);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.nav-logo:hover {
+    color: var(--accent-secondary);
+}
+
+.nav-links {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+.nav-link {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    background: transparent;
+}
+
+.nav-link:hover {
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+    transform: translateY(-2px);
+}
+
+.nav-link.active {
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+}
+
+.theme-toggle {
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    padding: 0.5rem;
+    font-size: 1.2rem;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.theme-toggle:hover {
+    color: var(--text-primary);
+    background-color: var(--bg-secondary);
+}
+
+.menu-toggle {
+    display: none;
+    background: transparent;
+    border: none;
+    color: var(--text-primary);
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.menu-toggle:hover {
+    color: var(--accent-primary);
+}
+
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: block;
+    }
+
+    .nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        height: 100vh;
+        width: 250px;
+        background-color: var(--bg-primary);
+        flex-direction: column;
+        padding: 2rem;
+        transition: right 0.3s ease;
+        box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .nav-links.active {
+        right: 0;
+    }
+
+    .nav-link {
+        width: 100%;
+        text-align: center;
+        padding: 1rem;
+    }
+
+    .theme-toggle {
+        margin-top: 1rem;
+    }
+}
+
+.nav-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.nav-overlay.active {
+    display: block;
+    opacity: 1;
 }
 
 /* Cards de Produto */
@@ -232,20 +410,6 @@ p, span, div {
 }
 
 /* Botão de tema */
-.theme-toggle {
-    background: none;
-    border: none;
-    color: var(--text-primary);
-    cursor: pointer;
-    padding: var(--spacing-sm);
-    font-size: 1.2rem;
-    transition: color 0.3s ease;
-}
-
-.theme-toggle:hover {
-    color: var(--accent-primary);
-}
-
 .theme-toggle .theme-text {
     display: none;
 }
@@ -463,147 +627,6 @@ button:hover {
 h1 {
     color: #333;
     text-align: center;
-}
-
-/* Navbar */
-.navbar {
-    background-color: var(--bg-card);
-    padding: var(--spacing-md) 0;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    box-shadow: 0 2px 8px var(--shadow-color);
-}
-
-.nav-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 var(--spacing-md);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.nav-logo {
-    color: var(--text-primary);
-    text-decoration: none;
-    font-size: 1.5rem;
-    font-weight: 700;
-    background: linear-gradient(45deg, var(--accent-primary), var(--accent-secondary));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-.nav-links {
-    display: flex;
-    gap: var(--spacing-lg);
-    align-items: center;
-}
-
-.nav-link {
-    color: var(--text-secondary);
-    text-decoration: none;
-    font-weight: 500;
-    transition: color 0.3s ease;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.nav-link:hover {
-    color: var(--text-primary);
-}
-
-.nav-link.active {
-    color: var(--accent-primary);
-}
-
-.nav-link i {
-    font-size: 1.1rem;
-}
-
-/* Menu Hamburguer */
-.menu-toggle {
-    display: none;
-    background: none;
-    border: none;
-    color: var(--text-primary);
-    font-size: 1.5rem;
-    cursor: pointer;
-    padding: 0.5rem;
-}
-
-/* Responsividade da Navbar */
-@media (max-width: 768px) {
-    .menu-toggle {
-        display: block;
-    }
-
-    .nav-links {
-        position: fixed;
-        top: 0;
-        right: -100%;
-        width: 80%;
-        max-width: 300px;
-        height: 100vh;
-        background-color: var(--bg-card);
-        flex-direction: column;
-        padding: 2rem;
-        gap: 1.5rem;
-        transition: right 0.3s ease;
-        box-shadow: -2px 0 8px var(--shadow-color);
-    }
-
-    .nav-links.active {
-        right: 0;
-    }
-
-    .nav-link {
-        width: 100%;
-        padding: 0.8rem;
-        border-radius: 8px;
-        transition: background-color 0.3s ease;
-    }
-
-    .nav-link:hover {
-        background-color: var(--bg-secondary);
-    }
-
-    .theme-toggle {
-        margin-top: auto;
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        padding: 1rem;
-        border-top: 1px solid var(--border-color);
-    }
-
-    /* Overlay quando o menu estiver aberto */
-    .nav-overlay {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.5);
-        z-index: 999;
-    }
-
-    .nav-overlay.active {
-        display: block;
-    }
-}
-
-@media (max-width: 480px) {
-    .nav-logo {
-        font-size: 1.2rem;
-    }
-
-    .nav-links {
-        width: 100%;
-        max-width: none;
-    }
 }
 
 h2, h4 {
@@ -1113,12 +1136,12 @@ h2, h4 {
     border-radius: 10px;
     overflow: hidden;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
 }
 
 .product-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
 }
 
 .product-image {
@@ -1377,4 +1400,5 @@ h2, h4 {
     .carousel-button.next {
         right: 0;
     }
+}  
 }  
