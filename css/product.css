@@ -475,4 +475,52 @@ body.dark-theme #product-description {
 
 body.dark-theme #product-title {
     color: var(--accent-primary) !important;
+}
+
+/* Transições suaves para mudança de tema */
+.product-container,
+.product-card-flex,
+.product-image,
+.product-info,
+.product-specs-grid,
+.specs-row,
+.spec-item,
+.spec-label,
+.spec-value,
+.product-buttons,
+.product-detail-compare,
+.product-detail-link {
+    transition: background-color 0.3s ease, 
+                color 0.3s ease, 
+                border-color 0.3s ease, 
+                box-shadow 0.3s ease;
+}
+
+/* Transições para elementos de texto */
+.product-info h2,
+.product-info p,
+.spec-label,
+.spec-value {
+    transition: color 0.3s ease;
+}
+
+/* Transições para botões */
+.product-detail-compare,
+.product-detail-link {
+    transition: background-color 0.3s ease, 
+                color 0.3s ease, 
+                border-color 0.3s ease, 
+                transform 0.3s ease;
+}
+
+/* Transições para elementos de especificação */
+.specs-row {
+    transition: background-color 0.3s ease, 
+                border-color 0.3s ease;
+}
+
+.spec-item {
+    transition: background-color 0.3s ease, 
+                color 0.3s ease, 
+                border-color 0.3s ease;
 } 

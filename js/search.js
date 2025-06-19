@@ -51,17 +51,27 @@ async function buscarProdutos(event) {
                 <h3>${produto.nome}</h3>
                 <p class="product-specs">
                     ${produto.tipo === 'mouse' ? 
-                        `Sensor: ${produto.especificacoes.sensor} • Peso: ${produto.especificacoes.peso}g • ${produto.especificacoes.tipo}` :
+                        `Sensor: ${produto.especificacoes.sensor} • DPI: ${produto.especificacoes.dpi} • ${produto.especificacoes.tipo}` :
                     produto.tipo === 'teclado' ?
-                        `Switch: ${produto.especificacoes.switch} • ${produto.especificacoes.iluminacao} • ${produto.especificacoes.tipo}` :
+                        `Switch: ${produto.especificacoes.tipoSwitch} • ${produto.especificacoes.tamanhoAproximado} • ${produto.especificacoes.conectividade}` :
                     produto.tipo === 'headset' ?
-                        `Driver: ${produto.especificacoes.driver} • ${produto.especificacoes.microfone} • ${produto.especificacoes.tipo}` :
+                        `Driver: ${produto.especificacoes.tamanhoFalante} • ${produto.especificacoes.impedancia} • ${produto.especificacoes.microfone}` :
                     produto.tipo === 'mousepad' ?
                         `Tamanho: ${produto.especificacoes.tamanho} • Espessura: ${produto.especificacoes.espessura}mm • ${produto.especificacoes.material}` :
                     produto.tipo === 'monitor' ?
                         `Resolução: ${produto.especificacoes.resolucao} • ${produto.especificacoes.taxa}Hz • ${produto.especificacoes.tamanho}"` :
                     produto.tipo === 'webcam' ?
                         `Resolução: ${produto.especificacoes.resolucao} • ${produto.especificacoes.fps}fps • ${produto.especificacoes.campo}` :
+                    produto.tipo === 'fone de ouvido' ?
+                        `Driver: ${produto.especificacoes.driver} • ${produto.especificacoes.tipo} • ${produto.especificacoes.conectividade}` :
+                    produto.tipo === 'caixa de som' ?
+                        `Potência: ${produto.especificacoes.potencia} • ${produto.especificacoes.tipo} • ${produto.especificacoes.conectividade}` :
+                    produto.tipo === 'joystick e controle' ?
+                        `Compatibilidade: ${produto.especificacoes.compatibilidade} • ${produto.especificacoes.tipo} • ${produto.especificacoes.conectividade}` :
+                    produto.tipo === 'componentes teclado' ?
+                        `Tipo: ${produto.especificacoes.tipo} • Material: ${produto.especificacoes.material} • ${produto.especificacoes.compatibilidade}` :
+                    produto.tipo === 'microfone' ?
+                        `Tipo: ${produto.especificacoes.tipo} • Padrão: ${produto.especificacoes.padrao} • ${produto.especificacoes.conectividade}` :
                         ''}
                 </p>
                 <div class="product-price">R$ ${produto.preco.toFixed(2)}</div>

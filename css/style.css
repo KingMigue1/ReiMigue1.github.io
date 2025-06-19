@@ -159,6 +159,148 @@ body {
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+/* Transições suaves para todos os elementos */
+* {
+    transition: background-color 0.3s ease, 
+                color 0.3s ease, 
+                border-color 0.3s ease, 
+                box-shadow 0.3s ease,
+                opacity 0.3s ease,
+                transform 0.3s ease;
+}
+
+/* Transições específicas para elementos que mudam de tema */
+.navbar,
+.nav-link,
+.theme-toggle,
+.product-card,
+.filters-sidebar,
+.search-header,
+.product-image,
+input[type="text"],
+input[type="number"],
+input[type="range"],
+select,
+button,
+.btn-primary,
+.btn-secondary,
+.btn-compare,
+.btn-shop,
+.btn-see-all,
+.card,
+.footer,
+.footer a,
+.social-link,
+.commitment-card,
+.partner-card,
+.faq-item,
+.terms-section,
+.privacy-section {
+    transition: background-color 0.3s ease, 
+                color 0.3s ease, 
+                border-color 0.3s ease, 
+                box-shadow 0.3s ease;
+}
+
+/* Transições para elementos de texto */
+h1, h2, h3, h4, h5, h6,
+p, span, div, label {
+    transition: color 0.3s ease;
+}
+
+/* Transições para elementos de formulário */
+input:focus,
+select:focus,
+textarea:focus {
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Transições para elementos de navegação */
+.nav-links,
+.nav-overlay {
+    transition: background-color 0.3s ease, 
+                transform 0.3s ease, 
+                opacity 0.3s ease;
+}
+
+/* Transições para elementos de carrossel */
+.carousel-slide,
+.carousel-button,
+.carousel-dot {
+    transition: background-color 0.3s ease, 
+                color 0.3s ease, 
+                border-color 0.3s ease, 
+                transform 0.3s ease;
+}
+
+/* Transições para elementos de comparação */
+.compare-table th,
+.compare-table td,
+.compare-table-container {
+    transition: background-color 0.3s ease, 
+                color 0.3s ease, 
+                border-color 0.3s ease;
+}
+
+/* Transições para elementos de filtro */
+.filter-option,
+.filter-option input[type="checkbox"],
+.filter-option span {
+    transition: background-color 0.3s ease, 
+                color 0.3s ease, 
+                border-color 0.3s ease;
+}
+
+/* Transições para elementos de produto */
+.product-info,
+.product-specs,
+.product-price,
+.product-buttons {
+    transition: background-color 0.3s ease, 
+                color 0.3s ease;
+}
+
+/* Transições para elementos de categoria */
+.category-header,
+.category-section {
+    transition: background-color 0.3s ease, 
+                color 0.3s ease, 
+                border-color 0.3s ease;
+}
+
+/* Transições para elementos de sobre */
+.about-section,
+.commitment-card,
+.partner-section {
+    transition: background-color 0.3s ease, 
+                color 0.3s ease, 
+                border-color 0.3s ease, 
+                box-shadow 0.3s ease;
+}
+
+/* Transições para elementos de FAQ */
+.faq-question,
+.faq-answer {
+    transition: color 0.3s ease, 
+                border-color 0.3s ease;
+}
+
+/* Transições para elementos de termos e privacidade */
+.terms-section,
+.privacy-section {
+    transition: background-color 0.3s ease, 
+                color 0.3s ease;
+}
+
+/* Transições para elementos de rodapé */
+.footer,
+.footer-section,
+.footer-bottom {
+    transition: background-color 0.3s ease, 
+                color 0.3s ease, 
+                border-color 0.3s ease;
+}
+
 /* Títulos */
 h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-heading);
@@ -1011,14 +1153,23 @@ h2, h4 {
 
 /* Responsividade do carrossel */
 @media (max-width: 900px) {
-    .carousel-container {
-        max-width: 98vw;
-        padding: 1.5rem 0.5rem;
-        min-height: 260px;
+    .carousel-slide .product-card {
+        width: 98vw;
+        min-height: 240px;
+        padding: 1rem 0.2rem;
     }
-    .carousel-slide {
-        min-width: 100%;
-        min-height: 160px;
+    .carousel-slide .product-image img {
+        max-width: 120px;
+        max-height: 80px;
+    }
+    .carousel-slide .product-info h3 {
+        font-size: 1rem;
+    }
+    .carousel-button.prev {
+        left: 0;
+    }
+    .carousel-button.next {
+        right: 0;
     }
 }
 
@@ -1400,5 +1551,102 @@ h2, h4 {
     .carousel-button.next {
         right: 0;
     }
-}  
+}
+
+/* Transições específicas para elementos da home */
+.hero,
+.hero-content,
+.hero-content h1,
+.products-section,
+.carousel-container,
+.carousel-track,
+.carousel-dots {
+    transition: background-color 0.3s ease, 
+                color 0.3s ease, 
+                border-color 0.3s ease, 
+                box-shadow 0.3s ease;
+}
+
+/* Transições para elementos específicos do carrossel da home */
+.carousel-slide .product-card,
+.carousel-slide .product-image,
+.carousel-slide .product-info,
+.carousel-slide .product-info h3 {
+    transition: background-color 0.3s ease, 
+                color 0.3s ease, 
+                border-color 0.3s ease, 
+                box-shadow 0.3s ease;
+}
+
+body.dark-theme .product-specs {
+    color: var(--text-secondary);
+}
+
+/* Estilos específicos para o tema escuro na home */
+body.dark-theme .hero {
+    background: linear-gradient(135deg, var(--bg-primary), var(--bg-secondary));
+}
+
+body.dark-theme .hero-content h1 {
+    color: var(--text-primary);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-theme .category-section {
+    background-color: var(--bg-primary);
+    border-color: var(--border-color);
+}
+
+body.dark-theme .category-section:nth-child(even) {
+    background-color: var(--bg-secondary);
+}
+
+body.dark-theme .category-header {
+    background-color: var(--bg-card);
+    border-color: var(--border-color);
+}
+
+body.dark-theme .category-header h2 {
+    color: var(--text-primary);
+}
+
+body.dark-theme .category-header i {
+    color: var(--accent-primary);
+}
+
+body.dark-theme .carousel-container {
+    background-color: var(--bg-primary);
+}
+
+body.dark-theme .carousel-slide .product-card {
+    background-color: var(--bg-card);
+    border-color: var(--border-color);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+body.dark-theme .carousel-slide .product-info h3 {
+    color: var(--text-primary);
+}
+
+body.dark-theme .carousel-button {
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+    border-color: var(--border-color);
+}
+
+body.dark-theme .carousel-button:hover {
+    background-color: var(--accent-primary);
+    color: white;
+}
+
+body.dark-theme .carousel-dot {
+    background-color: var(--border-color);
+}
+
+body.dark-theme .carousel-dot.active {
+    background-color: var(--accent-primary);
+}
+
+body.dark-theme .no-products {
+    color: var(--text-secondary);
 }  

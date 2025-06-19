@@ -342,4 +342,49 @@ body.dark-theme .hero-content h1 {
     .social-links {
         justify-content: center;
     }
+}
+
+/* Transições suaves para mudança de tema */
+.about-container,
+.hero-section,
+.about-section,
+.commitment-card,
+.partner-section,
+.partner-card,
+.footer,
+.footer-section,
+.footer-bottom,
+.social-link {
+    transition: background-color 0.3s ease, 
+                color 0.3s ease, 
+                border-color 0.3s ease, 
+                box-shadow 0.3s ease;
+}
+
+/* Transições para elementos de texto */
+.hero-content h1,
+.hero-subtitle,
+.about-section h2,
+.about-section p,
+.commitment-card h3,
+.commitment-card p,
+.partner-section h2,
+.partner-card h4 {
+    transition: color 0.3s ease;
+}
+
+/* Transições para ícones */
+.section-icon i,
+.commitment-card i {
+    transition: color 0.3s ease, 
+                background-color 0.3s ease;
+}
+
+/* Transições para botões e links */
+.btn-see-all,
+.partner-card a {
+    transition: background-color 0.3s ease, 
+                color 0.3s ease, 
+                border-color 0.3s ease, 
+                transform 0.3s ease;
 } 

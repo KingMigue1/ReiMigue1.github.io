@@ -134,6 +134,61 @@
     </div>
   </section>
 
+  <section class="category-section" id="fones-de-ouvido">
+    <div class="category-header">
+      <i class="fas fa-headphones-alt"></i>
+      <h2>Fones de Ouvido</h2>
+      <a href="search.html?tipo=fone de ouvido" class="btn-see-all">Ver Todos</a>
+    </div>
+    <div class="products-grid" id="fonesDeOuvidoGrid">
+      <!-- Produtos serão inseridos via JavaScript -->
+    </div>
+  </section>
+
+  <section class="category-section" id="caixas-de-som">
+    <div class="category-header">
+      <i class="fas fa-volume-up"></i>
+      <h2>Caixas de Som</h2>
+      <a href="search.html?tipo=caixa de som" class="btn-see-all">Ver Todos</a>
+    </div>
+    <div class="products-grid" id="caixasDeSomGrid">
+      <!-- Produtos serão inseridos via JavaScript -->
+    </div>
+  </section>
+
+  <section class="category-section" id="joysticks-e-controles">
+    <div class="category-header">
+      <i class="fas fa-gamepad"></i>
+      <h2>Joysticks e Controles</h2>
+      <a href="search.html?tipo=joystick e controle" class="btn-see-all">Ver Todos</a>
+    </div>
+    <div class="products-grid" id="joysticksEControlesGrid">
+      <!-- Produtos serão inseridos via JavaScript -->
+    </div>
+  </section>
+
+  <section class="category-section" id="componentes-teclado">
+    <div class="category-header">
+      <i class="fas fa-keyboard"></i>
+      <h2>Componentes Teclado</h2>
+      <a href="search.html?tipo=componentes teclado" class="btn-see-all">Ver Todos</a>
+    </div>
+    <div class="products-grid" id="componentesTecladoGrid">
+      <!-- Produtos serão inseridos via JavaScript -->
+    </div>
+  </section>
+
+  <section class="category-section" id="microfones">
+    <div class="category-header">
+      <i class="fas fa-microphone"></i>
+      <h2>Microfones</h2>
+      <a href="search.html?tipo=microfone" class="btn-see-all">Ver Todos</a>
+    </div>
+    <div class="products-grid" id="microfonesGrid">
+      <!-- Produtos serão inseridos via JavaScript -->
+    </div>
+  </section>
+
   <!-- Scripts -->
   <script src="js/theme.js"></script>
   <script src="js/googleSheetsDB.js"></script>
@@ -209,17 +264,27 @@
               <h3>${produto.nome}</h3>
               <p class="product-specs">
                 ${produto.tipo === 'mouse' ? 
-                  `Sensor: ${produto.especificacoes.sensor} • Peso: ${produto.especificacoes.peso}g • ${produto.especificacoes.tipo}` :
+                  `Sensor: ${produto.especificacoes.sensor} • DPI: ${produto.especificacoes.dpi} • ${produto.especificacoes.tipo}` :
                 produto.tipo === 'teclado' ?
-                  `Switch: ${produto.especificacoes.switch} • ${produto.especificacoes.iluminacao} • ${produto.especificacoes.tipo}` :
+                  `Switch: ${produto.especificacoes.tipoSwitch} • ${produto.especificacoes.tamanhoAproximado} • ${produto.especificacoes.conectividade}` :
                 produto.tipo === 'headset' ?
-                  `Driver: ${produto.especificacoes.driver} • ${produto.especificacoes.microfone} • ${produto.especificacoes.tipo}` :
+                  `Driver: ${produto.especificacoes.tamanhoFalante} • ${produto.especificacoes.impedancia} • ${produto.especificacoes.microfone}` :
                 produto.tipo === 'mousepad' ?
                   `Tamanho: ${produto.especificacoes.tamanho} • Material: ${produto.especificacoes.material} • ${produto.especificacoes.tipo}` :
                 produto.tipo === 'monitor' ?
                   `Tamanho: ${produto.especificacoes.tamanho} • Resolução: ${produto.especificacoes.resolucao} • ${produto.especificacoes.taxaAtualizacao}` :
                 produto.tipo === 'webcam' ?
                   `Resolução: ${produto.especificacoes.resolucao} • FPS: ${produto.especificacoes.fps} • ${produto.especificacoes.microfone}` :
+                produto.tipo === 'fone de ouvido' ?
+                  `Driver: ${produto.especificacoes.driver} • ${produto.especificacoes.tipo} • ${produto.especificacoes.conectividade}` :
+                produto.tipo === 'caixa de som' ?
+                  `Potência: ${produto.especificacoes.potencia} • ${produto.especificacoes.tipo} • ${produto.especificacoes.conectividade}` :
+                produto.tipo === 'joystick e controle' ?
+                  `Compatibilidade: ${produto.especificacoes.compatibilidade} • ${produto.especificacoes.tipo} • ${produto.especificacoes.conectividade}` :
+                produto.tipo === 'componentes teclado' ?
+                  `Tipo: ${produto.especificacoes.tipo} • Material: ${produto.especificacoes.material} • ${produto.especificacoes.compatibilidade}` :
+                produto.tipo === 'microfone' ?
+                  `Tipo: ${produto.especificacoes.tipo} • Padrão: ${produto.especificacoes.padrao} • ${produto.especificacoes.conectividade}` :
                   ''}
               </p>
               <div class="product-price">R$ ${produto.preco.toFixed(2)}</div>
@@ -296,6 +361,11 @@
       await loadCategoryProducts('mousepad', 'mousepadsGrid');
       await loadCategoryProducts('monitor', 'monitoresGrid');
       await loadCategoryProducts('webcam', 'webcamsGrid');
+      await loadCategoryProducts('fone de ouvido', 'fonesDeOuvidoGrid');
+      await loadCategoryProducts('caixa de som', 'caixasDeSomGrid');
+      await loadCategoryProducts('joystick e controle', 'joysticksEControlesGrid');
+      await loadCategoryProducts('componentes teclado', 'componentesTecladoGrid');
+      await loadCategoryProducts('microfone', 'microfonesGrid');
 
       // Função para alternar o tema
       function toggleTheme() {
@@ -313,6 +383,9 @@
           localStorage.setItem('theme', 'dark');
         }
       }
+
+      // Tornar função global
+      window.toggleMenu = toggleMenu;
     });
   </script>
 </body>

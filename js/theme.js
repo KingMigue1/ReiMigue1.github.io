@@ -31,6 +31,9 @@ function toggleTheme() {
     }
 }
 
+// Tornar função global
+window.toggleTheme = toggleTheme;
+
 /**
  * Carrega o tema salvo anteriormente pelo usuário
  * - Verifica o localStorage por uma preferência salva

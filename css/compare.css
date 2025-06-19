@@ -438,4 +438,53 @@
         font-size: 1rem;
         padding: 0.7rem 0;
     }
+}
+
+/* Transições suaves para mudança de tema */
+.compare-container,
+.compare-header,
+.product-selector,
+.select-container,
+.product-select,
+.button-group,
+.btn-remove,
+.no-products,
+.compare-table-container,
+.compare-table,
+.compare-table th,
+.compare-table td,
+.btn-comprar {
+    transition: background-color 0.3s ease, 
+                color 0.3s ease, 
+                border-color 0.3s ease, 
+                box-shadow 0.3s ease;
+}
+
+/* Transições para elementos de texto */
+.compare-header h1,
+.compare-header p,
+.select-container h3,
+.no-products h2,
+.no-products p {
+    transition: color 0.3s ease;
+}
+
+/* Transições para ícones */
+.no-products i {
+    transition: color 0.3s ease;
+}
+
+/* Transições para botões */
+.btn-remove:hover,
+.btn-comprar:hover {
+    transition: background-color 0.3s ease, 
+                color 0.3s ease, 
+                transform 0.3s ease;
+}
+
+/* Transições para elementos selecionados */
+.select-container.selected {
+    transition: background-color 0.3s ease, 
+                border-color 0.3s ease, 
+                box-shadow 0.3s ease;
 } 
