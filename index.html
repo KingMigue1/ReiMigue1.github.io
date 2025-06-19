@@ -6,8 +6,10 @@
   <title>OPTO Review - Periféricos para Gamers</title>
   <link rel="stylesheet" href="css/style.css" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
 </head>
 <body>
+
   <!-- Barra de Navegação -->
   <nav class="navbar">
     <div class="nav-container">
@@ -16,25 +18,11 @@
         <i class="fas fa-bars"></i>
       </button>
       <div class="nav-links">
-        <a href="index.html" class="nav-link active">
-          <i class="fas fa-home"></i>
-          Home
-        </a>
-        <a href="search.html" class="nav-link">
-          <i class="fas fa-search"></i>
-          Buscar Produtos
-        </a>
-        <a href="compare.html" class="nav-link">
-          <i class="fas fa-balance-scale"></i>
-          Comparar
-        </a>
-        <a href="about.html" class="nav-link">
-          <i class="fas fa-info-circle"></i>
-          Sobre
-        </a>
-        <button class="theme-toggle" onclick="toggleTheme()">
-          <i class="fas fa-moon"></i>
-        </button>
+        <a href="index.html" class="nav-link active"><i class="fas fa-home"></i> Home</a>
+        <a href="search.html" class="nav-link"><i class="fas fa-search"></i> Buscar Produtos</a>
+        <a href="compare.html" class="nav-link"><i class="fas fa-balance-scale"></i> Comparar</a>
+        <a href="about.html" class="nav-link"><i class="fas fa-info-circle"></i> Sobre</a>
+        <button class="theme-toggle" onclick="toggleTheme()"><i class="fas fa-moon"></i></button>
       </div>
     </div>
   </nav>
@@ -47,36 +35,38 @@
     </div>
   </section>
 
-  <!-- Seção de Produtos -->
-  <section class="products-section">
-    <div class="carousel-container">
-      <button class="carousel-button prev" onclick="moveCarousel(-1)">
-        <i class="fas fa-chevron-left"></i>
-      </button>
-      <div class="carousel">
-        <div class="carousel-track" id="featuredProducts">
-          <!-- Os produtos serão inseridos aqui via JavaScript -->
-        </div>
-      </div>
-      <button class="carousel-button next" onclick="moveCarousel(1)">
-        <i class="fas fa-chevron-right"></i>
-      </button>
-    </div>
-    <div class="carousel-dots" id="carouselDots">
-      <!-- Os dots serão inseridos aqui via JavaScript -->
-    </div>
-  </section>
+  <!-- Destaque Promocional -->
+<section class="promo-banner">
+  <p>🔥 Frete Grátis em compras acima de R$ 200 | Use o cupom <strong>OPTO10</strong> para 10% de desconto</p>
+</section>
 
-  <!-- Seções por Tipo de Produto -->
+<!-- Carrossel com Swiper -->
+<section class="products-section">
+  <div class="section-header">
+    <h2>Destaques</h2>
+    <p>Confira nossos produtos mais Recentes</p>
+  </div>
+  
+  <div class="swiper mySwiper">
+    <div class="swiper-wrapper" id="featuredProducts">
+      <!-- Produtos serão inseridos via JavaScript -->
+    </div>
+
+    
+  </div>
+  <div class="swiper-pagination"></div>
+  <div class="swiper-button-prev"></div>
+  <div class="swiper-button-next"></div>
+</section>
+
+  <!-- Categorias -->
   <section class="category-section" id="mouses">
     <div class="category-header">
       <i class="fas fa-mouse"></i>
       <h2>Mouses</h2>
       <a href="search.html?tipo=mouse" class="btn-see-all">Ver Todos</a>
     </div>
-    <div class="products-grid" id="mousesGrid">
-      <!-- Produtos serão inseridos via JavaScript -->
-    </div>
+    <div class="products-grid" id="mousesGrid"></div>
   </section>
 
   <section class="category-section" id="teclados">
@@ -85,9 +75,7 @@
       <h2>Teclados</h2>
       <a href="search.html?tipo=teclado" class="btn-see-all">Ver Todos</a>
     </div>
-    <div class="products-grid" id="tecladosGrid">
-      <!-- Produtos serão inseridos via JavaScript -->
-    </div>
+    <div class="products-grid" id="tecladosGrid"></div>
   </section>
 
   <section class="category-section" id="headsets">
@@ -96,9 +84,7 @@
       <h2>Headsets</h2>
       <a href="search.html?tipo=headset" class="btn-see-all">Ver Todos</a>
     </div>
-    <div class="products-grid" id="headsetsGrid">
-      <!-- Produtos serão inseridos via JavaScript -->
-    </div>
+    <div class="products-grid" id="headsetsGrid"></div>
   </section>
 
   <section class="category-section" id="mousepads">
@@ -107,9 +93,7 @@
       <h2>Mousepads</h2>
       <a href="search.html?tipo=mousepad" class="btn-see-all">Ver Todos</a>
     </div>
-    <div class="products-grid" id="mousepadsGrid">
-      <!-- Produtos serão inseridos via JavaScript -->
-    </div>
+    <div class="products-grid" id="mousepadsGrid"></div>
   </section>
 
   <section class="category-section" id="monitores">
@@ -118,9 +102,7 @@
       <h2>Monitores</h2>
       <a href="search.html?tipo=monitor" class="btn-see-all">Ver Todos</a>
     </div>
-    <div class="products-grid" id="monitoresGrid">
-      <!-- Produtos serão inseridos via JavaScript -->
-    </div>
+    <div class="products-grid" id="monitoresGrid"></div>
   </section>
 
   <section class="category-section" id="webcams">
@@ -129,78 +111,20 @@
       <h2>Webcams</h2>
       <a href="search.html?tipo=webcam" class="btn-see-all">Ver Todos</a>
     </div>
-    <div class="products-grid" id="webcamsGrid">
-      <!-- Produtos serão inseridos via JavaScript -->
-    </div>
-  </section>
-
-  <section class="category-section" id="fones-de-ouvido">
-    <div class="category-header">
-      <i class="fas fa-headphones-alt"></i>
-      <h2>Fones de Ouvido</h2>
-      <a href="search.html?tipo=fone de ouvido" class="btn-see-all">Ver Todos</a>
-    </div>
-    <div class="products-grid" id="fonesDeOuvidoGrid">
-      <!-- Produtos serão inseridos via JavaScript -->
-    </div>
-  </section>
-
-  <section class="category-section" id="caixas-de-som">
-    <div class="category-header">
-      <i class="fas fa-volume-up"></i>
-      <h2>Caixas de Som</h2>
-      <a href="search.html?tipo=caixa de som" class="btn-see-all">Ver Todos</a>
-    </div>
-    <div class="products-grid" id="caixasDeSomGrid">
-      <!-- Produtos serão inseridos via JavaScript -->
-    </div>
-  </section>
-
-  <section class="category-section" id="joysticks-e-controles">
-    <div class="category-header">
-      <i class="fas fa-gamepad"></i>
-      <h2>Joysticks e Controles</h2>
-      <a href="search.html?tipo=joystick e controle" class="btn-see-all">Ver Todos</a>
-    </div>
-    <div class="products-grid" id="joysticksEControlesGrid">
-      <!-- Produtos serão inseridos via JavaScript -->
-    </div>
-  </section>
-
-  <section class="category-section" id="componentes-teclado">
-    <div class="category-header">
-      <i class="fas fa-keyboard"></i>
-      <h2>Componentes Teclado</h2>
-      <a href="search.html?tipo=componentes teclado" class="btn-see-all">Ver Todos</a>
-    </div>
-    <div class="products-grid" id="componentesTecladoGrid">
-      <!-- Produtos serão inseridos via JavaScript -->
-    </div>
-  </section>
-
-  <section class="category-section" id="microfones">
-    <div class="category-header">
-      <i class="fas fa-microphone"></i>
-      <h2>Microfones</h2>
-      <a href="search.html?tipo=microfone" class="btn-see-all">Ver Todos</a>
-    </div>
-    <div class="products-grid" id="microfonesGrid">
-      <!-- Produtos serão inseridos via JavaScript -->
-    </div>
+    <div class="products-grid" id="webcamsGrid"></div>
   </section>
 
   <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   <script src="js/theme.js"></script>
   <script src="js/googleSheetsDB.js"></script>
   <script src="js/products.js"></script>
+
   <script>
     document.addEventListener('DOMContentLoaded', async () => {
       loadTheme();
-      let currentSlide = 0;
-      const slidesToShow = 1;
-      let totalSlides = 0;
 
-      // Função para alternar o menu mobile
+      // Função de menu
       function toggleMenu() {
         const navLinks = document.querySelector('.nav-links');
         const overlay = document.querySelector('.nav-overlay');
@@ -209,47 +133,12 @@
         navLinks.classList.toggle('active');
         overlay.classList.toggle('active');
         
-        // Alterna o ícone do menu
         if (menuToggle.classList.contains('fa-bars')) {
           menuToggle.classList.remove('fa-bars');
           menuToggle.classList.add('fa-times');
         } else {
           menuToggle.classList.remove('fa-times');
           menuToggle.classList.add('fa-bars');
-        }
-      }
-
-      // Função para mover o carrossel
-      function moveCarousel(direction) {
-        const track = document.querySelector('.carousel-track');
-        const slides = document.querySelectorAll('.carousel-slide');
-        const dots = document.querySelectorAll('.carousel-dot');
-        
-        currentSlide = (currentSlide + direction + totalSlides) % totalSlides;
-        
-        // Atualiza a posição do track
-        const slideWidth = slides[0].offsetWidth;
-        track.style.transform = `translateX(-${currentSlide * slideWidth}px)`;
-        
-        // Atualiza os dots
-        dots.forEach((dot, index) => {
-          dot.classList.toggle('active', index === currentSlide);
-        });
-      }
-
-      // Função para criar os dots
-      function createDots(count) {
-        const dotsContainer = document.getElementById('carouselDots');
-        dotsContainer.innerHTML = '';
-        
-        for (let i = 0; i < count; i++) {
-          const dot = document.createElement('button');
-          dot.className = `carousel-dot ${i === 0 ? 'active' : ''}`;
-          dot.onclick = () => {
-            currentSlide = i;
-            moveCarousel(0);
-          };
-          dotsContainer.appendChild(dot);
         }
       }
 
@@ -264,27 +153,17 @@
               <h3>${produto.nome}</h3>
               <p class="product-specs">
                 ${produto.tipo === 'mouse' ? 
-                  `Sensor: ${produto.especificacoes.sensor} • DPI: ${produto.especificacoes.dpi} • ${produto.especificacoes.tipo}` :
+                  `Sensor: ${produto.especificacoes.sensor} • Peso: ${produto.especificacoes.peso}g • ${produto.especificacoes.tipo}` :
                 produto.tipo === 'teclado' ?
-                  `Switch: ${produto.especificacoes.tipoSwitch} • ${produto.especificacoes.tamanhoAproximado} • ${produto.especificacoes.conectividade}` :
+                  `Switch: ${produto.especificacoes.switch} • ${produto.especificacoes.iluminacao} • ${produto.especificacoes.tipo}` :
                 produto.tipo === 'headset' ?
-                  `Driver: ${produto.especificacoes.tamanhoFalante} • ${produto.especificacoes.impedancia} • ${produto.especificacoes.microfone}` :
+                  `Driver: ${produto.especificacoes.driver} • ${produto.especificacoes.microfone} • ${produto.especificacoes.tipo}` :
                 produto.tipo === 'mousepad' ?
                   `Tamanho: ${produto.especificacoes.tamanho} • Material: ${produto.especificacoes.material} • ${produto.especificacoes.tipo}` :
                 produto.tipo === 'monitor' ?
                   `Tamanho: ${produto.especificacoes.tamanho} • Resolução: ${produto.especificacoes.resolucao} • ${produto.especificacoes.taxaAtualizacao}` :
                 produto.tipo === 'webcam' ?
                   `Resolução: ${produto.especificacoes.resolucao} • FPS: ${produto.especificacoes.fps} • ${produto.especificacoes.microfone}` :
-                produto.tipo === 'fone de ouvido' ?
-                  `Driver: ${produto.especificacoes.driver} • ${produto.especificacoes.tipo} • ${produto.especificacoes.conectividade}` :
-                produto.tipo === 'caixa de som' ?
-                  `Potência: ${produto.especificacoes.potencia} • ${produto.especificacoes.tipo} • ${produto.especificacoes.conectividade}` :
-                produto.tipo === 'joystick e controle' ?
-                  `Compatibilidade: ${produto.especificacoes.compatibilidade} • ${produto.especificacoes.tipo} • ${produto.especificacoes.conectividade}` :
-                produto.tipo === 'componentes teclado' ?
-                  `Tipo: ${produto.especificacoes.tipo} • Material: ${produto.especificacoes.material} • ${produto.especificacoes.compatibilidade}` :
-                produto.tipo === 'microfone' ?
-                  `Tipo: ${produto.especificacoes.tipo} • Padrão: ${produto.especificacoes.padrao} • ${produto.especificacoes.conectividade}` :
                   ''}
               </p>
               <div class="product-price">R$ ${produto.preco.toFixed(2)}</div>
@@ -297,26 +176,7 @@
         `;
       }
 
-      // Função para carregar produtos por categoria
-      async function loadCategoryProducts(tipo, gridId) {
-        try {
-          const grid = document.getElementById(gridId);
-          const produtos = await obterProdutosPorTipo(tipo);
-          
-          if (!produtos || produtos.length === 0) {
-            grid.innerHTML = '<p class="no-products">Nenhum produto encontrado nesta categoria</p>';
-            return;
-          }
-
-          // Limitar a 4 produtos por categoria
-          const produtosLimitados = produtos.slice(0, 4);
-          grid.innerHTML = produtosLimitados.map(produto => createProductCard(produto)).join('');
-        } catch (error) {
-          console.error(`Erro ao carregar produtos da categoria ${tipo}:`, error);
-        }
-      }
-
-      // Função para carregar produtos para o carrossel
+      // Carregar carrossel com Swiper
       async function loadCarouselProducts() {
         try {
           const productsGrid = document.getElementById('featuredProducts');
@@ -327,33 +187,66 @@
             return;
           }
 
-          // Ordenar produtos por ID (mais recentes primeiro)
           produtos.sort((a, b) => b.id - a.id);
-          
-          // Pegar os 6 produtos mais recentes
           const produtosRecentes = produtos.slice(0, 6);
-          totalSlides = Math.ceil(produtosRecentes.length / slidesToShow);
-          
-          // Criar os dots
-          createDots(totalSlides);
-          
-          // Adicionar produtos ao carrossel
+
           produtosRecentes.forEach(produto => {
             const slide = document.createElement('div');
-            slide.className = 'carousel-slide';
+            slide.className = 'swiper-slide';
             slide.innerHTML = createProductCard(produto);
             productsGrid.appendChild(slide);
           });
 
-          // Iniciar autoplay
-          setInterval(() => moveCarousel(1), 5000);
+          // Inicializar Swiper
+          const swiper = new Swiper('.mySwiper', {
+            loop: true,
+            slidesPerView: 1,
+            spaceBetween: 20,
+            autoplay: {
+              delay: 4000,
+              disableOnInteraction: false,
+            },
+            pagination: {
+              el: '.swiper-pagination',
+              clickable: true,
+            },
+            navigation: {
+              nextEl: '.swiper-button-next',
+              prevEl: '.swiper-button-prev',
+            },
+            breakpoints: {
+              768: {
+                slidesPerView: 2,
+              },
+              1024: {
+                slidesPerView: 3,
+              }
+            }
+          });
 
         } catch (error) {
           console.error('Erro ao carregar produtos:', error);
         }
       }
 
-      // Carregar todos os produtos quando a página carregar
+      // Carregar produtos por categoria
+      async function loadCategoryProducts(tipo, gridId) {
+        try {
+          const grid = document.getElementById(gridId);
+          const produtos = await obterProdutosPorTipo(tipo);
+          
+          if (!produtos || produtos.length === 0) {
+            grid.innerHTML = '<p class="no-products">Nenhum produto encontrado nesta categoria</p>';
+            return;
+          }
+
+          const produtosLimitados = produtos.slice(0, 4);
+          grid.innerHTML = produtosLimitados.map(produto => createProductCard(produto)).join('');
+        } catch (error) {
+          console.error(`Erro ao carregar produtos da categoria ${tipo}:`, error);
+        }
+      }
+
       await loadCarouselProducts();
       await loadCategoryProducts('mouse', 'mousesGrid');
       await loadCategoryProducts('teclado', 'tecladosGrid');
@@ -361,13 +254,8 @@
       await loadCategoryProducts('mousepad', 'mousepadsGrid');
       await loadCategoryProducts('monitor', 'monitoresGrid');
       await loadCategoryProducts('webcam', 'webcamsGrid');
-      await loadCategoryProducts('fone de ouvido', 'fonesDeOuvidoGrid');
-      await loadCategoryProducts('caixa de som', 'caixasDeSomGrid');
-      await loadCategoryProducts('joystick e controle', 'joysticksEControlesGrid');
-      await loadCategoryProducts('componentes teclado', 'componentesTecladoGrid');
-      await loadCategoryProducts('microfone', 'microfonesGrid');
 
-      // Função para alternar o tema
+      // Alternar tema
       function toggleTheme() {
         const body = document.body;
         const themeToggle = document.querySelector('.theme-toggle');
@@ -384,8 +272,6 @@
         }
       }
 
-      // Tornar função global
-      window.toggleMenu = toggleMenu;
     });
   </script>
 </body>

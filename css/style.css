@@ -222,17 +222,6 @@ textarea:focus {
                 transform 0.3s ease, 
                 opacity 0.3s ease;
 }
-
-/* Transições para elementos de carrossel */
-.carousel-slide,
-.carousel-button,
-.carousel-dot {
-    transition: background-color 0.3s ease, 
-                color 0.3s ease, 
-                border-color 0.3s ease, 
-                transform 0.3s ease;
-}
-
 /* Transições para elementos de comparação */
 .compare-table th,
 .compare-table td,
@@ -454,6 +443,98 @@ p, span, div {
 
 .menu-toggle:hover {
     color: var(--accent-primary);
+}
+
+/* Carrossel de Produtos - Versão Premium */
+.products-section {
+  margin: 3rem 0;
+  position: relative;
+  background: var(--bg-secondary);
+  padding: 2rem 0;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.swiper {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem 0;
+}
+
+.swiper-slide {
+  background: var(--bg-primary);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease;
+  height: auto;
+}
+
+.swiper-slide:hover {
+  transform: translateY(-5px);
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+  color: var(--accent-primary);
+  background: var(--bg-primary);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.swiper-button-prev:hover,
+.swiper-button-next:hover {
+  color: white;
+  transform: scale(1.1);
+}
+
+.swiper-button-prev::after,
+.swiper-button-next::after {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+/* Ajuste SIMPLES e EFETIVO para as bolinhas */
+.swiper-pagination {
+  position: relative;
+  margin-bottom: -5px;
+}
+
+
+/* Cabeçalho da Seção */
+.section-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.section-header h2 {
+  font-size: 2rem;
+  color: var(--accent-primary);
+  margin-bottom: 0.5rem;
+}
+
+.section-header p {
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+}
+
+/* Banner Promocional */
+.promo-banner {
+  background: var(--accent-primary);
+  color: white;
+  text-align: center;
+  padding: 0.8rem;
+  font-size: 0.95rem;
+  margin-bottom: 2rem;
+  border-radius: 6px;
+}
+
+.promo-banner strong {
+  font-weight: 700;
 }
 
 @media (max-width: 768px) {
@@ -1040,137 +1121,21 @@ h2, h4 {
     font-weight: 600;
 }
 
-/* Carrossel com mais destaque */
-.carousel-highlight-bg {
-    width: 100vw;
-    left: 50%;
-    transform: translateX(-50%);
-    position: relative;
-    background: linear-gradient(90deg, #1e3c72 0%, #2a5298 100%);
-    padding: 0;
-    z-index: 0;
-}
-.carousel-container {
-    max-width: 700px;
-    min-height: 480px;
-    margin: 5rem auto 5rem auto;
-    background: var(--bg-card);
-    border-radius: 32px;
-    box-shadow: 0 10px 40px 0 rgba(76,110,245,0.18), 0 2px 8px rgba(0,0,0,0.18);
-    padding: 4rem 2.5rem 3rem 2.5rem;
-    display: flex;
-    align-items: center;
-    flex-direction: row;
-    position: relative;
-    z-index: 1;
-    border: 3px solid var(--accent-primary);
-}
-
-.carousel {
-    flex: 1;
-    overflow: hidden;
-    min-height: 340px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.carousel-track {
-    display: flex;
-    transition: transform 0.5s cubic-bezier(.4,0,.2,1);
-    align-items: center;
-}
-
-.carousel-slide {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 100%;
-    min-height: 340px;
-    margin: 0;
-}
-
-.carousel-slide img {
-    width: 100%;
-    height: auto;
-    max-height: 500px;
-    object-fit: cover;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.carousel-button {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(255, 255, 255, 0.8);
-    border: none;
-    border-radius: 50%;
-    width: 15px;
-    height: 15px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: background 0.3s ease;
-}
-
-.carousel-button:hover {
-    background: rgba(255, 255, 255, 1);
-}
-
-.carousel-button.prev {
-    left: 10px;
-}
-
-.carousel-button.next {
-    right: 10px;
-}
-
-.carousel-dots {
-    display: flex;
-    justify-content: center;
-    margin-top: 1rem;
-}
-
-.carousel-dot {
-    width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    background: #bdbdbd;
-    border: none;
-    margin: 0 8px;
-    display: inline-block;
-    transition: background 0.3s, box-shadow 0.3s;
-    cursor: pointer;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.10);
-}
-
-.carousel-dot.active {
-    background: var(--accent-primary);
-    box-shadow: 0 0 0 3px rgba(100,181,246,0.18);
-}
-
 /* Responsividade do carrossel */
 @media (max-width: 900px) {
-    .carousel-slide .product-card {
+    .product-card {
         width: 98vw;
         min-height: 240px;
         padding: 1rem 0.2rem;
     }
-    .carousel-slide .product-image img {
+    .product-image img {
         max-width: 120px;
         max-height: 80px;
     }
-    .carousel-slide .product-info h3 {
+    .product-info h3 {
         font-size: 1rem;
     }
-    .carousel-button.prev {
-        left: 0;
-    }
-    .carousel-button.next {
-        right: 0;
-    }
+    
 }
 
 /* Hero Section */
@@ -1419,164 +1384,11 @@ h2, h4 {
         height: 120px;
     }
 }
-
-@media (max-width: 600px) {
-    .carousel-dot {
-        width: 12px;
-        height: 12px;
-        margin: 0 4px;
-    }
-}
-
-/* Novo layout para o card do carrossel */
-.carousel-slide .product-card {
-    width: 340px;
-    min-height: 390px;
-    padding: 2rem 1.2rem 1.5rem 1.2rem;
-    border-radius: 18px;
-    box-shadow: 0 4px 24px rgba(0,0,0,0.13);
-    background: var(--bg-card);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    position: relative;
-}
-.carousel-slide .product-image {
-    background: none;
-    padding: 0;
-    margin-bottom: 1.2rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-}
-.carousel-slide .product-image img {
-    max-width: 240px;
-    max-height: 180px;
-    width: 100%;
-    height: auto;
-    object-fit: contain;
-    border-radius: 12px;
-    background: none;
-    box-shadow: none;
-    border: 2px solid #6ec1ff;
-}
-.carousel-slide .product-info {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 0;
-    padding: 0;
-}
-.carousel-slide .product-info h3 {
-    background: none;
-    color: var(--accent-primary);
-    font-size: 1.35rem;
-    font-weight: 700;
-    border-radius: 0;
-    padding: 0;
-    margin: 0 0 1.2rem 0;
-    box-shadow: none;
-    text-align: center;
-    width: 100%;
-    max-width: 100%;
-    overflow-wrap: break-word;
-}
-.carousel-slide .product-specs,
-.carousel-slide .product-price {
-    display: none;
-}
-.carousel-slide .product-buttons {
-    width: 100%;
-    display: flex;
-    gap: 0.7rem;
-    margin-top: auto;
-    justify-content: center;
-}
-.carousel-slide .btn-compare, .carousel-slide .btn-shop, .carousel-slide .btn.btn-primary, .carousel-slide .btn.btn-secondary {
-    font-size: 1.05rem;
-    padding: 0.7rem 0;
-    border-radius: 8px;
-    flex: 1 1 0;
-    min-width: 0;
-    width: 100%;
-}
-.carousel-button {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 2;
-    background: #222;
-    color: #fff;
-    border: none;
-    border-radius: 50%;
-    width: 32px;
-    height: 32px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0.85;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.18);
-    transition: background 0.2s, opacity 0.2s;
-}
-.carousel-button.prev {
-    left: -18px;
-}
-.carousel-button.next {
-    right: -18px;
-}
-.carousel-button:hover {
-    background: var(--accent-primary);
-    color: #fff;
-    opacity: 1;
-}
-@media (max-width: 900px) {
-    .carousel-slide .product-card {
-        width: 98vw;
-        min-height: 240px;
-        padding: 1rem 0.2rem;
-    }
-    .carousel-slide .product-image img {
-        max-width: 120px;
-        max-height: 80px;
-    }
-    .carousel-slide .product-info h3 {
-        font-size: 1rem;
-    }
-    .carousel-button.prev {
-        left: 0;
-    }
-    .carousel-button.next {
-        right: 0;
-    }
-}
-
 /* Transições específicas para elementos da home */
 .hero,
 .hero-content,
 .hero-content h1,
 .products-section,
-.carousel-container,
-.carousel-track,
-.carousel-dots {
-    transition: background-color 0.3s ease, 
-                color 0.3s ease, 
-                border-color 0.3s ease, 
-                box-shadow 0.3s ease;
-}
-
-/* Transições para elementos específicos do carrossel da home */
-.carousel-slide .product-card,
-.carousel-slide .product-image,
-.carousel-slide .product-info,
-.carousel-slide .product-info h3 {
-    transition: background-color 0.3s ease, 
-                color 0.3s ease, 
-                border-color 0.3s ease, 
-                box-shadow 0.3s ease;
-}
 
 body.dark-theme .product-specs {
     color: var(--text-secondary);
@@ -1614,37 +1426,8 @@ body.dark-theme .category-header i {
     color: var(--accent-primary);
 }
 
-body.dark-theme .carousel-container {
+body.dark-theme {
     background-color: var(--bg-primary);
-}
-
-body.dark-theme .carousel-slide .product-card {
-    background-color: var(--bg-card);
-    border-color: var(--border-color);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
-}
-
-body.dark-theme .carousel-slide .product-info h3 {
-    color: var(--text-primary);
-}
-
-body.dark-theme .carousel-button {
-    background-color: var(--bg-secondary);
-    color: var(--text-primary);
-    border-color: var(--border-color);
-}
-
-body.dark-theme .carousel-button:hover {
-    background-color: var(--accent-primary);
-    color: white;
-}
-
-body.dark-theme .carousel-dot {
-    background-color: var(--border-color);
-}
-
-body.dark-theme .carousel-dot.active {
-    background-color: var(--accent-primary);
 }
 
 body.dark-theme .no-products {
