@@ -1296,7 +1296,7 @@ h2, h4 {
 .product-price {
     font-size: 1.1rem;
     font-weight: 600;
-    color: var(--accent-primary);
+    color: var(--accent-primary) !important;
     margin-bottom: 0.75rem;
 }
 

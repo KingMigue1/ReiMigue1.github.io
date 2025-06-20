@@ -213,10 +213,12 @@
 }
 
 /* Estilos para os preços */
-.compare-table td[id^="price"] {
+.compare-table td[id^="price"],
+.compare-table .preco,
+.compare-table .price {
+    color: var(--accent-primary) !important;
+    font-weight: 700;
     font-size: 1.2rem;
-    font-weight: 600;
-    text-align: center;
 }
 
 /* Estilos para os nomes */
@@ -487,4 +489,62 @@
     transition: background-color 0.3s ease, 
                 border-color 0.3s ease, 
                 box-shadow 0.3s ease;
+}
+
+.product-type-filter {
+  margin-bottom: 2rem;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.product-type-filter label {
+  font-weight: 700;
+  color: var(--text-primary);
+  font-size: 1.1rem;
+  margin-bottom: 0;
+}
+
+.product-type-filter select {
+  padding: 0.7rem 1.2rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  border: 2px solid var(--border-color);
+  background: var(--bg-card);
+  color: var(--text-primary);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  transition: border-color 0.3s;
+}
+
+.product-type-filter select:focus {
+  border-color: var(--accent-primary);
+  outline: none;
+}
+
+.btn-shop {
+  background: var(--accent-primary) !important;
+  color: #fff !important;
+  border: none !important;
+  border-radius: 8px;
+  font-weight: 600;
+  padding: 10px 20px;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+}
+.btn-shop:hover {
+  background: #009B3A !important;
+  color: #fff !important;
+  box-shadow: 0 4px 12px rgba(0, 200, 83, 0.3);
+  transform: translateY(-2px);
+}
+
+.compare-price {
+  color: var(--accent-primary) !important;
+  font-weight: 700;
+  font-size: 1.2rem;
+  text-align: center;
 } 

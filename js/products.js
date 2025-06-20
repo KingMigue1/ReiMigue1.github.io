@@ -198,4 +198,53 @@ async function obterMarcasDisponiveis() {
         console.error('Erro ao obter marcas disponíveis:', error);
         return [];
     }
+}
+
+// Função para criar o card de produto (igual do index.html)
+function createProductCard(produto) {
+  return `
+    <div class="product-card">
+      <div class="product-image">
+        <img src="${produto.imagem}" alt="${produto.nome}">
+      </div>
+      <div class="product-info">
+        <h3>${produto.nome}</h3>
+        <p class="product-specs">
+          ${produto.tipo === 'mouse' ? 
+            `Sensor: ${produto.especificacoes.sensor} • Peso: ${produto.especificacoes.peso}g • ${produto.especificacoes.tipo}` :
+          produto.tipo === 'teclado' ?
+            `Switch: ${produto.especificacoes.switch} • ${produto.especificacoes.iluminacao} • ${produto.especificacoes.tipo}` :
+          produto.tipo === 'headset' ?
+            `Driver: ${produto.especificacoes.driver} • ${produto.especificacoes.microfone} • ${produto.especificacoes.tipo}` :
+          produto.tipo === 'mousepad' ?
+            `Tamanho: ${produto.especificacoes.tamanho} • Material: ${produto.especificacoes.material} • ${produto.especificacoes.tipo}` :
+          produto.tipo === 'monitor' ?
+            `Tamanho: ${produto.especificacoes.tamanho} • Resolução: ${produto.especificacoes.resolucao} • ${produto.especificacoes.taxaAtualizacao}` :
+          produto.tipo === 'webcam' ?
+            `Resolução: ${produto.especificacoes.resolucao} • FPS: ${produto.especificacoes.fps} • ${produto.especificacoes.microfone}` :
+            ''}
+        </p>
+        <div class="product-price">R$ ${produto.preco.toFixed(2)}</div>
+        <div class="product-buttons">
+          <button class="btn-compare" onclick="window.location.href='compare.html?id=${produto.id}'">Comparar</button>
+          <a href="product.html?id=${produto.id}" class="btn-shop">Detalhes</a>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+// Exibir itens similares na tela de detalhes
+async function carregarItensSimilares(produtoAtual) {
+  if (!produtoAtual || !produtoAtual.tipo) return;
+  const todos = await obterProdutosPorTipo(produtoAtual.tipo);
+  // Excluir o próprio produto
+  const similares = todos.filter(p => p.id !== produtoAtual.id).slice(0, 4);
+  const container = document.getElementById('related-products');
+  if (!container) return;
+  if (similares.length === 0) {
+    container.innerHTML = '<p class="no-products">Nenhum item similar encontrado.</p>';
+    return;
+  }
+  container.innerHTML = similares.map(createProductCard).join('');
 } 

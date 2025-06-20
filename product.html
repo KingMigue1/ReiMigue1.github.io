@@ -50,6 +50,12 @@
         </div>
     </main>
 
+    <!-- Itens Similares -->
+    <section class="related-section">
+        <h3>Itens similares</h3>
+        <div id="related-products" class="products-grid"></div>
+    </section>
+
     <!-- Scripts -->
     <script src="js/theme.js"></script>
     <script src="js/googleSheetsDB.js"></script>
@@ -151,6 +157,11 @@
 
             document.getElementById('compare-btn').href = `compare.html?id=${produto.id}`;
             document.getElementById('shop-btn').href = produto.urlProduto;
+
+            // Carregar itens similares
+            if (typeof carregarItensSimilares === 'function') {
+                carregarItensSimilares(produto);
+            }
         }
 
         document.addEventListener('DOMContentLoaded', carregarProduto);
