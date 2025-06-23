@@ -524,7 +524,7 @@ p, span, div {
 
 /* Banner Promocional */
 .promo-banner {
-  background: var(--accent-primary);
+  background: var(--warning-color);
   color: white;
   text-align: center;
   padding: 0.8rem;
