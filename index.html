@@ -7,13 +7,15 @@
   <link rel="stylesheet" href="css/style.css" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/modal.css" />
 </head>
 <body>
 
   <!-- Barra de Navegação -->
   <nav class="navbar">
     <div class="nav-container">
-      <a href="index.html" class="nav-logo">OPTO Review</a>
+      <a id="logo-opto" class="nav-logo">OPTO Review</a>
       <button class="menu-toggle" onclick="toggleMenu()">
         <i class="fas fa-bars"></i>
       </button>
@@ -27,6 +29,27 @@
     </div>
   </nav>
   <div class="nav-overlay" onclick="toggleMenu()"></div>
+
+  <div id="ControllerModal" class="modal">
+  <div class="modal-content">
+    <span class="close" id="closeModal">&times;</span>
+    <div class="easter-egg-content">
+      <div class="controller">
+        <div class="dpad">
+          <button data-key="up">↑</button>
+          <button data-key="down">↓</button>
+          <button data-key="left">←</button>
+          <button data-key="right">→</button>
+        </div>
+        <div class="buttons">
+          <button data-key="b">B</button>
+          <button data-key="a">A</button>
+        </div>
+      </div>
+      <div class="message" id="ControllerMessage">Aguardando sequência...</div>
+    </div>
+  </div>
+</div>
 
   <!-- Hero Section -->
   <section class="hero">
@@ -273,6 +296,66 @@
       }
 
     });
+  </script>
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const logo = document.getElementById('logo-opto');
+    const modal = document.getElementById('ControllerModal');
+    const closeBtn = document.getElementById('closeModal');
+    const message = document.getElementById('ControllerMessage');
+    
+    let clickCount = 0;
+    const ControllerCode = ['up','up','down','down','left','right','left','right','b','a'];
+    let userInput = [];
+
+    logo.addEventListener('click', function() {
+      clickCount++;
+      if (clickCount === 13) {
+        modal.style.display = 'block';
+        clickCount = 0;
+        userInput = [];
+        message.textContent = 'Aguardando sequência...';
+      }
+    });
+
+    // Fechar modal
+    closeBtn.onclick = function() {
+      modal.style.display = 'none';
+      userInput = [];
+    };
+
+    window.onclick = function(event) {
+      if (event.target === modal) {
+        modal.style.display = 'none';
+        userInput = [];
+      }
+    };
+
+    // Eventos dos botões do controle
+    document.querySelectorAll('[data-key]').forEach(button => {
+      button.addEventListener('click', function() {
+        const key = this.getAttribute('data-key');
+        userInput.push(key);
+
+        // Mantém apenas os últimos inputs necessários
+        if (userInput.length > ControllerCode.length) {
+          userInput.shift();
+        }
+
+        // Verifica o código
+        if (arraysEqual(userInput, ControllerCode)) {
+          message.innerHTML = '🔥 Acesso autorizado!<br><strong>OPTO - O pai tá ON!</strong>';
+        } else {
+          message.textContent = 'Digitando... ' + userInput.join(' ');
+        }
+      });
+    });
+
+    // Função para comparar arrays
+    function arraysEqual(a, b) {
+      return a.length === b.length && a.every((val, i) => val === b[i]);
+    }
+  });
   </script>
 </body>
 </html>

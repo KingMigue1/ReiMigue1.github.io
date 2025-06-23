@@ -1,0 +1,115 @@
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.modal-content {
+  background-color: rgba(36, 35, 35, 0.8);
+  margin: 10% auto;
+  padding: 20px;
+  border: 4px solid #000000;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 500px;
+  color: white;
+  font-family: 'Press Start 2P', cursive;
+  text-align: center;
+  position: relative;
+}
+
+.easter-egg-content {
+  padding: 20px;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close:hover {
+  color: white;
+}
+
+.controller {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  margin: 30px 0;
+}
+
+.dpad {
+  display: grid;
+  grid-template-areas: 
+    ". up ."
+    "left center right"
+    ". down .";
+  gap: 5px;
+}
+
+.dpad button {
+  width: 50px;
+  height: 50px;
+  border: none;
+  border-radius: 5px;
+  background: #a8a8a8;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.dpad button[data-key="up"] { grid-area: up; background: rgb(99, 98, 98); }
+.dpad button[data-key="down"] { grid-area: down; background: rgb(99, 98, 98); }
+.dpad button[data-key="left"] { grid-area: left; background: rgb(99, 98, 98); }
+.dpad button[data-key="right"] { grid-area: right; background: rgb(99, 98, 98); }
+
+.buttons {
+  display: flex;
+  gap: 20px;
+}
+
+.buttons button {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: none;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.buttons button[data-key="b"] { background: #00f; }
+.buttons button[data-key="a"] { background: rgb(131, 129, 4); }
+
+.message {
+  margin-top: 20px;
+  font-size: 16px;
+  min-height: 50px;
+}
+
+@media (max-width: 600px) {
+  .controller {
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .dpad button {
+    width: 40px;
+    height: 40px;
+    font-size: 16px;
+  }
+  
+  .buttons button {
+    width: 50px;
+    height: 50px;
+    font-size: 16px;
+  }
+}

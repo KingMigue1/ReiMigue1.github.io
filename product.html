@@ -30,25 +30,52 @@
     <div class="nav-overlay" onclick="toggleMenu()"></div>
 
     <!-- Conteúdo Principal -->
+    <!-- Conteúdo Principal -->
     <main class="product-container card-style">
-        <div class="product-card-flex">
-            <div class="product-image">
-                <img id="product-image" src="" alt="Imagem do Produto">
-            </div>
-            <div class="product-info">
-                <h2 id="product-title">Nome do Produto</h2>
-                <p id="product-price">Preço do Produto</p>
-                <div id="product-specs" class="product-specs-grid">
-                    <!-- Especificações do produto serão inseridas aqui via JS -->
-                </div>
-                <p id="product-description">Descrição do Produto</p>
-                <div class="product-buttons">
-                    <a id="compare-btn" href="#" class="product-detail-compare">Comparar</a>
-                    <a id="shop-btn" href="#" class="product-detail-link" target="_blank">Ver na Loja</a>
-                </div>
-            </div>
+
+    <div class="product-card-flex relative bg-gray-800/50 backdrop-blur-sm text-gray-300 rounded-xl shadow-2xl overflow-hidden transition-all duration-300 card-hover-glow">
+
+        <!-- Imagem do Produto -->
+        <div class="product-image bg-gray-900 p-6 flex justify-center items-center">
+        <img id="product-image" src="" alt="Imagem do Produto" class="w-40 h-40 object-contain transition-transform duration-300 hover:scale-105">
         </div>
+
+        <!-- Informações do Produto -->
+        <div class="product-info p-6">
+
+        <!-- Título e Preço -->
+        <div class="mb-4">
+            <h2 id="product-title" class="text-2xl font-bold text-white">Nome do Produto</h2>
+            <p id="product-price" class="text-3xl font-light text-green-400 mt-1">R$ 0,00</p>
+        </div>
+
+        <!-- Linha divisória -->
+        <hr class="border-gray-700 mb-4">
+
+        <!-- Especificações -->
+        <div id="product-specs" class="product-specs-grid space-y-3 text-sm">
+            <h3 class="text-base font-semibold text-white mb-2">Especificações:</h3>
+            <!-- Conteúdo gerado via JS -->
+        </div>
+
+        <!-- Descrição -->
+        <p id="product-description" class="mt-4 text-sm text-gray-400">Descrição do Produto</p>
+
+        <!-- Botões -->
+        <div class="product-buttons mt-6 grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <a id="compare-btn" href="#" class="w-full bg-gray-700/50 text-white font-semibold py-3 px-4 rounded-lg transition-all duration-300 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-400">
+            Comparar
+            </a>
+            <a id="shop-btn" href="#" target="_blank" class="w-full bg-green-500 text-white font-bold py-3 px-4 rounded-lg transition-all duration-300 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-300">
+            Ver na Loja
+            </a>
+        </div>
+
+        </div>
+    </div>
+
     </main>
+
 
     <!-- Itens Similares -->
     <section class="related-section">
