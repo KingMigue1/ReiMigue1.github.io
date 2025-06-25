@@ -17,13 +17,12 @@
                 <i class="fas fa-bars"></i>
             </button>
             <div class="nav-links">
-                <a href="index.html" class="nav-link">Home</a>
-                <a href="search.html" class="nav-link active">Buscar Produtos</a>
-                <a href="compare.html" class="nav-link">Comparar</a>
-                <a href="about.html" class="nav-link">Sobre</a>
-                <button class="theme-toggle" onclick="toggleTheme()">
-                    <i class="fas fa-moon"></i>
-                </button>
+                <a href="index.html" class="nav-link"><i class="fas fa-home"></i> Home</a>
+                <a href="search.html" class="nav-link active"><i class="fas fa-search"></i> Buscar Produtos</a>
+                <a href="compare.html" class="nav-link"><i class="fas fa-balance-scale"></i> Comparar</a>
+                <a href="glossario.html" class="nav-link"><i class="fas fa-book"></i> Glossário</a>
+                <a href="about.html" class="nav-link"><i class="fas fa-info-circle"></i> Sobre</a>
+                <button class="theme-toggle" onclick="toggleTheme()"><i class="fas fa-moon"></i></button>
             </div>
         </div>
     </nav>
@@ -77,22 +76,6 @@
                     <label class="filter-option">
                         <input type="checkbox" name="tipo" value="webcam">
                         <span>Webcam</span>
-                    </label>
-                    <label class="filter-option">
-                        <input type="checkbox" name="tipo" value="fone de ouvido">
-                        <span>Fone de Ouvido</span>
-                    </label>
-                    <label class="filter-option">
-                        <input type="checkbox" name="tipo" value="caixa de som">
-                        <span>Caixa de Som</span>
-                    </label>
-                    <label class="filter-option">
-                        <input type="checkbox" name="tipo" value="joystick e controle">
-                        <span>Joystick e Controle</span>
-                    </label>
-                    <label class="filter-option">
-                        <input type="checkbox" name="tipo" value="componentes teclado">
-                        <span>Componentes Teclado</span>
                     </label>
                     <label class="filter-option">
                         <input type="checkbox" name="tipo" value="microfone">
@@ -258,14 +241,6 @@
                                 `Tamanho: ${produto.especificacoes.tamanho} • Resolução: ${produto.especificacoes.resolucao} • ${produto.especificacoes.taxaAtualizacao}` :
                             produto.tipo === 'webcam' ?
                                 `Resolução: ${produto.especificacoes.resolucao} • FPS: ${produto.especificacoes.fps} • ${produto.especificacoes.microfone}` :
-                            produto.tipo === 'fone de ouvido' ?
-                                `Driver: ${produto.especificacoes.driver} • ${produto.especificacoes.tipo} • ${produto.especificacoes.conectividade}` :
-                            produto.tipo === 'caixa de som' ?
-                                `Potência: ${produto.especificacoes.potencia} • ${produto.especificacoes.tipo} • ${produto.especificacoes.conectividade}` :
-                            produto.tipo === 'joystick e controle' ?
-                                `Compatibilidade: ${produto.especificacoes.compatibilidade} • ${produto.especificacoes.tipo} • ${produto.especificacoes.conectividade}` :
-                            produto.tipo === 'componentes teclado' ?
-                                `Tipo: ${produto.especificacoes.tipo} • Material: ${produto.especificacoes.material} • ${produto.especificacoes.compatibilidade}` :
                             produto.tipo === 'microfone' ?
                                 `Tipo: ${produto.especificacoes.tipo} • Padrão: ${produto.especificacoes.padrao} • ${produto.especificacoes.conectividade}` :
                                 ''}

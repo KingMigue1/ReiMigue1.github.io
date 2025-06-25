@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Glossário - OPTO Review</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <style>
+    .glossario-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .glossario-header {
+      text-align: center;
+      margin-bottom: 50px;
+      background: linear-gradient(135deg, var(--primary-color), #667eea);
+      padding: 40px 20px;
+      border-radius: 20px;
+      color: white;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .glossario-header h1 {
+      font-size: 2.8rem;
+      margin-bottom: 15px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      color: var(--accent-primary);
+    }
+
+    .glossario-header p {
+      font-size: 1.2rem;
+      opacity: 0.95;
+      font-weight: 300;
+      color: var(--text-primary);
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Ajuste específico para o modo escuro */
+    body.dark-theme .glossario-header p {
+      color: rgba(255, 255, 255, 0.95);
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    }
+
+    .categoria {
+      margin-bottom: 60px;
+    }
+
+    .categoria h2 {
+      font-size: 2rem;
+      margin-bottom: 30px;
+      color: var(--primary-color);
+      border-bottom: 3px solid var(--primary-color);
+      padding-bottom: 15px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .categoria h2::before {
+      content: '';
+      width: 4px;
+      height: 30px;
+      background: linear-gradient(45deg, var(--primary-color), #667eea);
+      border-radius: 2px;
+    }
+
+    .termo {
+      background: linear-gradient(145deg, var(--card-bg), var(--bg-secondary));
+      border-radius: 15px;
+      padding: 25px;
+      margin-bottom: 25px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+      transition: all 0.4s ease;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .termo::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: linear-gradient(45deg, var(--primary-color), #667eea);
+      transform: scaleY(0);
+      transition: transform 0.3s ease;
+    }
+
+    .termo:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+    }
+
+    .termo:hover::before {
+      transform: scaleY(1);
+    }
+
+    .termo h3 {
+      font-size: 1.4rem;
+      margin-bottom: 15px;
+      color: var(--primary-color);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .termo h3::before {
+      content: '▶';
+      font-size: 0.8rem;
+      color: #667eea;
+    }
+
+    .termo p {
+      line-height: 1.7;
+      margin-bottom: 15px;
+      color: var(--text-primary);
+      font-size: 1.05rem;
+    }
+
+    .exemplo {
+      background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(102, 126, 234, 0.05));
+      padding: 15px;
+      border-radius: 10px;
+      font-style: italic;
+      margin-top: 15px;
+      border-left: 4px solid #667eea;
+      color: var(--text-primary);
+    }
+
+    .voltar-topo {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: linear-gradient(135deg, var(--primary-color), #667eea);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 55px;
+      height: 55px;
+      font-size: 1.3rem;
+      cursor: pointer;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s ease;
+      z-index: 1000;
+    }
+
+    .voltar-topo:hover {
+      transform: translateY(-3px) scale(1.1);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .indice {
+      background: linear-gradient(145deg, var(--card-bg), var(--bg-secondary));
+      border-radius: 20px;
+      padding: 30px;
+      margin-bottom: 40px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .indice h3 {
+      margin-bottom: 20px;
+      color: var(--primary-color);
+      font-size: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .indice-links {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+    }
+
+    .indice-links a {
+      color: var(--text-primary);
+      text-decoration: none;
+      padding: 12px 15px;
+      border-radius: 10px;
+      transition: all 0.3s ease;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      text-align: center;
+      font-weight: 500;
+    }
+
+    .indice-links a:hover {
+      background: linear-gradient(135deg, var(--primary-color), #667eea);
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Ajuste específico para o modo claro */
+    body:not(.dark-theme) .indice-links a:hover {
+      color: #1E293B;
+      font-weight: 600;
+    }
+
+    /* Cores específicas para cada categoria */
+    #mouse .termo h3::before { color: #ff6b6b; }
+    #mouse .exemplo { border-left-color: #ff6b6b; }
+    
+    #teclado .termo h3::before { color: #4ecdc4; }
+    #teclado .exemplo { border-left-color: #4ecdc4; }
+    
+    #headset .termo h3::before { color: #45b7d1; }
+    #headset .exemplo { border-left-color: #45b7d1; }
+    
+    #monitor .termo h3::before { color: #96ceb4; }
+    #monitor .exemplo { border-left-color: #96ceb4; }
+    
+    #conectividade .termo h3::before { color: #feca57; }
+    #conectividade .exemplo { border-left-color: #feca57; }
+    
+    #iluminacao .termo h3::before { color: #ff9ff3; }
+    #iluminacao .exemplo { border-left-color: #ff9ff3; }
+    
+    #audio .termo h3::before { color: #54a0ff; }
+    #audio .exemplo { border-left-color: #54a0ff; }
+    
+    #geral .termo h3::before { color: #5f27cd; }
+    #geral .exemplo { border-left-color: #5f27cd; }
+
+    /* Animação de entrada */
+    .categoria {
+      animation: fadeInUp 0.6s ease forwards;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    .categoria:nth-child(1) { animation-delay: 0.1s; }
+    .categoria:nth-child(2) { animation-delay: 0.2s; }
+    .categoria:nth-child(3) { animation-delay: 0.3s; }
+    .categoria:nth-child(4) { animation-delay: 0.4s; }
+    .categoria:nth-child(5) { animation-delay: 0.5s; }
+    .categoria:nth-child(6) { animation-delay: 0.6s; }
+    .categoria:nth-child(7) { animation-delay: 0.7s; }
+    .categoria:nth-child(8) { animation-delay: 0.8s; }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .glossario-container {
+        padding: 15px;
+      }
+      
+      .glossario-header {
+        padding: 30px 15px;
+      }
+      
+      .glossario-header h1 {
+        font-size: 2.2rem;
+      }
+      
+      .categoria h2 {
+        font-size: 1.6rem;
+      }
+      
+      .termo h3 {
+        font-size: 1.2rem;
+      }
+      
+      .indice-links {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      }
+    }
+
+    /* Scrollbar personalizada */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--bg-secondary);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(135deg, var(--primary-color), #667eea);
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: linear-gradient(135deg, #667eea, var(--primary-color));
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Barra de Navegação -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="index.html" id="logo-opto" class="nav-logo">OPTO Review</a>
+      <button class="menu-toggle" onclick="toggleMenu()">
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="nav-links">
+        <a href="index.html" class="nav-link"><i class="fas fa-home"></i> Home</a>
+        <a href="search.html" class="nav-link"><i class="fas fa-search"></i> Buscar Produtos</a>
+        <a href="compare.html" class="nav-link"><i class="fas fa-balance-scale"></i> Comparar</a>
+        <a href="glossario.html" class="nav-link active"><i class="fas fa-book"></i> Glossário</a>
+        <a href="about.html" class="nav-link"><i class="fas fa-info-circle"></i> Sobre</a>
+        <button class="theme-toggle" onclick="toggleTheme()"><i class="fas fa-moon"></i></button>
+      </div>
+    </div>
+  </nav>
+  <div class="nav-overlay" onclick="toggleMenu()"></div>
+
+  <!-- Conteúdo Principal -->
+  <main class="glossario-container">
+    <div class="glossario-header">
+      <h1><i class="fas fa-book-open"></i> Glossário Técnico</h1>
+      <p>Entenda os termos técnicos dos periféricos de gaming de forma simples e clara</p>
+    </div>
+
+    <!-- Índice -->
+    <div class="indice">
+      <h3><i class="fas fa-list-ul"></i> Índice Rápido</h3>
+      <div class="indice-links">
+        <a href="#mouse"><i class="fas fa-mouse"></i> Mouse</a>
+        <a href="#teclado"><i class="fas fa-keyboard"></i> Teclado</a>
+        <a href="#headset"><i class="fas fa-headphones"></i> Headset</a>
+        <a href="#monitor"><i class="fas fa-desktop"></i> Monitor</a>
+        <a href="#conectividade"><i class="fas fa-plug"></i> Conectividade</a>
+        <a href="#iluminacao"><i class="fas fa-lightbulb"></i> Iluminação</a>
+        <a href="#audio"><i class="fas fa-volume-up"></i> Áudio</a>
+        <a href="#geral"><i class="fas fa-cogs"></i> Geral</a>
+      </div>
+    </div>
+
+    <!-- Categoria: Mouse -->
+    <div class="categoria" id="mouse">
+      <h2><i class="fas fa-mouse"></i> Mouse</h2>
+      
+      <div class="termo">
+        <h3>DPI (Dots Per Inch)</h3>
+        <p>Mede a sensibilidade do mouse. Quanto maior o DPI, mais o cursor se move na tela com o mesmo movimento físico do mouse. Para jogos FPS, DPI mais baixo (400-800) é preferido para maior precisão.</p>
+        <div class="exemplo">Exemplo: Mouse com 16000 DPI permite ajustes de 400 a 16000 DPI</div>
+      </div>
+
+      <div class="termo">
+        <h3>Polling Rate</h3>
+        <p>Frequência com que o mouse reporta sua posição ao computador. Medido em Hz, quanto maior o valor, mais responsivo o mouse. 1000Hz significa 1000 relatórios por segundo.</p>
+        <div class="exemplo">Exemplo: 1000Hz = 1ms de latência, 500Hz = 2ms de latência</div>
+      </div>
+
+      <div class="termo">
+        <h3>Sensor Óptico vs Laser</h3>
+        <p><strong>Óptico:</strong> Usa LED para iluminar a superfície e detectar movimento. Melhor para jogos, funciona bem em mousepads. <strong>Laser:</strong> Usa laser infravermelho, funciona em mais superfícies mas pode ter aceleração.</p>
+        <div class="exemplo">Exemplo: PAW3395 (óptico), HERO 25K (óptico), Avago ADNS-9800 (laser)</div>
+      </div>
+
+      <div class="termo">
+        <h3>Peso</h3>
+        <p>O peso do mouse afeta a precisão e conforto. Mouses leves (60-80g) são preferidos para jogos competitivos, enquanto mouses mais pesados (100g+) oferecem mais estabilidade.</p>
+        <div class="exemplo">Exemplo: Mouse ultraleve de 58g vs mouse ergonômico de 120g</div>
+      </div>
+    </div>
+
+    <!-- Categoria: Teclado -->
+    <div class="categoria" id="teclado">
+      <h2><i class="fas fa-keyboard"></i> Teclado</h2>
+      
+      <div class="termo">
+        <h3>Switches Mecânicos</h3>
+        <p>Interruptores individuais para cada tecla. Diferentes tipos oferecem diferentes sensações e sons: <strong>Red:</strong> Linear, silencioso; <strong>Blue:</strong> Clicky, barulhento; <strong>Brown:</strong> Tátil, meio termo.</p>
+        <div class="exemplo">Exemplo: Cherry MX Red, Gateron Blue, Kailh Brown</div>
+      </div>
+
+      <div class="termo">
+        <h3>Layout</h3>
+        <p>Disposição das teclas: <strong>Full-size:</strong> Teclado completo com numpad; <strong>TKL:</strong> Sem numpad; <strong>60%:</strong> Apenas teclas essenciais; <strong>75%:</strong> Compacto com algumas teclas de função.</p>
+        <div class="exemplo">Exemplo: 104 teclas (Full-size) vs 87 teclas (TKL) vs 61 teclas (60%)</div>
+      </div>
+
+      <div class="termo">
+        <h3>Anti-ghosting</h3>
+        <p>Capacidade do teclado de registrar múltiplas teclas pressionadas simultaneamente sem conflitos. Essencial para jogos que requerem combinações de teclas.</p>
+        <div class="exemplo">Exemplo: N-Key Rollover permite pressionar todas as teclas ao mesmo tempo</div>
+      </div>
+    </div>
+
+    <!-- Categoria: Headset -->
+    <div class="categoria" id="headset">
+      <h2><i class="fas fa-headphones"></i> Headset</h2>
+      
+      <div class="termo">
+        <h3>Driver</h3>
+        <p>O alto-falante do headset. Tamanho medido em milímetros (mm). Drivers maiores geralmente produzem som mais rico, mas qualidade é mais importante que tamanho.</p>
+        <div class="exemplo">Exemplo: 40mm (compacto) vs 50mm (padrão) vs 53mm (grande)</div>
+      </div>
+
+      <div class="termo">
+        <h3>Impedância</h3>
+        <p>Resistência elétrica medida em Ohms (Ω). Baixa impedância (16-32Ω) funciona bem com dispositivos móveis, alta impedância (250Ω+) requer amplificador.</p>
+        <div class="exemplo">Exemplo: 32Ω (móvel) vs 64Ω (padrão) vs 250Ω (profissional)</div>
+      </div>
+
+      <div class="termo">
+        <h3>Resposta de Frequência</h3>
+        <p>Faixa de frequências que o headset pode reproduzir. Medida em Hz, de graves (20Hz) a agudos (20kHz). Faixa mais ampla não significa necessariamente melhor qualidade.</p>
+        <div class="exemplo">Exemplo: 20Hz-20kHz (audição humana) vs 10Hz-40kHz (estendida)</div>
+      </div>
+
+      <div class="termo">
+        <h3>Microfone</h3>
+        <p>Tipos: <strong>Condenser:</strong> Mais sensível, melhor qualidade; <strong>Dynamic:</strong> Menos sensível a ruído ambiente; <strong>Unidirectional:</strong> Capta som de uma direção; <strong>Omnidirectional:</strong> Capta de todas as direções.</p>
+        <div class="exemplo">Exemplo: Microfone condenser removível vs microfone retrátil</div>
+      </div>
+    </div>
+
+    <!-- Categoria: Monitor -->
+    <div class="categoria" id="monitor">
+      <h2><i class="fas fa-desktop"></i> Monitor</h2>
+      
+      <div class="termo">
+        <h3>Taxa de Atualização (Refresh Rate)</h3>
+        <p>Número de vezes que a tela atualiza a imagem por segundo. Medido em Hz. Taxas mais altas (144Hz, 240Hz) oferecem movimento mais suave e menor latência.</p>
+        <div class="exemplo">Exemplo: 60Hz (padrão) vs 144Hz (gaming) vs 240Hz (competitivo)</div>
+      </div>
+
+      <div class="termo">
+        <h3>Tempo de Resposta</h3>
+        <p>Tempo que o pixel leva para mudar de cor. Medido em milissegundos (ms). Valores mais baixos reduzem ghosting e motion blur.</p>
+        <div class="exemplo">Exemplo: 1ms (TN) vs 4ms (IPS) vs 8ms (VA)</div>
+      </div>
+
+      <div class="termo">
+        <h3>Resolução</h3>
+        <p>Número de pixels na tela. Formatos comuns: <strong>1080p:</strong> 1920x1080; <strong>1440p:</strong> 2560x1440; <strong>4K:</strong> 3840x2160. Maior resolução = mais detalhes, mas requer mais potência.</p>
+        <div class="exemplo">Exemplo: Full HD (1080p) vs QHD (1440p) vs Ultra HD (4K)</div>
+      </div>
+
+      <div class="termo">
+        <h3>Panel Types</h3>
+        <p><strong>TN:</strong> Mais rápido, cores limitadas; <strong>IPS:</strong> Melhores cores, ângulos de visão; <strong>VA:</strong> Meio termo, melhor contraste; <strong>OLED:</strong> Cores perfeitas, preto verdadeiro.</p>
+        <div class="exemplo">Exemplo: TN para FPS, IPS para design, VA para uso geral</div>
+      </div>
+    </div>
+
+    <!-- Categoria: Conectividade -->
+    <div class="categoria" id="conectividade">
+      <h2><i class="fas fa-plug"></i> Conectividade</h2>
+      
+      <div class="termo">
+        <h3>USB</h3>
+        <p>Padrão de conexão: <strong>USB 2.0:</strong> Até 480 Mbps; <strong>USB 3.0:</strong> Até 5 Gbps; <strong>USB-C:</strong> Reversível, até 10 Gbps. Para periféricos, USB 2.0 é suficiente.</p>
+        <div class="exemplo">Exemplo: Mouse USB 2.0 vs Webcam USB 3.0</div>
+      </div>
+
+      <div class="termo">
+        <h3>Wireless</h3>
+        <p>Conectividade sem fio: <strong>2.4GHz:</strong> Maior alcance, menor latência; <strong>Bluetooth:</strong> Universal, maior latência; <strong>Proprietário:</strong> Otimizado pelo fabricante.</p>
+        <div class="exemplo">Exemplo: Logitech Lightspeed (2.4GHz) vs Bluetooth 5.0</div>
+      </div>
+
+      <div class="termo">
+        <h3>Latência</h3>
+        <p>Tempo entre ação e resposta. Para gaming, latência baixa é crucial. Wireless moderno pode ter latência similar ao cabo.</p>
+        <div class="exemplo">Exemplo: 1ms (cabo) vs 2-5ms (wireless 2.4GHz) vs 10-20ms (Bluetooth)</div>
+      </div>
+    </div>
+
+    <!-- Categoria: Iluminação -->
+    <div class="categoria" id="iluminacao">
+      <h2><i class="fas fa-lightbulb"></i> Iluminação</h2>
+      
+      <div class="termo">
+        <h3>RGB</h3>
+        <p>Red, Green, Blue - sistema de cores que permite criar milhões de cores diferentes. Periféricos RGB podem sincronizar cores e efeitos.</p>
+        <div class="exemplo">Exemplo: 16.8 milhões de cores, efeitos de onda, respiração</div>
+      </div>
+
+      <div class="termo">
+        <h3>Software de Controle</h3>
+        <p>Programas que permitem personalizar iluminação: <strong>Razer Synapse:</strong> Produtos Razer; <strong>Logitech G HUB:</strong> Produtos Logitech; <strong>iCUE:</strong> Produtos Corsair.</p>
+        <div class="exemplo">Exemplo: Sincronização entre mouse, teclado e headset</div>
+      </div>
+
+      <div class="termo">
+        <h3>Zonas de Iluminação</h3>
+        <p>Áreas independentes de iluminação no periférico. Mais zonas = mais personalização. Periféricos premium podem ter iluminação por tecla individual.</p>
+        <div class="exemplo">Exemplo: 1 zona (simples) vs 16 zonas vs per-tecla RGB</div>
+      </div>
+    </div>
+
+    <!-- Categoria: Áudio -->
+    <div class="categoria" id="audio">
+      <h2><i class="fas fa-volume-up"></i> Áudio</h2>
+      
+      <div class="termo">
+        <h3>Surround Virtual</h3>
+        <p>Tecnologia que simula som 3D usando apenas 2 alto-falantes. Melhora imersão em jogos, mas qualidade varia entre implementações.</p>
+        <div class="exemplo">Exemplo: 7.1 virtual vs 5.1 virtual vs estéreo</div>
+      </div>
+
+      <div class="termo">
+        <h3>ANC (Active Noise Cancellation)</h3>
+        <p>Cancelamento ativo de ruído que usa microfones para detectar e cancelar sons externos. Melhora experiência em ambientes barulhentos.</p>
+        <div class="exemplo">Exemplo: ANC híbrido vs ANC feedforward vs sem ANC</div>
+      </div>
+
+      <div class="termo">
+        <h3>Codec de Áudio</h3>
+        <p>Algoritmo de compressão de áudio. <strong>AAC:</strong> Qualidade alta, compatível; <strong>aptX:</strong> Baixa latência; <strong>SBC:</strong> Padrão Bluetooth básico.</p>
+        <div class="exemplo">Exemplo: aptX Low Latency para gaming vs AAC para música</div>
+      </div>
+    </div>
+
+    <!-- Categoria: Geral -->
+    <div class="categoria" id="geral">
+      <h2><i class="fas fa-cogs"></i> Geral</h2>
+      
+      <div class="termo">
+        <h3>Ergonomia</h3>
+        <p>Design que prioriza conforto e saúde do usuário. Periféricos ergonômicos reduzem fadiga e risco de lesões por esforço repetitivo.</p>
+        <div class="exemplo">Exemplo: Mouse vertical, teclado dividido, suporte de pulso</div>
+      </div>
+
+      <div class="termo">
+        <h3>Build Quality</h3>
+        <p>Qualidade de construção do produto. Materiais, durabilidade e acabamento afetam longevidade e experiência de uso.</p>
+        <div class="exemplo">Exemplo: Plástico ABS vs alumínio, switches com 50M vs 100M cliques</div>
+      </div>
+
+      <div class="termo">
+        <h3>Warranty</h3>
+        <p>Garantia do produto. Periféricos premium geralmente oferecem garantias mais longas (2-3 anos) e melhor suporte ao cliente.</p>
+        <div class="exemplo">Exemplo: 1 ano (básico) vs 2 anos (premium) vs 3 anos (profissional)</div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Botão Voltar ao Topo -->
+  <button class="voltar-topo" onclick="scrollToTop()" id="voltarTopo">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
+  <!-- Scripts -->
+  <script src="js/theme.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      loadTheme();
+
+      // Função de menu
+      function toggleMenu() {
+        const navLinks = document.querySelector('.nav-links');
+        const overlay = document.querySelector('.nav-overlay');
+        const menuToggle = document.querySelector('.menu-toggle i');
+        
+        navLinks.classList.toggle('active');
+        overlay.classList.toggle('active');
+        
+        if (menuToggle.classList.contains('fa-bars')) {
+          menuToggle.classList.remove('fa-bars');
+          menuToggle.classList.add('fa-times');
+        } else {
+          menuToggle.classList.remove('fa-times');
+          menuToggle.classList.add('fa-bars');
+        }
+      }
+
+      // Função para alternar tema
+      function toggleTheme() {
+        const body = document.body;
+        const themeToggle = document.querySelector('.theme-toggle');
+        const themeIcon = themeToggle.querySelector('i');
+        
+        if (body.getAttribute('data-theme') === 'dark') {
+          body.removeAttribute('data-theme');
+          themeIcon.className = 'fas fa-moon';
+          localStorage.setItem('theme', 'light');
+        } else {
+          body.setAttribute('data-theme', 'dark');
+          themeIcon.className = 'fas fa-sun';
+          localStorage.setItem('theme', 'dark');
+        }
+      }
+
+      // Botão voltar ao topo
+      const voltarTopo = document.getElementById('voltarTopo');
+      
+      window.addEventListener('scroll', () => {
+        if (window.pageYOffset > 300) {
+          voltarTopo.style.display = 'block';
+        } else {
+          voltarTopo.style.display = 'none';
+        }
+      });
+
+      // Smooth scroll para links internos
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute('href'));
+          if (target) {
+            target.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start'
+            });
+          }
+        });
+      });
+    });
+
+    function scrollToTop() {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }
+
+    // Expor funções globalmente
+    window.toggleMenu = toggleMenu;
+    window.toggleTheme = toggleTheme;
+    window.scrollToTop = scrollToTop;
+  </script>
+</body>
+</html> 

@@ -50,26 +50,6 @@
  * - fps: Frames por segundo (ex: "30fps")
  * - microfone: Microfone integrado (Sim/Não)
  * 
- * FONE DE OUVIDO:
- * - driver: Tamanho do driver
- * - tipo: Over-ear/On-ear/In-ear
- * - conectividade: Wired/Wireless
- * 
- * CAIXA DE SOM:
- * - potencia: Potência em Watts
- * - tipo: 2.0/2.1/5.1/7.1
- * - conectividade: Wired/Wireless
- * 
- * JOYSTICK E CONTROLE:
- * - compatibilidade: Plataformas compatíveis
- * - tipo: Controle/Joystick/Flight Stick
- * - conectividade: Wired/Wireless
- * 
- * COMPONENTES TECLADO:
- * - tipo: Keycaps/Switches/Stabilizers
- * - material: Material do componente
- * - compatibilidade: Compatibilidade
- * 
  * MICROFONE:
  * - tipo: Condenser/Dynamic/Ribbon
  * - padrao: Padrão de captação
@@ -100,10 +80,6 @@ const produtosPorTipo = {
     mousepad: [],
     monitor: [],
     webcam: [],
-    'fone de ouvido': [],
-    'caixa de som': [],
-    'joystick e controle': [],
-    'componentes teclado': [],
     microfone: []
 };
 

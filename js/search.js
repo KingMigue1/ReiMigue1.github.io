@@ -62,14 +62,6 @@ async function buscarProdutos(event) {
                         `Resolução: ${produto.especificacoes.resolucao} • ${produto.especificacoes.taxa}Hz • ${produto.especificacoes.tamanho}"` :
                     produto.tipo === 'webcam' ?
                         `Resolução: ${produto.especificacoes.resolucao} • ${produto.especificacoes.fps}fps • ${produto.especificacoes.campo}` :
-                    produto.tipo === 'fone de ouvido' ?
-                        `Driver: ${produto.especificacoes.driver} • ${produto.especificacoes.tipo} • ${produto.especificacoes.conectividade}` :
-                    produto.tipo === 'caixa de som' ?
-                        `Potência: ${produto.especificacoes.potencia} • ${produto.especificacoes.tipo} • ${produto.especificacoes.conectividade}` :
-                    produto.tipo === 'joystick e controle' ?
-                        `Compatibilidade: ${produto.especificacoes.compatibilidade} • ${produto.especificacoes.tipo} • ${produto.especificacoes.conectividade}` :
-                    produto.tipo === 'componentes teclado' ?
-                        `Tipo: ${produto.especificacoes.tipo} • Material: ${produto.especificacoes.material} • ${produto.especificacoes.compatibilidade}` :
                     produto.tipo === 'microfone' ?
                         `Tipo: ${produto.especificacoes.tipo} • Padrão: ${produto.especificacoes.padrao} • ${produto.especificacoes.conectividade}` :
                         ''}
