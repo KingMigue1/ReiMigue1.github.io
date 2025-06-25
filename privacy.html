@@ -12,6 +12,10 @@
             margin: 2rem auto;
             padding: 0 1rem;
         }
+        .privacy-container h1 {
+            color: var(--accent-primary);
+            margin-bottom: 1rem;
+        }
         .privacy-section {
             margin-bottom: 2rem;
         }
@@ -29,6 +33,79 @@
         }
         .privacy-section li {
             margin-bottom: 0.5rem;
+        }
+        /* Rodapé bonito */
+        .footer {
+            background: linear-gradient(90deg, #232526 0%, #414345 100%);
+            color: #fff;
+            padding: 3rem 0 1.5rem 0;
+            margin-top: 4rem;
+        }
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: space-between;
+        }
+        .footer-section {
+            min-width: 200px;
+        }
+        .footer-section h3 {
+            color: #fff;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+        .footer-section a {
+            color: var(--accent-primary);
+            text-decoration: none;
+            margin-bottom: 0.5rem;
+            display: block;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        .footer-section a:hover {
+            color: var(--accent-secondary);
+            text-decoration: underline;
+        }
+        .footer-section p, .footer-section i {
+            color: #e0f7fa;
+        }
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        .social-link {
+            color: #fff;
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+        .social-link:hover {
+            color: var(--accent-primary);
+        }
+        .footer-bottom {
+            text-align: center;
+            color: #e0f7fa;
+            margin-top: 2rem;
+            font-size: 0.95rem;
+        }
+        @media (max-width: 900px) {
+            .footer-content {
+                flex-direction: column;
+                align-items: center;
+                gap: 2.5rem;
+                padding: 0 1rem;
+            }
+            .footer-section {
+                min-width: unset;
+                width: 100%;
+                text-align: center;
+            }
         }
     </style>
 </head>
@@ -122,6 +199,12 @@
                 <h3>Contato</h3>
                 <p><i class="fas fa-envelope"></i> contato@optoreview.com</p>
                 <p><i class="fas fa-phone"></i> (91) 99999-9999</p>
+            </div>
+            <div class="footer-section">
+                <h3>Links Úteis</h3>
+                <a href="terms.html">Termos de Uso</a>
+                <a href="privacy.html">Política de Privacidade</a>
+                <a href="faq.html">FAQ</a>
             </div>
         </div>
         <div class="footer-bottom">

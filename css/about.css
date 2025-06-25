@@ -273,14 +273,14 @@ body.dark-theme .hero-content h1 {
 
 .footer-section a {
     display: block;
-    color: var(--text-secondary);
+    color: var(--accent-primary);
     text-decoration: none;
     margin-bottom: var(--spacing-sm);
     transition: color 0.3s ease;
 }
 
 .footer-section a:hover {
-    color: var(--accent-primary);
+    color: var(--accent-secondary);
 }
 
 .footer-bottom {

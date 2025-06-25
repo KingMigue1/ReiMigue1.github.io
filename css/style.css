@@ -926,13 +926,14 @@ h2, h4 {
     box-shadow: 0 -2px 12px rgba(33, 37, 41, 0.08);
 }
 .footer a {
-    color: #fff;
+    color: var(--accent-primary);
     opacity: 0.85;
     transition: opacity 0.2s;
 }
 .footer a:hover {
     opacity: 1;
     text-decoration: underline;
+    color: var(--accent-secondary);
 }
 
 @media (max-width: 991px) {
